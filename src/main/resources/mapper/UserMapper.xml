@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bno2.mapper.UserMapper">
+
+    <select id="selectAllUsersOrderByPos" resultType="com.example.bno2.model.User">
+        SELECT * FROM user
+        ORDER BY CASE WHEN POS = 'S01'
+        THEN 1
+        WHEN POS = 'J02'
+            THEN 2 WHEN POS = 'E03' THEN 3 WHEN POS = 'B04' THEN 4 WHEN POS = 'C05' THEN 5 WHEN POS = 'K06' THEN 6 WHEN POS = 'D07' THEN 7 WHEN POS = 'S08' THEN 8 ELSE NULL END
+    </select>
+
+    <select id="selectAllUsersOrderByDept" resultType="com.example.bno2.model.User">
+        SELECT
+            *
+        FROM
+            user
+        ORDER BY DEPT
+    </select>
+
+    <select id="selectAllUsersOrderByName" resultType="com.example.bno2.model.User">
+        SELECT * FROM user ORDER BY NAME
+    </select>
+
+    <select id="selectAllUsersOrderByName2" parameterType="String" resultType="com.example.bno2.model.User">
+        SELECT * FROM user WHERE NAME LIKE CONCAT('%',#{inputName},'%') ORDER BY NAME
+    </select>
+
+</mapper>

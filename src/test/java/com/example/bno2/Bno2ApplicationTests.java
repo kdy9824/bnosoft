@@ -1,10 +1,10 @@
-package com.example.bno;
+package com.example.bno2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BnoApplicationTests {
+class Bno2ApplicationTests {
 
     @Test
     void contextLoads() {
