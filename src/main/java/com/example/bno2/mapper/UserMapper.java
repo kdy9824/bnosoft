@@ -16,4 +16,10 @@ public interface UserMapper {
 
     List<User> selectAllUsersOrderByName2(String inputName);
 
+    int insertUser(String email, String name, String dept, String con, String pos, String state);
+
+    boolean insertUser2(User user);
+
+    int updateUser(User user);
+
 }
