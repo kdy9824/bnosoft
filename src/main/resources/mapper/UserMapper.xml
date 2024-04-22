@@ -26,11 +26,11 @@
         SELECT * FROM user WHERE NAME LIKE CONCAT('%',#{inputName},'%') ORDER BY NAME
     </select>
 
-    <insert id="insertUser" parameterType="com.example.bno2.model.User">
-        INSERT INTO
-            user(email, name, dept, con, pos, state)
-        VALUES
-            (#{},#{})
-    </insert>
+<!--    <insert id="insertUser" parameterType="com.example.bno2.model.User">-->
+<!--        INSERT INTO-->
+<!--            user(email, name, dept, con, pos, state)-->
+<!--        VALUES-->
+<!--            (#{},#{})-->
+<!--    </insert>-->
 
 </mapper>
