@@ -3,7 +3,28 @@
 <mapper namespace="com.example.bno2.mapper.EquipmentMapper">
 
     <select id="selectAllEquipments" resultType="com.example.bno2.model.Equipment">
-        SELECT * FROM equipment
+        SELECT CLS, SN, MODEL, SPEC, WAR_START, WAR_END, MANU_COM, MAC, STATE
+        FROM EQUIPMENT
     </select>
 
+    <!-- 장비 업데이트 -->
+    <update id="updateEquipment">
+        UPDATE EQUIPMENT
+        SET CLS = #{newClass},
+            SN = #{newSN},
+            MODEL = #{newModel},
+            SPEC = #{newSpec},
+            WAR_START = #{newWarStart},
+            WAR_END = #{newWarEnd},
+            MANU_COM = #{newManuCom},
+            MAC = #{newMAC},
+            STATE = #{newState}
+        WHERE UID = #{UID}
+    </update>
+
+    <!-- 장비 삭제 -->
+    <delete id="deleteEquipment">
+        DELETE FROM EQUIPMENT
+        WHERE UID = #{UID}
+    </delete>
 </mapper>

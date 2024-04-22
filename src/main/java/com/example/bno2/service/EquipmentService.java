@@ -17,4 +17,13 @@ public class EquipmentService {
         return equipmentMapper.selectAllEquipments();
     }
 
+    public int updateEquipment(Equipment equipment) {
+        return equipmentMapper.updateEquipment(equipment);
+    }
+
+    public int deleteEquipment(String UID) {
+        return equipmentMapper.deleteEquipment(UID);
+    }
+
+
 }
