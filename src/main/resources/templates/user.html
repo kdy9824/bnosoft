@@ -24,9 +24,45 @@
     <div style="background-color: black; height: 80px">
     </div>
     <div style="background-color: lightgray; height: 60px; padding-top:20px; padding-left:20px">
-        <input id="inputName" style="padding-left:10px; border-radius: 20px; height:30px" type="text" placeholder="이름">
+        <input id="inputSearchName" style="padding-left:10px; border-radius: 20px; height:30px" type="text" placeholder="이름">
         <button id="btn" style="width:50px; height: 30px; font-size: 15px; font-weight: bold">검색</button>
+        <button id="insertUser" style="width:50px; height: 30px; font-size: 15px; font-weight: bold">추가</button>
     </div>
+    <form id="insertForm" action="/insertUser" method="post" style="display: none">
+        <div style="border-style: solid">
+            <span>이메일</span>
+            <input id="insertEmail" type="text">
+            <br>
+            <span>이름</span>
+            <input id="insertName" type="text">
+            <br>
+            <span>부서</span>
+            <select id="insertDept">
+                <option value="SER">서비스사업본부</option>
+                <option value="FIN">금융사업본부</option>
+                <option value="ALM">ALM사업본부</option>
+                <option value="MAN">경영본부</option>
+            </select>
+            <br>
+            <span>연락처</span>
+            <input id="insertCon" type="text">
+            <br>
+            <span>직급</span>
+            <select id="insertPos">
+                <option value="S08">사원</option>
+                <option value="D07">대리</option>
+                <option value="K06">과장</option>
+                <option value="C05">차장</option>
+                <option value="B04">부장</option>
+                <option value="E03">이사</option>
+                <option value="J02">전무</option>
+                <option value="S01">사장</option>
+            </select>
+            <br>
+            <button type="submit">추가</button>
+            <span id="closeForm">닫기</span>
+        </div>
+    </form>
     <table style="margin-top: 20px; width: 1050px">
         <thead>
             <td width="150px">이메일</td>
@@ -73,6 +109,18 @@
 <!--    })-->
 <!--</script>-->
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    var insertUser = document.getElementById('insertUser');
+    var insertForm = document.getElementById('insertForm');
+    var closeForm = document.getElementById('closeForm')
+
+    insertUser.addEventListener('click',function (){
+        insertForm.style.display='block';
+    })
+    closeForm.addEventListener('click',function(){
+        insertForm.style.display='none';
+    })
+</script>
 <script>
     function updateTableWithData(data){
         // 받은 데이터로 테이블의 내용 업데이트
@@ -138,7 +186,7 @@
     // 버튼 클릭 이벤트 처리
     $('#btn').click(function() {
 
-        const inputName = document.getElementById('inputName').value;
+        const inputName = document.getElementById('inputSearchName').value;
 
         $.ajax({
             data: {inputName: inputName},
