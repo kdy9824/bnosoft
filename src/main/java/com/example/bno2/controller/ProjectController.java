@@ -1,9 +1,6 @@
 package com.example.bno2.controller;
 
-import com.example.bno2.model.Equipment;
 import com.example.bno2.model.Project;
-import com.example.bno2.model.User;
-import com.example.bno2.service.EquipmentService;
 import com.example.bno2.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
 
 @Tag(name="프로젝트")
