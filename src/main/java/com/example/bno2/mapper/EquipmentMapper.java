@@ -9,7 +9,9 @@ import java.util.List;
 @Mapper
 public interface EquipmentMapper {
 
-    List<Equipment> selectAllEquipments();
+    List<Equipment> selectAllEquipments(String cls, String model, String name);
+
+    int insertEquipment(Equipment equipment);
 
     int updateEquipment(Equipment equipment);
 

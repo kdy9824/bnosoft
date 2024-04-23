@@ -13,9 +13,14 @@ public class EquipmentService {
     @Autowired
     private EquipmentMapper equipmentMapper;
 
-    public List<Equipment> getAllEquipments() {
-        return equipmentMapper.selectAllEquipments();
+    public List<Equipment> getAllEquipments(String cls, String model, String name) {
+        return equipmentMapper.selectAllEquipments(cls, model, name);
     }
+
+    public int insertEquipment(Equipment equipment) {
+        return equipmentMapper.insertEquipment(equipment);
+    }
+
 
     public int updateEquipment(Equipment equipment) {
         return equipmentMapper.updateEquipment(equipment);
@@ -24,6 +29,5 @@ public class EquipmentService {
     public int deleteEquipment(String UID) {
         return equipmentMapper.deleteEquipment(UID);
     }
-
 
 }

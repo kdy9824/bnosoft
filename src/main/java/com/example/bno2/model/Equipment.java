@@ -15,6 +15,6 @@ public class Equipment {
     private String manuCom;
     private String mac;
     private String state;
-    private String year;
+    private int year;
 
 }

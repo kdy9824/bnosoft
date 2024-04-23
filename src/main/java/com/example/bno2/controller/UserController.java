@@ -20,17 +20,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @Operation(summary = "사용자 리스트 출력")
-//    @GetMapping("/")
-//    public String index(Model model) {
-//
-//        List<User> userList = userService.getAllUsersOrderByPos();
-//        model.addAttribute("userList", userList);
-//
-//        return "user";
-//
-//    }
-
     @Operation(summary = "정렬(부서) 사용자 리스트 출력")
     @GetMapping("/sortByDept")
     @ResponseBody
