@@ -23,7 +23,7 @@ public class ProjectController {
     private ProjectService projectService;
 
     @Operation(summary = "프로젝트 출력")
-    @GetMapping("/selectProject")
+    @GetMapping("/selectProjects")
     @ResponseBody
     public List<Project> selectProjects() {
 

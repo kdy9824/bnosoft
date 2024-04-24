@@ -20,9 +20,9 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
     @Operation(summary = "장비 목록 조회")
-    @GetMapping("/selectEquipment")
+    @GetMapping("/selectEquipments")
     @ResponseBody
-    public List<Equipment> equipment(@RequestParam String cls, @RequestParam String model, @RequestParam String name) {
+    public List<Equipment> selectEquipments(@RequestParam(required = false) String cls, @RequestParam(required = false) String model, @RequestParam(required = false) String name) {
         List<Equipment> equipmentList = equipmentService.selectEquipments(cls, model, name);
 
         for(Equipment equipment : equipmentList) {

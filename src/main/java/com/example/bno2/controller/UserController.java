@@ -20,11 +20,29 @@ public class UserController {
     private UserService userService;
 
     @Operation(summary="사용자 조회")
-    @GetMapping("/selectUser")
+    @GetMapping("/selectUsers")
     @ResponseBody
-    public List<User> selectUser(@RequestParam String inputName) {
+    public List<User> selectUsers() {
 
-        List<User> userList = userService.selectUsers(inputName);
+        List<User> userList = userService.selectUsers();
+
+        // 코드화된 데이터를 텍스트로 대체
+        for (User user : userList) {
+            user.setDept(replaceDeptText(user.getDept()));
+            user.setPos(replacePosText(user.getPos()));
+            user.setState(replaceStateText(user.getState()));
+        }
+
+        return userList;
+
+    }
+
+    @Operation(summary="이름으로 사용자 조회")
+    @GetMapping("/selectUsersByName")
+    @ResponseBody
+    public List<User> selectUsersByName(@RequestParam String name) {
+
+        List<User> userList = userService.selectUsersByName(name);
 
         // 코드화된 데이터를 텍스트로 대체
         for (User user : userList) {

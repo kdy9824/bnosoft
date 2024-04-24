@@ -14,8 +14,12 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<User> selectUsers(String inputName) {
-        return userMapper.selectUsers(inputName);
+    public List<User> selectUsers() {
+        return userMapper.selectUsers();
+    }
+
+    public List<User> selectUsersByName(String name) {
+        return userMapper.selectUsersByName(name);
     }
 
     public int addUser(User user) {

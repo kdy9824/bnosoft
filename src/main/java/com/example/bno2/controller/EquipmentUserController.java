@@ -19,9 +19,9 @@ public class EquipmentUserController {
     private EquipmentUserService equipmentUserService;
 
     @Operation(summary = "장비사용자 리스트 출력")
-    @GetMapping("/selectEquipmentUser")
+    @GetMapping("/selectEquipmentUsers")
     @ResponseBody
-    public List<EquipmentUser> equipmentUser(@RequestParam String cls, @RequestParam String name, @RequestParam String project) {
+    public List<EquipmentUser> selectEquipmentUsers(@RequestParam String cls, @RequestParam String name, @RequestParam String project) {
 
         List<EquipmentUser> equipmentUserList = equipmentUserService.selectEquipmentUsers(cls, name, project);
 
