@@ -13,8 +13,8 @@ public class EquipmentService {
     @Autowired
     private EquipmentMapper equipmentMapper;
 
-    public List<Equipment> getAllEquipments(String cls, String model, String name) {
-        return equipmentMapper.selectAllEquipments(cls, model, name);
+    public List<Equipment> selectEquipments(String cls, String model, String name) {
+        return equipmentMapper.selectEquipments(cls, model, name);
     }
 
     public int insertEquipment(Equipment equipment) {

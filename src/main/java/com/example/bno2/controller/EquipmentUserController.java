@@ -19,16 +19,51 @@ public class EquipmentUserController {
     private EquipmentUserService equipmentUserService;
 
     @Operation(summary = "장비사용자 리스트 출력")
-    @GetMapping("/equipmentUser/select")
+    @GetMapping("/selectEquipmentUser")
     @ResponseBody
-    public List<EquipmentUser> equipmentUser() {
-        return equipmentUserService.getEquipmentUsers();
+    public List<EquipmentUser> equipmentUser(@RequestParam String cls, @RequestParam String name, @RequestParam String project) {
+
+        List<EquipmentUser> equipmentUserList = equipmentUserService.selectEquipmentUsers(cls, name, project);
+
+        // 코드화된 데이터를 텍스트로 대체
+        for (EquipmentUser equipmentUser : equipmentUserList) {
+            equipmentUser.setCls(replaceClsText(equipmentUser.getCls()));
+            equipmentUser.setState(replaceStateText(equipmentUser.getState()));
+        }
+
+        return equipmentUserList;
+
     }
 
+    // cls 값에 따라 텍스트를 대체하는 메서드
+    private String replaceClsText(String cls) {
+        if ("NTB".equals(cls)) {
+            return "노트북";
+        } else if ("MON".equals(cls)) {
+            return "모니터";
+        } else if ("ETC".equals(cls)) {
+            return "기타";
+        } else {
+            return cls;
+        }
+    }
+
+    // state 값에 따라 텍스트를 대체하는 메서드
+    private String replaceStateText(String state) {
+        if ("USE".equals(state)) {
+            return "사용";
+        } else if ("NON".equals(state)) {
+            return "사용대기";
+        } else if ("FIX".equals(state)) {
+            return "고장";
+        } else {
+            return state;
+        }
+    }
 
     @Operation(summary = "장비사용자 수정")
     @PostMapping("/updateEquipmentUser")
-    public ResponseEntity<String> updateEquipmentUser(@RequestParam String uid, int pn) {
+    public ResponseEntity<String> updateEquipmentUser(@RequestParam String uid, @RequestParam int pn) {
         int rowsUpdated = equipmentUserService.updateEquipmentUser(uid,pn);
         if (rowsUpdated > 0) {
             return new ResponseEntity<>("EquipmentUser updated successfully", HttpStatus.CREATED);

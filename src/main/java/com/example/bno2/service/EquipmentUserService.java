@@ -15,8 +15,8 @@ public class EquipmentUserService {
     @Autowired
     private EquipmentUserMapper equipmentuserMapper;
     // 장비 사용자 전체 조회
-    public List<EquipmentUser> getEquipmentUsers() {
-        return equipmentuserMapper.selectEquipmentUsers();
+    public List<EquipmentUser> selectEquipmentUsers(String cls, String name, String project) {
+        return equipmentuserMapper.selectEquipmentUsers(cls, name, project);
     }
 
     // 장비사용자 수정 및 추가

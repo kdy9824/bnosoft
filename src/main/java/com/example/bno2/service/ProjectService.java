@@ -15,8 +15,8 @@ public class ProjectService {
     @Autowired
     private ProjectMapper projectMapper;
 
-    public List<Project> selectAllProjects() {
-        return projectMapper.selectAllProjects();
+    public List<Project> selectProjects() {
+        return projectMapper.selectProjects();
     }
 
     public int insertProject(Project project) {

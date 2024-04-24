@@ -3,7 +3,7 @@
 <mapper namespace="com.example.bno2.mapper.EquipmentUserMapper">
 
     <select id="selectEquipmentUsers" resultType="com.example.bno2.model.EquipmentUser">
-        SELECT E.CLS, P.PROJECT, U.NAME AS USER_NAME, E.MODEL, E.SN,
+        SELECT E.CLS, P.PROJECT, U.NAME, E.MODEL, E.SN,
                E.SPEC, E.MANU_COM,
                E.WAR_START, E.WAR_END,
                E.MAC, E.STATE

@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class Project {
 
-    private String pjt_uid;
+    private String pjtUid;
     private String project;
-    private String pjt_start;
-    private String pjt_end;
+    private String pjtStart;
+    private String pjtEnd;
     private String pn;
-    private String pjt_state;
+    private String pjtState;
 
 }

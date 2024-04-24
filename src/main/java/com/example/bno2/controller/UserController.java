@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,68 +19,87 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "정렬(부서) 사용자 리스트 출력")
-    @GetMapping("/sortByDept")
+    @Operation(summary="사용자 조회")
+    @GetMapping("/selectUser")
     @ResponseBody
-    public List<User> sortByDept() {
+    public List<User> selectUser(@RequestParam String inputName) {
 
-        List<User> userList = userService.getAllUsersOrderByDept();
+        List<User> userList = userService.selectUsers(inputName);
+
+        // 코드화된 데이터를 텍스트로 대체
+        for (User user : userList) {
+            user.setDept(replaceDeptText(user.getDept()));
+            user.setPos(replacePosText(user.getPos()));
+            user.setState(replaceStateText(user.getState()));
+        }
 
         return userList;
 
     }
 
-    @Operation(summary = "정렬(이름) 사용자 리스트 출력")
-    @GetMapping("/sortByName")
-    @ResponseBody
-    public List<User> sortByName() {
-
-        List<User> userList = userService.getAllUsersOrderByName();
-
-        return userList;
-
+    // dept 값에 따라 텍스트를 대체하는 메서드
+    private String replaceDeptText(String dept) {
+        if ("SER".equals(dept)) {
+            return "서비스사업본부";
+        } else if ("FIN".equals(dept)) {
+            return "금융사업본부";
+        } else if ("ALM".equals(dept)) {
+            return "ALM사업본부";
+        } else if ("MAN".equals(dept)) {
+            return "경영본부";
+        } else {
+            return dept;
+        }
     }
 
-    @Operation(summary = "정렬(직급) 사용자 리스트 출력")
-    @GetMapping("/sortByPos")
-    @ResponseBody
-    public List<User> sortByPos() {
-
-        List<User> userList = userService.getAllUsersOrderByPos();
-
-        return userList;
-
+    // pos 값에 따라 텍스트를 대체하는 메서드
+    private String replacePosText(String pos) {
+        if ("S01".equals(pos)) {
+            return "사장";
+        } else if ("J02".equals(pos)) {
+            return "전무";
+        } else if ("E03".equals(pos)) {
+            return "이사";
+        } else if ("B04".equals(pos)) {
+            return "부장";
+        } else if ("C05".equals(pos)) {
+            return "차장";
+        } else if ("K06".equals(pos)) {
+            return "과장";
+        } else if ("D07".equals(pos)) {
+            return "대리";
+        } else if ("S08".equals(pos)) {
+            return "사원";
+        } else {
+            return pos;
+        }
     }
 
-    @Operation(summary="입력한 이름을 포함한 사용자 리스트 출력")
-    @GetMapping("/sortByName2")
-    @ResponseBody
-    public List<User> sortByName2(@RequestParam String inputName) {
-
-        List<User> userList = userService.getAllUsersOrderByName2(inputName);
-
-        return userList;
-
+    // state 값에 따라 텍스트를 대체하는 메서드
+    private String replaceStateText(String state) {
+        if ("STD".equals(state)) {
+            return "본사 대기";
+        } else if ("PJT".equals(state)) {
+            return "프로젝트 투입";
+        } else if ("OUT".equals(state)) {
+            return "퇴사";
+        } else {
+            return state;
+        }
     }
 
     @Operation(summary="사용자 테이블에 데이터 추가")
     @PostMapping("/insertUser")
     @ResponseBody
-    public void insertUser(@RequestParam String email, String name, String dept, String con, String pos, String state) {
+    public ResponseEntity<String> insertUser(@RequestBody User user) {
 
-        userService.addUser(email, name, dept, con, pos, state);
-
-    }
-
-    @Operation(summary = "사용자 추가")
-    @PostMapping("/addUser")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-        boolean rowsInserted = userService.addUser(user);
-        if (rowsInserted == true) {
+        int rowsInserted = userService.addUser(user);
+        if (rowsInserted > 0) {
             return new ResponseEntity<>("User added successfully", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Failed to add user", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @Operation(summary = "사용자 수정")
