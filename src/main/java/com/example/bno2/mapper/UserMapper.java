@@ -8,9 +8,9 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    List<User> selectUsers();
-
     List<User> selectUsersByName(String name);
+
+    List<User> selectUsersByNameDept(String name, String dept);
 
     int insertUser(User user);
 

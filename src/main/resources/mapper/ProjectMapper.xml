@@ -2,13 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.ProjectMapper">
 
-    <select id="selectProjects">
+    <select id="selectProjectsByNameProject" resultType="com.example.bno2.model.Project">
         SELECT
-            p.pjt_uid, p.project, p.pjt_start, p.pjt_end, p.pn, p.pjt_state, u.name
+            p.pjtUid, p.project, p.pjtStart, p.pjtEnd, p.pn, p.pjtState, u.name
         FROM
-            project p, user u
+            project p
+        INNER JOIN
+            user u ON p.pn = u.pn
         WHERE
-            p.pn = u.pn
+            p.project LIKE CONCAT('%',#{project},'%')
+        AND
+            u.name LIKE CONCAT('%',#{name},'%')
+    </select>
+
+    <select id="selectProjectsByNameProjectState" resultType="com.example.bno2.model.Project">
+        SELECT
+            p.pjtUid, p.project, p.pjtStart, p.pjtEnd, p.pn, p.pjtState, u.name
+        FROM
+            project p
+                INNER JOIN
+            user u ON p.pn = u.pn
+        WHERE
+            p.project LIKE CONCAT('%',#{project},'%')
+          AND
+            u.name LIKE CONCAT('%',#{name},'%')
+          AND
+            p.pjtState = #{pjtState};
     </select>
 
     <insert id="insertProject">

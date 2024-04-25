@@ -11,5 +11,6 @@ public class Project {
     private String pjtEnd;
     private String pn;
     private String pjtState;
+    private String name;
 
 }

@@ -2,22 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.UserMapper">
 
-    <select id="selectUsers" resultType="com.example.bno2.model.User">
-        SELECT
-            pn, email, name, dept, con, pos, state
-        FROM
-            user
-        ORDER BY
-            NAME
-    </select>
-
-    <select id="selectUsersByName" parameterType="String" resultType="com.example.bno2.model.User">
+    <select id="selectUsersByName" resultType="com.example.bno2.model.User">
         SELECT
             pn, email, name, dept, con, pos, state
         FROM
             user
         WHERE
-            NAME LIKE CONCAT('%',#{name},'%')
+            #{name} IS NULL OR REPLACE(NAME, ' ', '') LIKE CONCAT('%', REPLACE(#{name}, ' ', ''), '%')
+        ORDER BY
+            NAME
+    </select>
+
+    <select id="selectUsersByNameDept" parameterType="String" resultType="com.example.bno2.model.User">
+        SELECT
+            pn, email, name, dept, con, pos, state
+        FROM
+            user
+        WHERE
+            #{name} IS NULL OR REPLACE(NAME, ' ', '') LIKE CONCAT('%', REPLACE(#{name}, ' ', ''), '%')
+        AND
+            DEPT = #{dept}
         ORDER BY
             NAME
     </select>

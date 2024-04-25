@@ -14,12 +14,12 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<User> selectUsers() {
-        return userMapper.selectUsers();
-    }
-
     public List<User> selectUsersByName(String name) {
         return userMapper.selectUsersByName(name);
+    }
+
+    public List<User> selectUsersByNameDept(String name, String dept) {
+        return userMapper.selectUsersByNameDept(name, dept);
     }
 
     public int addUser(User user) {

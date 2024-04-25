@@ -19,40 +19,32 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary="사용자 조회")
-    @GetMapping("/selectUsers")
+    @Operation(summary="이름으로 사용자 조회")
+    @GetMapping("/selectUsersByName")
     @ResponseBody
-    public List<User> selectUsers() {
+    public List<User> selectUsersByName(@RequestParam(required = false) String name, @RequestParam String dept) {
 
-        List<User> userList = userService.selectUsers();
+        List<User> userList;
+
+        if(dept.equals("ALL")){
+            userList = userService.selectUsersByName(name);
+        } else {
+            userList = userService.selectUsersByNameDept(name, dept);
+        }
 
         // 코드화된 데이터를 텍스트로 대체
-        for (User user : userList) {
-            user.setDept(replaceDeptText(user.getDept()));
-            user.setPos(replacePosText(user.getPos()));
-            user.setState(replaceStateText(user.getState()));
+        for (User u : userList) {
+            replaceCodeToText(u);
         }
 
         return userList;
 
     }
 
-    @Operation(summary="이름으로 사용자 조회")
-    @GetMapping("/selectUsersByName")
-    @ResponseBody
-    public List<User> selectUsersByName(@RequestParam String name) {
-
-        List<User> userList = userService.selectUsersByName(name);
-
-        // 코드화된 데이터를 텍스트로 대체
-        for (User user : userList) {
-            user.setDept(replaceDeptText(user.getDept()));
-            user.setPos(replacePosText(user.getPos()));
-            user.setState(replaceStateText(user.getState()));
-        }
-
-        return userList;
-
+    private void replaceCodeToText(User user){
+        user.setDept(replaceDeptText(user.getDept()));
+        user.setPos(replacePosText(user.getPos()));
+        user.setState(replaceStateText(user.getState()));
     }
 
     // dept 값에 따라 텍스트를 대체하는 메서드
@@ -113,9 +105,9 @@ public class UserController {
 
         int rowsInserted = userService.addUser(user);
         if (rowsInserted > 0) {
-            return new ResponseEntity<>("User added successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("User inserted successfully", HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("Failed to add user", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to insert user", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
