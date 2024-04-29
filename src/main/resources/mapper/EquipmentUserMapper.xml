@@ -12,7 +12,22 @@
                  JOIN PROJECT AS P ON EU.PN = P.PN
                  JOIN USER AS U ON EU.PN = U.PN
         WHERE  U.STATE != 'OUT'
-  AND E.CLS LIKE CONCAT('%',#{cls},'%')
+          AND TRIM(U.NAME) LIKE CONCAT('%',#{name},'%')
+          AND TRIM(P.PROJECT) LIKE CONCAT('%',#{project},'%')
+        ORDER BY U.EMAIL, P.PROJECT
+    </select>
+
+    <select id="selectEquipmentUsersByCls" resultType="com.example.bno2.model.EquipmentUser">
+        SELECT E.CLS, P.PROJECT, U.NAME, E.MODEL, E.SN,
+               E.SPEC, E.MANU_COM,
+               E.WAR_START, E.WAR_END,
+               E.MAC, E.STATE
+        FROM EQUIPMENT_USER AS EU
+                 JOIN EQUIPMENT AS E ON EU.UID = E.UID
+                 JOIN PROJECT AS P ON EU.PN = P.PN
+                 JOIN USER AS U ON EU.PN = U.PN
+        WHERE  U.STATE != 'OUT'
+        AND E.CLS = #{cls}
           AND TRIM(U.NAME) LIKE CONCAT('%',#{name},'%')
           AND TRIM(P.PROJECT) LIKE CONCAT('%',#{project},'%')
         ORDER BY U.EMAIL, P.PROJECT

@@ -20,7 +20,7 @@ public class ProjectController {
     private ProjectService projectService;
 
     @Operation(summary = "프로젝트 조회")
-    @GetMapping("/selectProjectsByNameProject")
+    @GetMapping("/selectProjects")
     @ResponseBody
     public List<Project> selectProjects(@RequestParam(required = false) String name, @RequestParam(required = false) String project, @RequestParam String pjtState) {
 

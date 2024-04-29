@@ -19,8 +19,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary="이름으로 사용자 조회")
-    @GetMapping("/selectUsersByName")
+    @Operation(summary="사용자 조회")
+    @GetMapping("/selectUsers")
     @ResponseBody
     public List<User> selectUsersByName(@RequestParam(required = false) String name, @RequestParam String dept) {
 
@@ -98,7 +98,7 @@ public class UserController {
         }
     }
 
-    @Operation(summary="사용자 테이블에 데이터 추가")
+    @Operation(summary="사용자 추가")
     @PostMapping("/insertUser")
     @ResponseBody
     public ResponseEntity<String> insertUser(@RequestBody User user) {

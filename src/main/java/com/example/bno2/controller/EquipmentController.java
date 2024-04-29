@@ -19,7 +19,7 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-    @Operation(summary = "장비 목록 조회")
+    @Operation(summary = "장비 조회")
     @GetMapping("/selectEquipments")
     @ResponseBody
     public List<Equipment> selectEquipments(@RequestParam(required = false) String cls, @RequestParam(required = false) String model, @RequestParam(required = false) String name) {
@@ -71,7 +71,7 @@ public class EquipmentController {
         }
     }
 
-    @Operation(summary = "장비 업데이트")
+    @Operation(summary = "장비 수정")
     @PostMapping("/updateEquipment")
     public ResponseEntity<String> updateEquipment(@RequestBody Equipment equipment) {
         int rowsUpdated = equipmentService.updateEquipment(equipment);
