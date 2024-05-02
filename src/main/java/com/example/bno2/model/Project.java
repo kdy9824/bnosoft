@@ -9,8 +9,8 @@ public class Project {
     private String project;
     private String pjtStart;
     private String pjtEnd;
-    private String pn;
     private String pjtState;
-    private String name;
+    private String projectInsert;
+    private String projectUpdate;
 
 }

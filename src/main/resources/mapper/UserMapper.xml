@@ -4,23 +4,23 @@
 
     <select id="selectUsersByName" resultType="com.example.bno2.model.User">
         SELECT
-            pn, email, name, dept, con, pos, state
+            pn, email, name, dept, con, pos, state, userInsert, userUpdate
         FROM
             user
         WHERE
-            #{name} IS NULL OR REPLACE(NAME, ' ', '') LIKE CONCAT('%', REPLACE(#{name}, ' ', ''), '%')
+            #{name} IS NULL OR TRIM(name) LIKE CONCAT('%', TRIM(#{name}), '%')
         ORDER BY
             NAME
     </select>
 
     <select id="selectUsersByNameDept" parameterType="String" resultType="com.example.bno2.model.User">
         SELECT
-            pn, email, name, dept, con, pos, state
+            pn, email, name, dept, con, pos, state, userInsert, userUpdate
         FROM
             user
         WHERE
-            #{name} IS NULL OR REPLACE(NAME, ' ', '') LIKE CONCAT('%', REPLACE(#{name}, ' ', ''), '%')
-        AND
+            (#{name} IS NULL OR TRIM(name) LIKE CONCAT('%', TRIM(#{name}), '%'))
+          AND
             DEPT = #{dept}
         ORDER BY
             NAME
@@ -42,7 +42,8 @@
             dept=#{dept},
             con=#{con},
             pos=#{pos},
-            state=#{state}
+            state=#{state},
+            userUpdate=current_timestamp
         where
             pn=#{pn}
     </update>

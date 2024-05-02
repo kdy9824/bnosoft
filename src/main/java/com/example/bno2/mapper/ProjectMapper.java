@@ -8,9 +8,7 @@ import java.util.List;
 @Mapper
 public interface ProjectMapper {
 
-    List<Project> selectProjectsByNameProject(String name, String project);
-
-    List<Project> selectProjectsByNameProjectState(String name, String project, String pjtState);
+    List<Project> selectProjects();
 
     int insertProject(Project project);
 

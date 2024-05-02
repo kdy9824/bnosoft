@@ -1,6 +1,7 @@
 package com.example.bno2.controller;
 
 import com.example.bno2.model.Project;
+import com.example.bno2.model.User;
 import com.example.bno2.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Tag(name="프로젝트")
@@ -19,30 +22,20 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @Operation(summary = "프로젝트 조회")
-    @GetMapping("/selectProjects")
+    @Operation(summary = "프로젝트 출력")
+    @GetMapping("/selectProject")
     @ResponseBody
-    public List<Project> selectProjects(@RequestParam(required = false) String name, @RequestParam(required = false) String project, @RequestParam String pjtState) {
+    public List<Project> selectProjects() {
 
-        List<Project> projectList;
-
-        if(pjtState.equals("ALL")){
-            projectList = projectService.selectProjectsByNameProject(name,project);
-        } else {
-            projectList = projectService.selectProjectsByNameProjectState(name,project,pjtState);
-        }
+        List<Project> projectList = projectService.selectProjects();
 
         // 코드화된 데이터를 텍스트로 대체
-        for (Project p : projectList) {
-            replaceCodeToText(p);
+        for (Project project : projectList) {
+            project.setPjtState(replaceStateText(project.getPjtState()));
         }
 
         return projectList;
 
-    }
-
-    private void replaceCodeToText(Project project){
-        project.setPjtState(replaceStateText(project.getPjtState()));
     }
 
     // state 값에 따라 텍스트를 대체하는 메서드

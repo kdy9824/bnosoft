@@ -9,11 +9,13 @@ import java.util.List;
 @Mapper
 public interface EquipmentMapper {
 
-    List<Equipment> selectEquipments(String cls, String model, String name);
+    List<Equipment> selectEquipments(String model);
+
+    List<Equipment> selectEquipmentsByCls(String model, String cls);
 
     int insertEquipment(Equipment equipment);
 
     int updateEquipment(Equipment equipment);
 
-    int deleteEquipment(@Param("UID") String UID);
+    int deleteEquipment(String UID);
 }

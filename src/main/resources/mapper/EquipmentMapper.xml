@@ -2,23 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.EquipmentMapper">
 
-    <select id="selectEquipments" resultType="com.example.bno2.model.Equipment">
+    <select id="selectEquipments" resultType="com.example.bno2.model.Equipment" >
         SELECT
-            uid, cls, sn, model, spec, war_start, war_end, manu_com, mac, state, year
+            uid, cls, sn, model, spec, war_start, war_end, manu_com, mac, state, year, equipInsert,equipUpdate
         FROM
             EQUIPMENT
         WHERE
-            CLS LIKE CONCAT('%',#{cls},'%')
-          AND MODEL LIKE CONCAT('%',#{model},'%')
-          AND UID IN (
-            SELECT UID
-            FROM EQUIPMENT_USER
-            WHERE PN IN (
-            SELECT PN
-            FROM USER
-            WHERE NAME LIKE CONCAT('%',#{name},'%')
-            )
-            );
+            (#{model} IS NULL OR TRIM(model) LIKE CONCAT('%', TRIM(#{model}), '%'))
+    </select>
+
+    <select id="selectEquipmentsByCls" parameterType="com.example.bno2.model.Equipment" resultType="com.example.bno2.model.Equipment" >
+        SELECT
+            uid, cls, sn, model, spec, war_start, war_end, manu_com, mac, state, year, equipInsert,equipUpdate
+        FROM
+            EQUIPMENT
+        WHERE
+            (#{model} IS NULL OR TRIM(model) LIKE CONCAT('%', TRIM(#{model}), '%'))
+          AND
+            CLS = #{cls}
     </select>
 
     <insert id="insertEquipment" parameterType="com.example.bno2.model.Equipment">
@@ -58,7 +59,8 @@
             MANU_COM = #{manuCom},
             MAC = #{mac},
             STATE = #{state},
-            YEAR = #{year}
+            YEAR = #{year},
+            equipUpdate = CURRENT_TIMESTAMP
         WHERE UID = #{uid}
     </update>
 

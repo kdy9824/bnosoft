@@ -19,28 +19,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary="사용자 조회")
-    @GetMapping("/selectUsers")
-    @ResponseBody
-    public List<User> selectUsersByName(@RequestParam(required = false) String name, @RequestParam String dept) {
-
-        List<User> userList;
-
-        if(dept.equals("ALL")){
-            userList = userService.selectUsersByName(name);
-        } else {
-            userList = userService.selectUsersByNameDept(name, dept);
-        }
-
-        // 코드화된 데이터를 텍스트로 대체
-        for (User u : userList) {
-            replaceCodeToText(u);
-        }
-
-        return userList;
-
-    }
-
     private void replaceCodeToText(User user){
         user.setDept(replaceDeptText(user.getDept()));
         user.setPos(replacePosText(user.getPos()));
@@ -98,7 +76,29 @@ public class UserController {
         }
     }
 
-    @Operation(summary="사용자 추가")
+    @Operation(summary="이름으로 사용자 조회")
+    @GetMapping("/selectUsersByName")
+    @ResponseBody
+    public List<User> selectUsersByName(@RequestParam(required = false) String name, @RequestParam String dept) {
+
+        List<User> userList;
+
+        if(dept.equals("ALL")){
+            userList = userService.selectUsersByName(name);
+        } else {
+            userList = userService.selectUsersByNameDept(name, dept);
+        }
+
+        // 코드화된 데이터를 텍스트로 대체
+        for (User user : userList) {
+            replaceCodeToText(user);
+        }
+
+        return userList;
+
+    }
+
+    @Operation(summary="사용자 테이블에 데이터 추가")
     @PostMapping("/insertUser")
     @ResponseBody
     public ResponseEntity<String> insertUser(@RequestBody User user) {

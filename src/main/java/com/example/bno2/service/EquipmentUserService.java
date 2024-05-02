@@ -18,8 +18,9 @@ public class EquipmentUserService {
     public List<EquipmentUser> selectEquipmentUsers(String name, String project) {
         return equipmentuserMapper.selectEquipmentUsers(name, project);
     }
-
+    // 장비 사용자 cls별 조회
     public List<EquipmentUser> selectEquipmentUsersByCls(String name, String project, String cls) {
+        System.out.println("maaper가기전" + cls);
         return equipmentuserMapper.selectEquipmentUsersByCls(name, project, cls);
     }
 

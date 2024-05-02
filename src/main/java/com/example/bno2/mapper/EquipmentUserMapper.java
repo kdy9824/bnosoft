@@ -9,7 +9,6 @@ import java.util.List;
 public interface EquipmentUserMapper {
 
     List<EquipmentUser> selectEquipmentUsers(String name, String project);
-
     List<EquipmentUser> selectEquipmentUsersByCls(String name, String project, String cls);
 
     int updateEquipmentUser(String uid, int pn);

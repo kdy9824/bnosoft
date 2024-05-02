@@ -1,7 +1,7 @@
 package com.example.bno2.controller;
 
+import com.example.bno2.model.Equipment;
 import com.example.bno2.model.EquipmentUser;
-import com.example.bno2.model.User;
 import com.example.bno2.service.EquipmentUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,35 +18,6 @@ public class EquipmentUserController {
 
     @Autowired
     private EquipmentUserService equipmentUserService;
-
-    @Operation(summary = "장비사용자 출력")
-    @GetMapping("/selectEquipmentUsers")
-    @ResponseBody
-    public List<EquipmentUser> selectEquipmentUsersByCls(@RequestParam String cls,
-                                                         @RequestParam(required = false) String name,
-                                                         @RequestParam(required = false) String project) {
-
-        List<EquipmentUser> equipmentUserList;
-
-        if(cls.equals("ALL")){
-            equipmentUserList = equipmentUserService.selectEquipmentUsers(name,project);
-        } else {
-            equipmentUserList = equipmentUserService.selectEquipmentUsersByCls(name,project,cls);
-        }
-
-        // 코드화된 데이터를 텍스트로 대체
-        for (EquipmentUser equipmentUser : equipmentUserList) {
-            replaceCodeToText(equipmentUser);
-        }
-
-        return equipmentUserList;
-
-    }
-
-    private void replaceCodeToText(EquipmentUser eu){
-        eu.setCls(replaceClsText(eu.getCls()));
-        eu.setState(replaceStateText(eu.getState()));
-    }
 
     // cls 값에 따라 텍스트를 대체하는 메서드
     private String replaceClsText(String cls) {
@@ -73,6 +44,35 @@ public class EquipmentUserController {
             return state;
         }
     }
+    private void replaceCodeToText(EquipmentUser equipmentUser){
+        equipmentUser.setCls(replaceClsText(equipmentUser.getCls()));
+        equipmentUser.setState(replaceStateText(equipmentUser.getState()));
+    }
+
+    @Operation(summary = "장비사용자 리스트 출력")
+    @GetMapping("/selectEquipmentUsersByCls")
+    @ResponseBody
+    public List<EquipmentUser> selectEquipmentUsersByCls(@RequestParam(required = false) String cls,
+                                                         @RequestParam(required = false) String name,
+                                                               @RequestParam(required = false) String project) {
+
+        List<EquipmentUser> equipmentUserList;
+
+        if(cls == null || cls.equals("ALL")){
+            equipmentUserList = equipmentUserService.selectEquipmentUsers(name,project);
+        } else {
+            equipmentUserList = equipmentUserService.selectEquipmentUsersByCls(name, project,cls);
+        }
+
+        // 코드화된 데이터를 텍스트로 대체
+        for (EquipmentUser equipmentUser : equipmentUserList) {
+            replaceCodeToText(equipmentUser);
+        }
+
+        return equipmentUserList;
+
+    }
+
 
     @Operation(summary = "장비사용자 수정")
     @PostMapping("/updateEquipmentUser")

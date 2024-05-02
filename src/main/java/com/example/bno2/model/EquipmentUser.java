@@ -16,5 +16,7 @@ public class EquipmentUser {
     private String warEnd;
     private String mac;
     private String state;
+    private String equipUserInsert;
+    private String equipUserUpdate;
 
 }

@@ -16,5 +16,7 @@ public class Equipment {
     private String mac;
     private String state;
     private int year;
+    private String equipInsert;
+    private String equipUpdate;
 
 }

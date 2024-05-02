@@ -12,5 +12,7 @@ public class User {
     private String con;
     private String pos;
     private String state;
+    private String userInsert;
+    private String userUpdate;
 
 }

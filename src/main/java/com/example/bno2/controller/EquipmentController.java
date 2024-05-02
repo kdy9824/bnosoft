@@ -1,6 +1,7 @@
 package com.example.bno2.controller;
 
 import com.example.bno2.model.Equipment;
+import com.example.bno2.model.User;
 import com.example.bno2.service.EquipmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,19 +20,6 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-    @Operation(summary = "장비 조회")
-    @GetMapping("/selectEquipments")
-    @ResponseBody
-    public List<Equipment> selectEquipments(@RequestParam(required = false) String cls, @RequestParam(required = false) String model, @RequestParam(required = false) String name) {
-        List<Equipment> equipmentList = equipmentService.selectEquipments(cls, model, name);
-
-        for(Equipment equipment : equipmentList) {
-            equipment.setCls(replaceClsText(equipment.getCls()));
-            equipment.setState(replaceStateText(equipment.getState()));
-        }
-
-        return equipmentList;
-    }
 
     // cls 값에 따라 텍스트를 대체하는 메서드
     private String replaceClsText(String cls) {
@@ -59,6 +47,34 @@ public class EquipmentController {
         }
     }
 
+
+    private void replaceCodeToText(Equipment equipment){
+        equipment.setCls(replaceClsText(equipment.getCls()));
+        equipment.setState(replaceStateText(equipment.getState()));
+    }
+
+    @Operation(summary = "장비 목록 검색 조회")
+    @GetMapping("/selectEquipmentsByCls")
+    @ResponseBody
+    public List<Equipment> selectEquipmentsByCls(@RequestParam String cls, @RequestParam(required = false) String model) {
+        List<Equipment> equipmentList;
+
+        if(cls.equals("ALL")){
+            equipmentList = equipmentService.selectEquipments(model);
+        } else {
+            equipmentList = equipmentService.selectEquipmentsByCls(model, cls);
+        }
+        // 코드화된 데이터를 텍스트로 대체
+        for (Equipment equipment : equipmentList) {
+            replaceCodeToText(equipment);
+        }
+
+        return equipmentList;
+    }
+
+
+
+
     @Operation(summary = "장비 추가")
     @PostMapping("/insertEquipment")
     public ResponseEntity<String> insertEquipment(@RequestBody Equipment equipment) {
@@ -71,7 +87,7 @@ public class EquipmentController {
         }
     }
 
-    @Operation(summary = "장비 수정")
+    @Operation(summary = "장비 업데이트")
     @PostMapping("/updateEquipment")
     public ResponseEntity<String> updateEquipment(@RequestBody Equipment equipment) {
         int rowsUpdated = equipmentService.updateEquipment(equipment);

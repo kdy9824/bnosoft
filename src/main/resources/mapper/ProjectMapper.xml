@@ -2,39 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.ProjectMapper">
 
-    <select id="selectProjectsByNameProject" resultType="com.example.bno2.model.Project">
+    <select id="selectProjects">
         SELECT
-            p.pjtUid, p.project, p.pjtStart, p.pjtEnd, p.pn, p.pjtState, u.name
+            p.pjtUid, p.project, p.pjtStart, p.pjtEnd, p.pjtState, u.name
         FROM
-            project p
-        INNER JOIN
-            user u ON p.pn = u.pn
+            project p, user u
         WHERE
-            p.project LIKE CONCAT('%',#{project},'%')
-        AND
-            u.name LIKE CONCAT('%',#{name},'%')
-    </select>
-
-    <select id="selectProjectsByNameProjectState" resultType="com.example.bno2.model.Project">
-        SELECT
-            p.pjtUid, p.project, p.pjtStart, p.pjtEnd, p.pn, p.pjtState, u.name
-        FROM
-            project p
-                INNER JOIN
-            user u ON p.pn = u.pn
-        WHERE
-            p.project LIKE CONCAT('%',#{project},'%')
-          AND
-            u.name LIKE CONCAT('%',#{name},'%')
-          AND
-            p.pjtState = #{pjtState};
+            p.pn = u.pn
     </select>
 
     <insert id="insertProject">
         INSERT INTO
-            project(project, pjt_start, pjt_end, pn, pjt_state)
+            project(project, pjtStart, pjtEnd, pjtState)
         VALUES
-            (#{project},#{pjt_start},#{pjt_end},#{pn},#{pjt_state})
+            (#{project},#{pjtStart},#{pjtEnd},#{pjtState})
     </insert>
 
     <update id="updateProject">
@@ -42,12 +23,12 @@
             project
         SET
             project=#{project},
-            pjt_start=#{pjt_start},
-            pjt_end=#{pjt_end},
-            pn=#{pn},
-            pjt_state=#{pjt_state}
+            pjtStart=#{pjtStart},
+            pjtEnd=#{pjtEnd},
+            pjtState=#{pjtState},
+            pjtUpdate=current_timestamp
         WHERE
-            pjt_uid=#{pjt_uid}
+            pjtUid=#{pjtUid}
     </update>
 
 </mapper>
