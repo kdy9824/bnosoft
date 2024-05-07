@@ -1,9 +1,10 @@
 package com.example.bno2.mapper;
 
-import com.example.bno2.model.User;
+import com.example.bno2.dao.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -12,8 +13,8 @@ public interface UserMapper {
 
     List<User> selectUsersByNameDept(String name, String dept);
 
-    int insertUser(User user);
+    int insertUser(Map<String, Object> params);
 
-    int updateUser(User user);
+    int updateUser(Map<String, Object> params);
 
 }

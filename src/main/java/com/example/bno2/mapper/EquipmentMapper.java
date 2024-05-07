@@ -1,10 +1,10 @@
 package com.example.bno2.mapper;
 
-import com.example.bno2.model.Equipment;
+import com.example.bno2.dao.Equipment;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EquipmentMapper {
@@ -13,9 +13,10 @@ public interface EquipmentMapper {
 
     List<Equipment> selectEquipmentsByCls(String model, String cls);
 
-    int insertEquipment(Equipment equipment);
+    int insertEquipment(Map<String, Object> params);
 
-    int updateEquipment(Equipment equipment);
+    int updateEquipment(Map<String, Object> params);
 
-    int deleteEquipment(String UID);
+    int deleteEquipment(String uid);
+
 }

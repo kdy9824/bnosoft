@@ -1,9 +1,10 @@
 package com.example.bno2.controller;
 
-import com.example.bno2.model.User;
+import com.example.bno2.dao.User;
 import com.example.bno2.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,9 @@ public class UserController {
     private UserService userService;
 
     private void replaceCodeToText(User user){
-        user.setDept(replaceDeptText(user.getDept()));
-        user.setPos(replacePosText(user.getPos()));
-        user.setState(replaceStateText(user.getState()));
+        user.setDeptCode(replaceDeptText(user.getDeptCode()));
+        user.setPosCode(replacePosText(user.getPosCode()));
+        user.setStateCode(replaceStateText(user.getStateCode()));
     }
 
     // dept 값에 따라 텍스트를 대체하는 메서드
@@ -101,9 +102,16 @@ public class UserController {
     @Operation(summary="사용자 테이블에 데이터 추가")
     @PostMapping("/insertUser")
     @ResponseBody
-    public ResponseEntity<String> insertUser(@RequestBody User user) {
+    public ResponseEntity<String> insertUser(@RequestBody User user, HttpSession session) {
 
-        int rowsInserted = userService.addUser(user);
+        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
+
+        User loginUser = (User)session.getAttribute("loginUser");
+
+        int loginUserPn = loginUser.getPn();
+
+        int rowsInserted = userService.addUser(user, loginUserPn);
+
         if (rowsInserted > 0) {
             return new ResponseEntity<>("User inserted successfully", HttpStatus.CREATED);
         } else {
@@ -114,8 +122,16 @@ public class UserController {
 
     @Operation(summary = "사용자 수정")
     @PostMapping("/updateUser")
-    public ResponseEntity<String> updateUser(@RequestBody User user) {
-        int rowsUpdated = userService.updateUser(user);
+    public ResponseEntity<String> updateUser(@RequestBody User user, HttpSession session) {
+
+        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
+
+        User loginUser = (User)session.getAttribute("loginUser");
+
+        int loginUserPn = loginUser.getPn();
+
+        int rowsUpdated = userService.updateUser(user, loginUserPn);
+
         if (rowsUpdated > 0) {
             return new ResponseEntity<>("User updated successfully", HttpStatus.CREATED);
         } else {

@@ -1,18 +1,17 @@
 package com.example.bno2.controller;
 
-import com.example.bno2.model.Project;
-import com.example.bno2.model.User;
+import com.example.bno2.dao.Project;
+import com.example.bno2.dao.User;
 import com.example.bno2.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Tag(name="프로젝트")
@@ -25,13 +24,19 @@ public class ProjectController {
     @Operation(summary = "프로젝트 출력")
     @GetMapping("/selectProject")
     @ResponseBody
-    public List<Project> selectProjects() {
+    public List<Project> selectProjects(@RequestParam String pjtState, @RequestParam(required = false) String pjtName) {
 
-        List<Project> projectList = projectService.selectProjects();
+        List<Project> projectList;
+
+        if(pjtState.equals("ALL")){
+            projectList = projectService.selectProjectsByName(pjtName);
+        } else {
+            projectList = projectService.selectProjectsByNameState(pjtName, pjtState);
+        }
 
         // 코드화된 데이터를 텍스트로 대체
         for (Project project : projectList) {
-            project.setPjtState(replaceStateText(project.getPjtState()));
+            project.setStateCode(replaceStateText(project.getStateCode()));
         }
 
         return projectList;
@@ -51,8 +56,14 @@ public class ProjectController {
 
     @Operation(summary = "프로젝트 추가")
     @PostMapping("/insertProject")
-    public ResponseEntity<String> insertProject(@RequestBody Project project) {
-        int rowsInserted = projectService.insertProject(project);
+    public ResponseEntity<String> insertProject(@RequestBody Project project, HttpSession session) {
+
+        User loginUser = (User)session.getAttribute("loginUser");
+
+        int loginUserPn = loginUser.getPn();
+
+        int rowsInserted = projectService.insertProject(project, loginUserPn);
+
         if (rowsInserted > 0) {
             return new ResponseEntity<>("Project inserted successfully", HttpStatus.CREATED);
         } else {
@@ -62,8 +73,14 @@ public class ProjectController {
 
     @Operation(summary = "프로젝트 수정")
     @PostMapping("/updateProject")
-    public ResponseEntity<String> updateProject(@RequestBody Project project) {
-        int rowsUpdated = projectService.updateProject(project);
+    public ResponseEntity<String> updateProject(@RequestBody Project project, HttpSession session) {
+
+        User loginUser = (User)session.getAttribute("loginUser");
+
+        int loginUserPn = loginUser.getPn();
+
+        int rowsUpdated = projectService.updateProject(project, loginUserPn);
+
         if (rowsUpdated > 0) {
             return new ResponseEntity<>("Project updated successfully", HttpStatus.CREATED);
         } else {

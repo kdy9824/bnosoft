@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bno2.mapper.EUPMapper">
+
+    <select id="selectEquipmentUsers" resultType="com.example.bno2.dao.EUP">
+        select
+            e.class as equipClass,
+            p.project_name as projectName,
+            u.name as userName,
+            e.model_name as modelName,
+            e.serial_number as serialNumber,
+            e.spec_desc as specDesc,
+            e.purchase_year as purchaseYear,
+            e.manu_com as manuCom,
+            e.warranty_start_dt as warrantyStartDt,
+            e.warranty_end_dt as warrantyEndDt,
+            e.mac_address as macAddress,
+            e.equipment_state_code as euipmentStateCode
+        from
+            user as u
+                join
+                    equipment_user as eu on eu.user_pn = u.pn
+                join
+                    equipment as e on e.uid = eu.equip_uid
+                join
+                    project_user as pu on pu.user_pn = u.pn
+                join
+                    project as p on p.uid = pu.project_uid
+        where
+            u.pn != 1
+        and
+            u.state_code != 'OUT'
+        and
+            (#{name} is null or trim(u.name) like concat('%',#{name},'%'))
+        and
+            (#{project} is null or trim(p.project_name) like concat('%',#{project},'%'))
+    </select>
+
+    <select id="selectEquipmentUsersByCls" resultType="com.example.bno2.dao.EUP">
+        select
+            e.class as equipClass,
+            p.project_name as projectName,
+            u.name as userName,
+            e.model_name as modelName,
+            e.serial_number as serialNumber,
+            e.spec_desc as specDesc,
+            e.purchase_year as purchaseYear,
+            e.manu_com as manuCom,
+            e.warranty_start_dt as warrantyStartDt,
+            e.warranty_end_dt as warrantyEndDt,
+            e.mac_address as macAddress,
+            e.equipment_state_code as euipmentStateCode
+        from
+            user as u
+                join
+            equipment_user as eu on eu.user_pn = u.pn
+                join
+            equipment as e on e.uid = eu.equip_uid
+                join
+            project_user as pu on pu.user_pn = u.pn
+                join
+            project as p on p.uid = pu.project_uid
+        where
+            u.pn != 1
+        and
+            u.state_code != 'OUT'
+        and
+            (#{name} is null or trim(u.name) like concat('%',#{name},'%'))
+        and
+            (#{project} is null or trim(p.project_name) like concat('%',#{project},'%'))
+        and
+            e.class = #{cls}
+    </select>
+
+</mapper>

@@ -1,12 +1,13 @@
 package com.example.bno2.service;
 
 import com.example.bno2.mapper.UserMapper;
-import com.example.bno2.model.User;
+import com.example.bno2.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -22,12 +23,24 @@ public class UserService {
         return userMapper.selectUsersByNameDept(name, dept);
     }
 
-    public int addUser(User user) {
-        return userMapper.insertUser(user);
+    public int addUser(User user, int loginUserPn) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        params.put("loginUserPn", loginUserPn);
+
+        return userMapper.insertUser(params);
+
     }
 
-    public int updateUser(User user) {
-        return userMapper.updateUser(user);
+    public int updateUser(User user, int loginUserPn) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        params.put("loginUserPn", loginUserPn);
+
+        return userMapper.updateUser(params);
+
     }
 
 }

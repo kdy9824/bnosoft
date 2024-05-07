@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bno2.mapper.LoginMapper">
+
+    <select id="login" resultType="com.example.bno2.dao.User">
+        select
+            pn,
+            email,
+            name,
+            dept_code as deptCode,
+            con,
+            pos_code as posCode,
+            state_code as stateCode
+        from
+            user
+        where
+            email = #{email}
+        and
+            pw = #{password}
+    </select>
+
+    <select id="loginCount" resultType="Integer">
+        select
+            count(email)
+        from
+            user
+        where
+            email = #{email}
+          and
+            pw = #{password}
+    </select>
+
+</mapper>

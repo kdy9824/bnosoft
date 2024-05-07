@@ -2,33 +2,73 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.ProjectMapper">
 
-    <select id="selectProjects">
-        SELECT
-            p.pjtUid, p.project, p.pjtStart, p.pjtEnd, p.pjtState, u.name
-        FROM
-            project p, user u
-        WHERE
-            p.pn = u.pn
+    <select id="selectProjectsByName" resultType="com.example.bno2.dao.Project">
+        select
+            uid,
+            project_name as projectName,
+            start_dt as startDt,
+            end_dt as endDt,
+            start_predict_dt as startPredictDt,
+            end_predict_dt as endPredictDt,
+            project_state_code as stateCode
+        from
+            project
+        where
+            project_name like concat('%',#{projectName},'%')
     </select>
 
-    <insert id="insertProject">
-        INSERT INTO
-            project(project, pjtStart, pjtEnd, pjtState)
-        VALUES
-            (#{project},#{pjtStart},#{pjtEnd},#{pjtState})
+    <select id="selectProjectsByNameState" resultType="com.example.bno2.dao.Project">
+        select
+            uid,
+            project_name as projectName,
+            start_dt as startDt,
+            end_dt as endDt,
+            start_predict_dt as startPredictDt,
+            end_predict_dt as endPredictDt,
+            project_state_code as stateCode
+        from
+            project
+        where
+            project_name like concat('%',#{projectName},'%')
+        and
+            project_state_code = #{stateCode}
+    </select>
+
+    <insert id="insertProject" parameterType="map">
+        insert into
+            project(project_name,
+                    start_dt,
+                    end_dt,
+                    start_predict_dt,
+                    end_predict_dt,
+                    project_state_code,
+                    first_update_pn,
+                    last_update_pn)
+        values
+            (#{project.projectName},
+             #{project.startPredictDt},
+             #{project.endPredictDt},
+             #{project.startPredictDt},
+             #{project.endPredictDt},
+             #{project.stateCode},
+             #{loginUserPn},
+             #{loginUserPn})
     </insert>
 
-    <update id="updateProject">
-        UPDATE
+    <update id="updateProject" parameterType="map">
+        update
             project
-        SET
-            project=#{project},
-            pjtStart=#{pjtStart},
-            pjtEnd=#{pjtEnd},
-            pjtState=#{pjtState},
-            pjtUpdate=current_timestamp
-        WHERE
-            pjtUid=#{pjtUid}
+        set
+            project_name = #{project.projectName},
+            start_dt = #{project.startDt},
+            end_dt = #{project.endDt},
+            start_predict_dt = #{project.startPredictDt},
+            end_predict_dt = #{project.endPredictDt},
+            project_state_code = #{project.stateCode},
+            last_update_pn = #{loginUserPn},
+            last_update_dt = current_timestamp
+        where
+            uid = #{project.uid}
     </update>
 
 </mapper>

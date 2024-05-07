@@ -1,10 +1,11 @@
 package com.example.bno2.controller;
 
-import com.example.bno2.model.Equipment;
-import com.example.bno2.model.User;
+import com.example.bno2.dao.Equipment;
+import com.example.bno2.dao.User;
 import com.example.bno2.service.EquipmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,6 @@ public class EquipmentController {
 
     @Autowired
     private EquipmentService equipmentService;
-
 
     // cls 값에 따라 텍스트를 대체하는 메서드
     private String replaceClsText(String cls) {
@@ -47,10 +47,9 @@ public class EquipmentController {
         }
     }
 
-
     private void replaceCodeToText(Equipment equipment){
-        equipment.setCls(replaceClsText(equipment.getCls()));
-        equipment.setState(replaceStateText(equipment.getState()));
+        equipment.setEquipClass(replaceClsText(equipment.getEquipClass()));
+        equipment.setStateCode(replaceStateText(equipment.getStateCode()));
     }
 
     @Operation(summary = "장비 목록 검색 조회")
@@ -72,25 +71,35 @@ public class EquipmentController {
         return equipmentList;
     }
 
-
-
-
     @Operation(summary = "장비 추가")
     @PostMapping("/insertEquipment")
-    public ResponseEntity<String> insertEquipment(@RequestBody Equipment equipment) {
-        int rowsInserted = equipmentService.insertEquipment(equipment);
+    public ResponseEntity<String> insertEquipment(@RequestBody Equipment equipment, HttpSession session) {
+
+        User loginUser = (User)session.getAttribute("loginUser");
+
+        int loginUserPn = loginUser.getPn();
+
+        int rowsInserted = equipmentService.insertEquipment(equipment, loginUserPn);
+
         if (rowsInserted > 0) {
             return new ResponseEntity<>("Equipment inserted successfully", HttpStatus.CREATED);
 
         } else {
             return new ResponseEntity<>("Failed to insert equipment", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @Operation(summary = "장비 업데이트")
     @PostMapping("/updateEquipment")
-    public ResponseEntity<String> updateEquipment(@RequestBody Equipment equipment) {
-        int rowsUpdated = equipmentService.updateEquipment(equipment);
+    public ResponseEntity<String> updateEquipment(@RequestBody Equipment equipment, HttpSession session) {
+
+        User loginUser = (User)session.getAttribute("loginUser");
+
+        int loginUserPn = loginUser.getPn();
+
+        int rowsUpdated = equipmentService.updateEquipment(equipment, loginUserPn);
+
         if (rowsUpdated > 0) {
             return new ResponseEntity<>("Equipment updated successfully", HttpStatus.CREATED);
         } else {

@@ -2,50 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.UserMapper">
 
-    <select id="selectUsersByName" resultType="com.example.bno2.model.User">
-        SELECT
-            pn, email, name, dept, con, pos, state, userInsert, userUpdate
-        FROM
+    <select id="selectUsersByName" resultType="com.example.bno2.dao.User">
+        select
+            pn,
+            email,
+            name,
+            dept_code as deptCode,
+            con,
+            pos_code as posCode,
+            state_code as stateCode
+        from
             user
-        WHERE
-            #{name} IS NULL OR TRIM(name) LIKE CONCAT('%', TRIM(#{name}), '%')
-        ORDER BY
-            NAME
+        where
+            #{name} is null or trim(name) like concat('%',trim(#{name}),'%')
+        order by
+            name
     </select>
 
-    <select id="selectUsersByNameDept" parameterType="String" resultType="com.example.bno2.model.User">
-        SELECT
-            pn, email, name, dept, con, pos, state, userInsert, userUpdate
-        FROM
+    <select id="selectUsersByNameDept" resultType="com.example.bno2.dao.User">
+        select
+            pn,
+            email,
+            name,
+            dept_code as deptCode,
+            con,
+            pos_code as posCode,
+            state_code as stateCode
+        from
             user
-        WHERE
-            (#{name} IS NULL OR TRIM(name) LIKE CONCAT('%', TRIM(#{name}), '%'))
-          AND
-            DEPT = #{dept}
-        ORDER BY
-            NAME
+        where
+            #{name} is null or trim(name) like concat('%',trim(#{name}),'%')
+        and
+            dept_code = #{dept}
+        order by
+            name
     </select>
 
-    <insert id="insertUser" parameterType="com.example.bno2.model.User">
-        INSERT INTO
-            user(email, name, dept, con, pos, state)
-        VALUES
-            (#{email},#{name},#{dept},#{con},#{pos},#{state})
+    <insert id="insertUser" parameterType="map">
+        insert into
+            user(email,
+                 name,
+                 dept_code,
+                 con,
+                 pos_code,
+                 state_code,
+                 first_update_pn,
+                 last_update_pn)
+        values
+            (#{user.email},
+             #{user.name},
+             #{user.deptCode},
+             #{user.con},
+             #{user.posCode},
+             #{user.stateCode},
+             #{loginUserPn},
+             #{loginUserPn})
     </insert>
 
-    <update id="updateUser">
+    <update id="updateUser" parameterType="map">
         UPDATE
             user
         SET
-            email=#{email},
-            name=#{name},
-            dept=#{dept},
-            con=#{con},
-            pos=#{pos},
-            state=#{state},
-            userUpdate=current_timestamp
+            email = #{user.email},
+            name = #{user.name},
+            dept_code = #{user.deptCode},
+            con = #{user.con},
+            pos_code = #{user.posCode},
+            state_code = #{user.stateCode},
+            last_update_pn = #{loginUserPn},
+            last_update_dt = current_timestamp
         where
-            pn=#{pn}
+            pn=#{user.pn}
     </update>
 
 </mapper>

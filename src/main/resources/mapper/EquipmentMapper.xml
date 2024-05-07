@@ -2,71 +2,99 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.EquipmentMapper">
 
-    <select id="selectEquipments" resultType="com.example.bno2.model.Equipment" >
-        SELECT
-            uid, cls, sn, model, spec, war_start, war_end, manu_com, mac, state, year, equipInsert,equipUpdate
-        FROM
-            EQUIPMENT
-        WHERE
-            (#{model} IS NULL OR TRIM(model) LIKE CONCAT('%', TRIM(#{model}), '%'))
+    <select id="selectEquipments" resultType="com.example.bno2.dao.Equipment">
+        select
+            uid,
+            class as equipClass,
+            serial_number as serialNumber,
+            model_name as modelName,
+            spec_desc as specDesc,
+            warranty_start_dt as warrantyStartDt,
+            warranty_end_dt as warrantyEndDt,
+            manu_com as manuCom,
+            mac_address as macAddress,
+            equipment_state_code as stateCode,
+            purchase_year as purchaseYear
+        from
+            equipment
+        where
+            (#{model} is null or trim(model_name) like concat('%',trim(#{model}),'%'))
     </select>
 
-    <select id="selectEquipmentsByCls" parameterType="com.example.bno2.model.Equipment" resultType="com.example.bno2.model.Equipment" >
-        SELECT
-            uid, cls, sn, model, spec, war_start, war_end, manu_com, mac, state, year, equipInsert,equipUpdate
-        FROM
-            EQUIPMENT
-        WHERE
-            (#{model} IS NULL OR TRIM(model) LIKE CONCAT('%', TRIM(#{model}), '%'))
-          AND
-            CLS = #{cls}
+    <select id="selectEquipmentsByCls" resultType="com.example.bno2.dao.Equipment">
+        select
+            uid,
+            class as equipClass,
+            serial_number as serialNumber,
+            model_name as modelName,
+            spec_desc as specDesc,
+            warranty_start_dt as warrantyStartDt,
+            warranty_end_dt as warrantyEndDt,
+            manu_com as manuCom,
+            mac_address as macAddress,
+            equipment_state_code as stateCode,
+            purchase_year as purchaseYear
+        from
+            equipment
+        where
+            (#{model} is null or trim(model_name) like concat('%',trim(#{model}),'%'))
+        and
+            class = #{cls}
     </select>
 
-    <insert id="insertEquipment" parameterType="com.example.bno2.model.Equipment">
-        INSERT INTO
-            EQUIPMENT(CLS,
-                      SN,
-                      MODEL,
-                      SPEC,
-                      WAR_START,
-                      WAR_END,
-                      MANU_COM,
-                      MAC,
-                      STATE,
-                      YEAR)
-        VALUES
-            (#{cls},
-             #{sn},
-             #{model},
-             #{spec},
-             #{warStart},
-             #{warEnd},
-             #{manuCom},
-             #{mac},
-             #{state},
-             #{year})
+    <insert id="insertEquipment" parameterType="map">
+        insert into
+            equipment(class,
+                      serial_number,
+                      model_name,
+                      spec_desc,
+                      warranty_start_dt,
+                      warranty_end_dt,
+                      manu_com,
+                      mac_address,
+                      equipment_state_code,
+                      purchase_year,
+                      first_update_pn,
+                      last_update_pn)
+        values
+            (#{equipment.equipClass},
+             #{equipment.serialNumber},
+             #{equipment.modelName},
+             #{equipment.specDesc},
+             #{equipment.warrantyStartDt},
+             #{equipment.warrantyEndDt},
+             #{equipment.manuCom},
+             #{equipment.macAddress},
+             #{equipment.stateCode},
+             #{equipment.purchaseYear},
+             #{loginUserPn},
+             #{loginUserPn})
     </insert>
 
     <!-- 장비 업데이트 -->
-    <update id="updateEquipment">
-        UPDATE EQUIPMENT
-        SET CLS = #{cls},
-            SN = #{sn},
-            MODEL = #{model},
-            SPEC = #{spec},
-            WAR_START = #{warStart},
-            WAR_END = #{warEnd},
-            MANU_COM = #{manuCom},
-            MAC = #{mac},
-            STATE = #{state},
-            YEAR = #{year},
-            equipUpdate = CURRENT_TIMESTAMP
-        WHERE UID = #{uid}
+    <update id="updateEquipment" parameterType="map">
+        update
+            equipment
+        set class = #{equipment.equipClass},
+            serial_number = #{equipment.serialNumber},
+            model_name = #{equipment.modelName},
+            spec_desc = #{equipment.specDesc},
+            warranty_start_dt = #{equipment.warrantyStartDt},
+            warranty_end_dt = #{equipment.warrantyEndDt},
+            manu_com = #{equipment.manuCom},
+            mac_address = #{equipment.macAddress},
+            equipment_state_code = #{equipment.stateCode},
+            purchase_year = #{equipment.purchaseYear},
+            last_update_pn = #{loginUserPn},
+            last_update_dt = current_timestamp
+        where uid = #{equipment.uid}
     </update>
 
     <!-- 장비 삭제 -->
     <delete id="deleteEquipment">
-        DELETE FROM EQUIPMENT
-        WHERE UID = #{uid}
+        delete from
+                   equipment
+               where
+                   uid = #{uid}
     </delete>
 </mapper>
