@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.EquipmentMapper">
 
-    <select id="selectEquipments" resultType="com.example.bno2.dao.Equipment">
+    <select id="selectEquipments" resultType="com.example.bno2.dto.Equipment">
         select
             uid,
             class as equipClass,
@@ -21,7 +21,7 @@
             (#{model} is null or trim(model_name) like concat('%',trim(#{model}),'%'))
     </select>
 
-    <select id="selectEquipmentsByCls" resultType="com.example.bno2.dao.Equipment">
+    <select id="selectEquipmentsByCls" resultType="com.example.bno2.dto.Equipment">
         select
             uid,
             class as equipClass,
@@ -86,7 +86,7 @@
             equipment_state_code = #{equipment.stateCode},
             purchase_year = #{equipment.purchaseYear},
             last_update_pn = #{loginUserPn},
-            last_update_dt = current_timestamp
+            last_update_dt = (NOW() + INTERVAL 9 HOUR)
         where uid = #{equipment.uid}
     </update>
 

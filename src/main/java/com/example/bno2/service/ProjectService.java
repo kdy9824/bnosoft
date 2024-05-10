@@ -1,7 +1,7 @@
 package com.example.bno2.service;
 
 import com.example.bno2.mapper.ProjectMapper;
-import com.example.bno2.dao.Project;
+import com.example.bno2.dto.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

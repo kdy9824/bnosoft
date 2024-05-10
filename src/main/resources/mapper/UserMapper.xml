@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.UserMapper">
 
-    <select id="selectUsersByName" resultType="com.example.bno2.dao.User">
+    <select id="selectUsersByName" resultType="com.example.bno2.dto.User">
         select
             pn,
             email,
@@ -19,7 +19,7 @@
             name
     </select>
 
-    <select id="selectUsersByNameDept" resultType="com.example.bno2.dao.User">
+    <select id="selectUsersByNameDept" resultType="com.example.bno2.dto.User">
         select
             pn,
             email,
@@ -70,7 +70,7 @@
             pos_code = #{user.posCode},
             state_code = #{user.stateCode},
             last_update_pn = #{loginUserPn},
-            last_update_dt = current_timestamp
+            last_update_dt = (NOW() + INTERVAL 9 HOUR)
         where
             pn=#{user.pn}
     </update>

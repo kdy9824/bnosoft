@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.LoginMapper">
 
-    <select id="login" resultType="com.example.bno2.dao.User">
+    <select id="login" resultType="com.example.bno2.dto.User">
         select
             pn,
             email,
@@ -19,7 +19,7 @@
             pw = #{password}
     </select>
 
-    <select id="loginCount" resultType="Integer">
+    <select id="loginCount" resultType="int">
         select
             count(email)
         from
@@ -29,5 +29,23 @@
           and
             pw = #{password}
     </select>
+
+    <select id="getRecentLoginHistory" parameterType="int" resultType="java.sql.Timestamp">
+        select
+            login_dt
+        from
+            login_history
+        where
+            user_pn = #{userPn}
+        order by
+            login_dt desc
+        limit 1;
+    </select>
+
+    <insert id="addLoginHistory" parameterType="int">
+        insert into
+            login_history(user_pn, login_dt)
+        values(#{userPn}, NOW() + INTERVAL + 9 HOUR)
+    </insert>
 
 </mapper>

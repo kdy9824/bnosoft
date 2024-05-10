@@ -1,9 +1,12 @@
 package com.example.bno2.service;
 
-import com.example.bno2.dao.User;
+import com.example.bno2.dto.User;
 import com.example.bno2.mapper.LoginMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Blob;
+import java.sql.Timestamp;
 
 @Service
 public class LoginService {
@@ -17,6 +20,14 @@ public class LoginService {
 
     public int loginCount(String email, String password) {
         return loginMapper.loginCount(email, password);
+    }
+
+    public Timestamp getRecentLoginHistory(int userPn){
+        return loginMapper.getRecentLoginHistory(userPn);
+    }
+
+    public int addLoginHistory(int userPn){
+        return loginMapper.addLoginHistory(userPn);
     }
 
 }

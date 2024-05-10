@@ -1,6 +1,6 @@
 package com.example.bno2.controller;
 
-import com.example.bno2.dao.EUP;
+import com.example.bno2.dto.EUP;
 import com.example.bno2.service.EUPService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

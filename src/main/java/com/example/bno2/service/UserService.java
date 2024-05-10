@@ -1,7 +1,7 @@
 package com.example.bno2.service;
 
 import com.example.bno2.mapper.UserMapper;
-import com.example.bno2.dao.User;
+import com.example.bno2.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

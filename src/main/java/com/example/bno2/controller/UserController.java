@@ -1,6 +1,6 @@
 package com.example.bno2.controller;
 
-import com.example.bno2.dao.User;
+import com.example.bno2.dto.User;
 import com.example.bno2.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,19 +45,19 @@ public class UserController {
     private String replacePosText(String pos) {
         if ("S01".equals(pos)) {
             return "사장";
-        } else if ("J02".equals(pos)) {
+        } else if ("J01".equals(pos)) {
             return "전무";
-        } else if ("E03".equals(pos)) {
+        } else if ("E01".equals(pos)) {
             return "이사";
-        } else if ("B04".equals(pos)) {
+        } else if ("B01".equals(pos)) {
             return "부장";
-        } else if ("C05".equals(pos)) {
+        } else if ("C01".equals(pos)) {
             return "차장";
-        } else if ("K06".equals(pos)) {
+        } else if ("K01".equals(pos)) {
             return "과장";
-        } else if ("D07".equals(pos)) {
+        } else if ("D01".equals(pos)) {
             return "대리";
-        } else if ("S08".equals(pos)) {
+        } else if ("S02".equals(pos)) {
             return "사원";
         } else {
             return pos;

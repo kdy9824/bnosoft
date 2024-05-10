@@ -1,7 +1,7 @@
 package com.example.bno2.service;
 
 import com.example.bno2.mapper.EquipmentMapper;
-import com.example.bno2.dao.Equipment;
+import com.example.bno2.dto.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

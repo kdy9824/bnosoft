@@ -1,7 +1,7 @@
 package com.example.bno2.controller;
 
-import com.example.bno2.dao.Project;
-import com.example.bno2.dao.User;
+import com.example.bno2.dto.Project;
+import com.example.bno2.dto.User;
 import com.example.bno2.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

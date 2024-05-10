@@ -1,6 +1,6 @@
 package com.example.bno2.mapper;
 
-import com.example.bno2.dao.Equipment;
+import com.example.bno2.dto.Equipment;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

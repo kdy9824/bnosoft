@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.EUPMapper">
 
-    <select id="selectEquipmentUsers" resultType="com.example.bno2.dao.EUP">
+    <select id="selectEquipmentUsers" resultType="com.example.bno2.dto.EUP">
         select
             e.class as equipClass,
             p.project_name as projectName,
@@ -15,7 +15,7 @@
             e.warranty_start_dt as warrantyStartDt,
             e.warranty_end_dt as warrantyEndDt,
             e.mac_address as macAddress,
-            e.equipment_state_code as euipmentStateCode
+            e.equipment_state_code as equipmentStateCode
         from
             user as u
                 join
@@ -36,7 +36,7 @@
             (#{project} is null or trim(p.project_name) like concat('%',#{project},'%'))
     </select>
 
-    <select id="selectEquipmentUsersByCls" resultType="com.example.bno2.dao.EUP">
+    <select id="selectEquipmentUsersByCls" resultType="com.example.bno2.dto.EUP">
         select
             e.class as equipClass,
             p.project_name as projectName,

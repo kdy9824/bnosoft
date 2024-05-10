@@ -33,6 +33,10 @@ dependencies {
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
     testImplementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-api', version: '2.1.0'
+
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'com.google.zxing:javase:3.4.1'
+    implementation 'de.taimos:totp:1.0'
 }
 
 tasks.named('test') {

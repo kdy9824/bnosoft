@@ -1,7 +1,7 @@
 package com.example.bno2.service;
 
 import com.example.bno2.mapper.EUPMapper;
-import com.example.bno2.dao.EUP;
+import com.example.bno2.dto.EUP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

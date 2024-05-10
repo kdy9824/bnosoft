@@ -1,4 +1,4 @@
-package com.example.bno2.dao;
+package com.example.bno2.dto;
 
 import lombok.Data;
 

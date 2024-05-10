@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.bno2.mapper.ProjectMapper">
 
-    <select id="selectProjectsByName" resultType="com.example.bno2.dao.Project">
+    <select id="selectProjectsByName" resultType="com.example.bno2.dto.Project">
         select
             uid,
             project_name as projectName,
@@ -17,7 +17,7 @@
             project_name like concat('%',#{projectName},'%')
     </select>
 
-    <select id="selectProjectsByNameState" resultType="com.example.bno2.dao.Project">
+    <select id="selectProjectsByNameState" resultType="com.example.bno2.dto.Project">
         select
             uid,
             project_name as projectName,
@@ -66,7 +66,7 @@
             end_predict_dt = #{project.endPredictDt},
             project_state_code = #{project.stateCode},
             last_update_pn = #{loginUserPn},
-            last_update_dt = current_timestamp
+            last_update_dt = (NOW() + INTERVAL 9 HOUR)
         where
             uid = #{project.uid}
     </update>
