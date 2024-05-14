@@ -8,6 +8,7 @@ public class User {
     private int pn;
     private String email;
     private String name;
+    private String pw;
     private String deptCode;
     private String con;
     private String posCode;

@@ -32,6 +32,7 @@ public class OtpController {
 
     public ImageToBlob imageToBlob = new ImageToBlob();
     public OTPUtil otpUtil = new OTPUtil();
+
     @Autowired
     private LoginService loginService;
 
@@ -127,12 +128,12 @@ public class OtpController {
 
             if(otpService.otpIsRegistered(userPn) == 0){
                 otpService.updateOtpIsRegisterd(userPn);
-                return new ResponseEntity<>("OTP Register success, Login Success.", HttpStatus.OK);
+                return new ResponseEntity<>("OTP Register Success, Login Success.", HttpStatus.OK);
             }
 
-            return new ResponseEntity<>("OTPAuth success, Login Success.", HttpStatus.OK);
+            return new ResponseEntity<>("OTP Auth Success, Login Success.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("OTPAuth fail.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("OTP Auth fail.", HttpStatus.OK);
         }
 
     }

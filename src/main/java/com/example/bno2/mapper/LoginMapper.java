@@ -16,4 +16,6 @@ public interface LoginMapper {
 
     int addLoginHistory(int userPn);
 
+    int addLogoutHistory(int userPn);
+
 }

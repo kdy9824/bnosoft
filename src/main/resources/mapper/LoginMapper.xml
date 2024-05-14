@@ -16,7 +16,7 @@
         where
             email = #{email}
         and
-            pw = #{password}
+            pw = SHA1(#{password})
     </select>
 
     <select id="loginCount" resultType="int">
@@ -27,25 +27,33 @@
         where
             email = #{email}
           and
-            pw = #{password}
+            pw = SHA1(#{password})
     </select>
 
     <select id="getRecentLoginHistory" parameterType="int" resultType="java.sql.Timestamp">
         select
-            login_dt
+            login_out_dt
         from
-            login_history
+            login_out_history
         where
             user_pn = #{userPn}
+        and
+            login_out = 1
         order by
-            login_dt desc
+            login_out_dt desc
         limit 1;
     </select>
 
     <insert id="addLoginHistory" parameterType="int">
         insert into
-            login_history(user_pn, login_dt)
-        values(#{userPn}, NOW() + INTERVAL + 9 HOUR)
+            login_out_history(user_pn, login_out_dt, login_out)
+        values(#{userPn}, NOW() + INTERVAL + 9 HOUR, 1)
+    </insert>
+
+    <insert id="addLogoutHistory" parameterType="int">
+        insert into
+            login_out_history(user_pn, login_out_dt, login_out)
+        values(#{userPn}, NOW() + INTERVAL + 9 HOUR, 2)
     </insert>
 
 </mapper>

@@ -30,4 +30,8 @@ public class LoginService {
         return loginMapper.addLoginHistory(userPn);
     }
 
+    public int addLogoutHistory(int userPn){
+        return loginMapper.addLogoutHistory(userPn);
+    }
+
 }

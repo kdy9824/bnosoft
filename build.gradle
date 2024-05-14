@@ -37,6 +37,7 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.15'
     implementation 'com.google.zxing:javase:3.4.1'
     implementation 'de.taimos:totp:1.0'
+    implementation 'net.nurigo:sdk:4.3.0'
 }
 
 tasks.named('test') {
