@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bno2.mapper.ProjectUserMapper">
+
+    <select id="selectProjectUsers" resultType="com.example.bno2.dto.ProjectUser">
+        SELECT
+            p.uid AS project_uid,
+            p.project_name,
+            p.project_state_code AS stateCode,
+            u.pn AS user_pn,
+            u.name AS user_name,
+            p.project_detail,
+            pu.role,
+            pu.role_detail
+        FROM
+            project p
+                JOIN project_user pu ON p.uid = pu.project_uid
+                JOIN user u ON pu.user_pn = u.pn
+        WHERE
+            pu.user_pn!=1
+            and
+            (trim(u.name) like concat('%',#{user_name},'%')or #{user_name} is null)
+          and
+            (trim(project_name) like concat('%',#{project_name},'%') or #{project_name} is null)
+        order by project_name, project_detail
+
+    </select>
+
+    <select id="selectProjectUsersByNameState" resultType="com.example.bno2.dto.ProjectUser">
+        SELECT
+            p.uid AS project_uid,
+            p.project_name,
+            p.project_state_code AS stateCode,
+            u.pn AS user_pn,
+            u.name AS user_name,
+            p.project_detail,
+            pu.role,
+            pu.role_detail
+        FROM
+            project p
+                JOIN project_user pu ON p.uid = pu.project_uid
+                JOIN user u ON pu.user_pn = u.pn
+        WHERE
+            pu.user_pn!=1
+            and
+            (trim(u.name) like concat('%',#{user_name},'%')or #{user_name} is null)
+        and
+            (trim(project_name) like concat('%',#{project_name},'%') or #{project_name} is null)
+        and
+            project_state_code = #{stateCode}
+        order by project_name, project_detail
+    </select>
+
+    <update id="updateProjectUser">
+        update
+            project_user
+        set
+            user_pn=#{new_user_pn}
+        where
+            project_uid=#{project_uid} and user_pn=#{user_pn}
+    </update>
+
+
+    <select id="selectProjectUsersData" resultType="com.example.bno2.dto.ProjectUser">
+        SELECT project_uid, user_pn
+        FROM project_user
+    </select>
+
+    <!-- 프로젝트 사용자 삭제 -->
+    <update id="deleteProjectUser">
+        update
+            project_user
+        set user_pn=1
+        where
+            project_uid = #{project_uid} and user_pn= (SELECT pn FROM user WHERE name = #{user_name})
+    </update>
+</mapper>

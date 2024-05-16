@@ -13,5 +13,6 @@ public class User {
     private String con;
     private String posCode;
     private String stateCode;
+    private int user_count;
 
 }

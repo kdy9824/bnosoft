@@ -104,7 +104,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<String> insertUser(@RequestBody User user, HttpSession session) {
 
-        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
+//        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
 
         User loginUser = (User)session.getAttribute("loginUser");
 
@@ -124,7 +124,7 @@ public class UserController {
     @PostMapping("/updateUser")
     public ResponseEntity<String> updateUser(@RequestBody User user, HttpSession session) {
 
-        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
+//        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
 
         User loginUser = (User)session.getAttribute("loginUser");
 

@@ -15,12 +15,12 @@ public class ProjectService {
     @Autowired
     private ProjectMapper projectMapper;
 
-    public List<Project> selectProjectsByName(String pjtName) {
-        return projectMapper.selectProjectsByName(pjtName);
+    public List<Project> selectProjectsByName(String projectName) {
+        return projectMapper.selectProjectsByName(projectName);
     }
 
-    public List<Project> selectProjectsByNameState(String pjtName, String pjtState) {
-        return projectMapper.selectProjectsByNameState(pjtName, pjtState);
+    public List<Project> selectProjectsByNameState(String projectName, String stateCode) {
+        return projectMapper.selectProjectsByNameState(projectName, stateCode);
     }
 
     public int insertProject(Project project, int loginUserPn) {

@@ -11,12 +11,14 @@ public interface EquipmentMapper {
 
     List<Equipment> selectEquipments(String model);
 
-    List<Equipment> selectEquipmentsByCls(String model, String cls);
+    List<Equipment> selectEquipmentsByCls(String model, String equipClass);
 
     int insertEquipment(Map<String, Object> params);
+    int insertEquipment(Equipment equipment);
 
     int updateEquipment(Map<String, Object> params);
+    int updateEquipment(Equipment equipment);
 
-    int deleteEquipment(String uid);
+    int deleteEquipment(String equip_uid);
 
 }

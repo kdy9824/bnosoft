@@ -19,8 +19,8 @@ public class EquipmentService {
         return equipmentMapper.selectEquipments(model);
     }
 
-    public List<Equipment> selectEquipmentsByCls(String model, String cls) {
-        return equipmentMapper.selectEquipmentsByCls(model,cls);
+    public List<Equipment> selectEquipmentsByCls(String model, String equipClass) {
+        return equipmentMapper.selectEquipmentsByCls(model,equipClass);
     }
 
     public int insertEquipment(Equipment equipment, int loginUserPn) {
@@ -32,6 +32,9 @@ public class EquipmentService {
         return equipmentMapper.insertEquipment(params);
 
     }
+    public int insertEquipment(Equipment equipment) {
+        return equipmentMapper.insertEquipment(equipment);
+    }
 
     public int updateEquipment(Equipment equipment, int loginUserPn) {
 
@@ -41,9 +44,12 @@ public class EquipmentService {
 
         return equipmentMapper.updateEquipment(params);
     }
+    public int updateEquipment(Equipment equipment) {
+        return equipmentMapper.updateEquipment(equipment);
+    }
 
-    public int deleteEquipment(String UID) {
-        return equipmentMapper.deleteEquipment(UID);
+    public int deleteEquipment(String equip_uid) {
+        return equipmentMapper.deleteEquipment(equip_uid);
     }
 
 }

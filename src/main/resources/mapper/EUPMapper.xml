@@ -3,73 +3,75 @@
 <mapper namespace="com.example.bno2.mapper.EUPMapper">
 
     <select id="selectEquipmentUsers" resultType="com.example.bno2.dto.EUP">
-        select
-            e.class as equipClass,
-            p.project_name as projectName,
-            u.name as userName,
-            e.model_name as modelName,
-            e.serial_number as serialNumber,
-            e.spec_desc as specDesc,
-            e.purchase_year as purchaseYear,
-            e.manu_com as manuCom,
-            e.warranty_start_dt as warrantyStartDt,
-            e.warranty_end_dt as warrantyEndDt,
-            e.mac_address as macAddress,
-            e.equipment_state_code as equipmentStateCode
-        from
-            user as u
-                join
-                    equipment_user as eu on eu.user_pn = u.pn
-                join
-                    equipment as e on e.uid = eu.equip_uid
-                join
-                    project_user as pu on pu.user_pn = u.pn
-                join
-                    project as p on p.uid = pu.project_uid
-        where
-            u.pn != 1
-        and
-            u.state_code != 'OUT'
-        and
-            (#{name} is null or trim(u.name) like concat('%',#{name},'%'))
-        and
-            (#{project} is null or trim(p.project_name) like concat('%',#{project},'%'))
+        SELECT
+            E.class AS equipClass,
+            P.project_name AS projectName,
+            U.name AS userName,
+            E.model_name AS modelName,
+            E.serial_number AS serialNumber,
+            E.spec_desc AS specDesc,
+            E.purchase_year AS purchaseYear,
+            E.manu_com AS manuCom,
+            E.warranty_start_dt AS warrantyStartDt,
+            E.warranty_end_dt AS warrantyEndDt,
+            E.mac_address AS macAddress,
+            E.equipment_state_code AS equipmentStateCode,
+            EU.equip_uid,
+            EU.user_pn
+        FROM
+            user AS U
+                JOIN equipment_user AS EU ON EU.user_pn = U.pn
+                JOIN equipment AS E ON E.uid = EU.equip_uid
+                LEFT JOIN project_user AS PU ON PU.user_pn = U.pn
+                LEFT JOIN project AS P ON P.uid = PU.project_uid
+        WHERE E.model_name != '삭제됨'
+            AND U.pn != 1
+            AND U.state_code != 'OUT'
+            AND (TRIM(U.name) LIKE CONCAT('%', #{userName}, '%') OR #{userName} IS NULL)
+          AND (TRIM(P.project_name) LIKE CONCAT('%', #{projectName}, '%') OR #{projectName} IS NULL)
     </select>
 
     <select id="selectEquipmentUsersByCls" resultType="com.example.bno2.dto.EUP">
-        select
-            e.class as equipClass,
-            p.project_name as projectName,
-            u.name as userName,
-            e.model_name as modelName,
-            e.serial_number as serialNumber,
-            e.spec_desc as specDesc,
-            e.purchase_year as purchaseYear,
-            e.manu_com as manuCom,
-            e.warranty_start_dt as warrantyStartDt,
-            e.warranty_end_dt as warrantyEndDt,
-            e.mac_address as macAddress,
-            e.equipment_state_code as euipmentStateCode
-        from
-            user as u
-                join
-            equipment_user as eu on eu.user_pn = u.pn
-                join
-            equipment as e on e.uid = eu.equip_uid
-                join
-            project_user as pu on pu.user_pn = u.pn
-                join
-            project as p on p.uid = pu.project_uid
-        where
-            u.pn != 1
-        and
-            u.state_code != 'OUT'
-        and
-            (#{name} is null or trim(u.name) like concat('%',#{name},'%'))
-        and
-            (#{project} is null or trim(p.project_name) like concat('%',#{project},'%'))
-        and
-            e.class = #{cls}
+        SELECT
+            E.class AS equipClass,
+            P.project_name AS projectName,
+            U.name AS userName,
+            E.model_name AS modelName,
+            E.serial_number AS serialNumber,
+            E.spec_desc AS specDesc,
+            E.purchase_year AS purchaseYear,
+            E.manu_com AS manuCom,
+            E.warranty_start_dt AS warrantyStartDt,
+            E.warranty_end_dt AS warrantyEndDt,
+            E.mac_address AS macAddress,
+            E.equipment_state_code AS equipmentStateCode,
+            EU.equip_uid,
+            EU.user_pn
+        FROM
+            equipment_user AS EU
+                JOIN user AS U ON EU.user_pn = U.pn
+                JOIN equipment AS E ON E.uid = EU.equip_uid
+                LEFT JOIN project_user AS PU ON PU.user_pn = U.pn
+                LEFT JOIN project AS P ON P.uid = PU.project_uid
+        WHERE E.model_name != '삭제됨'
+            AND U.pn != 1
+            AND U.state_code != 'OUT'
+            AND (TRIM(U.name) LIKE CONCAT('%', #{userName}, '%') OR #{userName} IS NULL)
+            AND (TRIM(P.project_name) LIKE CONCAT('%', #{projectName}, '%') OR #{projectName} IS NULL)
+            AND E.class = #{equipClass}
     </select>
+
+    <update id="updateEquipmentUser">
+        UPDATE equipment_user
+        SET user_pn = #{user_pn}
+        WHERE equip_uid = #{equip_uid}
+    </update>
+
+
+    <select id="selectEquipmentUsersData" resultType="com.example.bno2.dto.EUP">
+        SELECT equip_uid, user_pn
+        FROM equipment_user
+    </select>
+
 
 </mapper>

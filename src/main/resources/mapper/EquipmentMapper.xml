@@ -3,47 +3,58 @@
 <mapper namespace="com.example.bno2.mapper.EquipmentMapper">
 
     <select id="selectEquipments" resultType="com.example.bno2.dto.Equipment">
-        select
-            uid,
-            class as equipClass,
-            serial_number as serialNumber,
-            model_name as modelName,
-            spec_desc as specDesc,
-            warranty_start_dt as warrantyStartDt,
-            warranty_end_dt as warrantyEndDt,
-            manu_com as manuCom,
-            mac_address as macAddress,
-            equipment_state_code as stateCode,
-            purchase_year as purchaseYear
-        from
-            equipment
-        where
-            (#{model} is null or trim(model_name) like concat('%',trim(#{model}),'%'))
+        SELECT
+            E.uid AS equip_uid,
+            E.class AS equipClass,
+            E.serial_number AS serialNumber,
+            E.model_name AS modelName,
+            E.spec_desc AS specDesc,
+            E.warranty_start_dt AS warrantyStartDt,
+            E.warranty_end_dt AS warrantyEndDt,
+            E.manu_com AS manuCom,
+            E.mac_address AS macAddress,
+            E.equipment_state_code AS stateCode,
+            E.purchase_year AS purchaseYear,
+            EU.user_pn,
+            U.name AS userName,
+            U.email
+        FROM
+            equipment AS E
+                JOIN equipment_user AS EU ON E.uid = EU.equip_uid
+                JOIN user AS U ON EU.user_pn = U.PN
+        WHERE
+            E.model_name != '삭제됨'
+        AND (TRIM(model_name) LIKE CONCAT('%', #{model}, '%') OR #{model} IS NULL)
     </select>
 
     <select id="selectEquipmentsByCls" resultType="com.example.bno2.dto.Equipment">
-        select
-            uid,
-            class as equipClass,
-            serial_number as serialNumber,
-            model_name as modelName,
-            spec_desc as specDesc,
-            warranty_start_dt as warrantyStartDt,
-            warranty_end_dt as warrantyEndDt,
-            manu_com as manuCom,
-            mac_address as macAddress,
-            equipment_state_code as stateCode,
-            purchase_year as purchaseYear
-        from
-            equipment
-        where
-            (#{model} is null or trim(model_name) like concat('%',trim(#{model}),'%'))
-        and
-            class = #{cls}
+        SELECT
+            E.uid AS equip_uid,
+            E.class AS equipClass,
+            E.serial_number AS serialNumber,
+            E.model_name AS modelName,
+            E.spec_desc AS specDesc,
+            E.warranty_start_dt AS warrantyStartDt,
+            E.warranty_end_dt AS warrantyEndDt,
+            E.manu_com AS manuCom,
+            E.mac_address AS macAddress,
+            E.equipment_state_code AS stateCode,
+            E.purchase_year AS purchaseYear,
+            EU.user_pn,
+            U.name AS userName,
+            U.email
+        FROM
+            equipment AS E
+                JOIN equipment_user AS EU ON E.uid = EU.equip_uid
+                JOIN user AS U ON EU.user_pn = U.PN
+        WHERE
+            E.model_name != '삭제됨'
+        AND (TRIM(model_name) LIKE CONCAT('%', #{model}, '%') OR #{model} IS NULL)
+        AND class = #{equipClass}
     </select>
 
     <insert id="insertEquipment" parameterType="map">
-        insert into
+        INSERT INTO
             equipment(class,
                       serial_number,
                       model_name,
@@ -56,7 +67,7 @@
                       purchase_year,
                       first_update_pn,
                       last_update_pn)
-        values
+        VALUES
             (#{equipment.equipClass},
              #{equipment.serialNumber},
              #{equipment.modelName},
@@ -73,9 +84,9 @@
 
     <!-- 장비 업데이트 -->
     <update id="updateEquipment" parameterType="map">
-        update
+        UPDATE
             equipment
-        set class = #{equipment.equipClass},
+        SET class = #{equipment.equipClass},
             serial_number = #{equipment.serialNumber},
             model_name = #{equipment.modelName},
             spec_desc = #{equipment.specDesc},
@@ -87,14 +98,21 @@
             purchase_year = #{equipment.purchaseYear},
             last_update_pn = #{loginUserPn},
             last_update_dt = (NOW() + INTERVAL 9 HOUR)
-        where uid = #{equipment.uid}
+        WHERE uid = #{equipment.equip_uid}
     </update>
 
     <!-- 장비 삭제 -->
-    <delete id="deleteEquipment">
-        delete from
-                   equipment
-               where
-                   uid = #{uid}
+    <delete id="realdeleteEquipment">
+        DELETE FROM
+            equipment
+        WHERE uid = #{equip_uid}
     </delete>
+
+    <!-- 장비 삭제 -->
+    <update id="deleteEquipment">
+        UPDATE
+            equipment
+        SET model_name='삭제됨'
+        WHERE uid = #{equip_uid}
+    </update>
 </mapper>
