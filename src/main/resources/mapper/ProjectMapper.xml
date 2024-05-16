@@ -4,17 +4,20 @@
 
     <select id="selectProjectsByName" resultType="com.example.bno2.dto.Project">
         select
-            uid,
+            uid as project_uid,
             project_name as projectName,
             start_dt as startDt,
             end_dt as endDt,
             start_predict_dt as startPredictDt,
             end_predict_dt as endPredictDt,
-            project_state_code as stateCode
+            project_state_code as stateCode,
+            project_detail
         from
             project
         where
-            project_name like concat('%',#{projectName},'%')
+            uid !=1
+        and
+            (trim(project_name) like concat('%',#{projectName},'%') or #{projectName} is null )
     </select>
 
     <select id="selectProjectsByNameState" resultType="com.example.bno2.dto.Project">
@@ -25,11 +28,14 @@
             end_dt as endDt,
             start_predict_dt as startPredictDt,
             end_predict_dt as endPredictDt,
-            project_state_code as stateCode
+            project_state_code as stateCode,
+            project_detail
         from
             project
         where
-            project_name like concat('%',#{projectName},'%')
+            uid !=1
+        and
+            (trim(project_name) like concat('%',#{projectName},'%') or #{projectName} is null )
         and
             project_state_code = #{stateCode}
     </select>
@@ -42,6 +48,7 @@
                     start_predict_dt,
                     end_predict_dt,
                     project_state_code,
+                    project_detail,
                     first_update_pn,
                     last_update_pn)
         values
@@ -51,6 +58,7 @@
              #{project.startPredictDt},
              #{project.endPredictDt},
              #{project.stateCode},
+             #{project.project_detail},
              #{loginUserPn},
              #{loginUserPn})
     </insert>
@@ -65,6 +73,7 @@
             start_predict_dt = #{project.startPredictDt},
             end_predict_dt = #{project.endPredictDt},
             project_state_code = #{project.stateCode},
+            project_detail = #{project.project_detail},
             last_update_pn = #{loginUserPn},
             last_update_dt = (NOW() + INTERVAL 9 HOUR)
         where

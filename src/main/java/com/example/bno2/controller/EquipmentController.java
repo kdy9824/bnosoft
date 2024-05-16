@@ -55,13 +55,13 @@ public class EquipmentController {
     @Operation(summary = "장비 목록 검색 조회")
     @GetMapping("/selectEquipmentsByCls")
     @ResponseBody
-    public List<Equipment> selectEquipmentsByCls(@RequestParam String cls, @RequestParam(required = false) String model) {
+    public List<Equipment> selectEquipmentsByCls(@RequestParam(name="model" ,required = false) String model,@RequestParam(name="equipClass") String equipClass) {
         List<Equipment> equipmentList;
 
-        if(cls.equals("ALL")){
+        if(equipClass.equals("ALL")){
             equipmentList = equipmentService.selectEquipments(model);
         } else {
-            equipmentList = equipmentService.selectEquipmentsByCls(model, cls);
+            equipmentList = equipmentService.selectEquipmentsByCls(model, equipClass);
         }
         // 코드화된 데이터를 텍스트로 대체
         for (Equipment equipment : equipmentList) {
@@ -73,6 +73,8 @@ public class EquipmentController {
 
     @Operation(summary = "장비 추가")
     @PostMapping("/insertEquipment")
+    //밑에 한줄 삭제할 것
+    //public ResponseEntity<String> insertEquipment(@RequestBody Equipment equipment) throws Exception {
     public ResponseEntity<String> insertEquipment(@RequestBody Equipment equipment, HttpSession session) {
 
         User loginUser = (User)session.getAttribute("loginUser");
@@ -81,6 +83,11 @@ public class EquipmentController {
 
         int rowsInserted = equipmentService.insertEquipment(equipment, loginUserPn);
 
+        if(!equipment.getEquip_uid().isEmpty()) {
+            return new ResponseEntity<>("이미 존재하는 장비 입니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        //이것도 밑에 한 줄 삭제할 것
+//        int rowsInserted = equipmentService.insertEquipment(equipment);
         if (rowsInserted > 0) {
             return new ResponseEntity<>("Equipment inserted successfully", HttpStatus.CREATED);
 
@@ -92,6 +99,7 @@ public class EquipmentController {
 
     @Operation(summary = "장비 업데이트")
     @PostMapping("/updateEquipment")
+//    public ResponseEntity<String> updateEquipment(@RequestBody Equipment equipment) {
     public ResponseEntity<String> updateEquipment(@RequestBody Equipment equipment, HttpSession session) {
 
         User loginUser = (User)session.getAttribute("loginUser");
@@ -99,7 +107,7 @@ public class EquipmentController {
         int loginUserPn = loginUser.getPn();
 
         int rowsUpdated = equipmentService.updateEquipment(equipment, loginUserPn);
-
+//        int rowsUpdated = equipmentService.updateEquipment(equipment);
         if (rowsUpdated > 0) {
             return new ResponseEntity<>("Equipment updated successfully", HttpStatus.CREATED);
         } else {
@@ -109,8 +117,8 @@ public class EquipmentController {
 
     @Operation(summary = "장비 삭제")
     @PostMapping("/deleteEquipment")
-    public ResponseEntity<String> deleteEquipment(@RequestParam("UID") String UID) {
-        int rowsDeleted = equipmentService.deleteEquipment(UID);
+    public ResponseEntity<String> deleteEquipment(@RequestParam("uid") String equip_uid) {
+        int rowsDeleted = equipmentService.deleteEquipment(equip_uid);
         if (rowsDeleted > 0) {
             return new ResponseEntity<>("Equipment deleted successfully", HttpStatus.CREATED);
         } else {

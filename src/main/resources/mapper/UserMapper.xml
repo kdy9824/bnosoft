@@ -14,7 +14,8 @@
         from
             user
         where
-            #{name} is null or trim(name) like concat('%',trim(#{name}),'%')
+            pn != 1 and
+            (trim(name) like concat('%',trim(#{name}),'%') or #{name} is null)
         order by
             name
     </select>
@@ -31,9 +32,10 @@
         from
             user
         where
-            #{name} is null or trim(name) like concat('%',trim(#{name}),'%')
-        and
-            dept_code = #{dept}
+            pn != 1 and
+            (trim(name) like concat('%',trim(#{name}),'%') or #{name} is null)
+          and
+            dept_code = #{deptCode}
         order by
             name
     </select>
@@ -74,5 +76,6 @@
         where
             pn=#{user.pn}
     </update>
+
 
 </mapper>

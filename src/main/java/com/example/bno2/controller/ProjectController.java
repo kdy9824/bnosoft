@@ -24,14 +24,14 @@ public class ProjectController {
     @Operation(summary = "프로젝트 출력")
     @GetMapping("/selectProject")
     @ResponseBody
-    public List<Project> selectProjects(@RequestParam String pjtState, @RequestParam(required = false) String pjtName) {
+    public List<Project> selectProjects( @RequestParam(name="projectName" ,required = false) String projectName,@RequestParam(name="stateCode") String stateCode) {
 
         List<Project> projectList;
 
-        if(pjtState.equals("ALL")){
-            projectList = projectService.selectProjectsByName(pjtName);
+        if(stateCode.equals("ALL")){
+            projectList = projectService.selectProjectsByName(projectName);
         } else {
-            projectList = projectService.selectProjectsByNameState(pjtName, pjtState);
+            projectList = projectService.selectProjectsByNameState(projectName, stateCode);
         }
 
         // 코드화된 데이터를 텍스트로 대체

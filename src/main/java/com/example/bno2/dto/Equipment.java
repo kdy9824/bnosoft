@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Equipment {
 
-    private String uid;
+    private String equip_uid;
     private String equipClass;
     private String serialNumber;
     private String modelName;
@@ -16,5 +16,8 @@ public class Equipment {
     private String macAddress;
     private String stateCode;
     private int purchaseYear;
+    private int user_pn;
+    private String userName;
+    private String email;
 
 }

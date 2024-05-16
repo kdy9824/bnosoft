@@ -19,8 +19,8 @@ public class UserService {
         return userMapper.selectUsersByName(name);
     }
 
-    public List<User> selectUsersByNameDept(String name, String dept) {
-        return userMapper.selectUsersByNameDept(name, dept);
+    public List<User> selectUsersByNameDept(String name, String deptCode) {
+        return userMapper.selectUsersByNameDept(name, deptCode);
     }
 
     public int addUser(User user, int loginUserPn) {
@@ -42,5 +42,6 @@ public class UserService {
         return userMapper.updateUser(params);
 
     }
+
 
 }

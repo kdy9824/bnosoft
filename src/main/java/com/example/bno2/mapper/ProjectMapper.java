@@ -9,9 +9,9 @@ import java.util.Map;
 @Mapper
 public interface ProjectMapper {
 
-    List<Project> selectProjectsByName(String pjtName);
+    List<Project> selectProjectsByName(String projectName);
 
-    List<Project> selectProjectsByNameState(String pjtName, String pjtState);
+    List<Project> selectProjectsByNameState(String projectName, String stateCode);
 
     int insertProject(Map<String, Object> params);
 

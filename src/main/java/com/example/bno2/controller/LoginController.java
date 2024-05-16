@@ -30,9 +30,17 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<String> login(HttpSession session, @RequestParam String email, @RequestParam String password) {
 
+        email = email.concat("@bnosoft.co.kr");
+
         User loginUser = loginService.login(email, password);
         int loginCount = loginService.loginCount(email, password);
 
+        if(loginCount == 1){
+            session.setAttribute("loginUser", loginUser);
+//            session.setAttribute("loginUserPn", loginUser.getPn());
+            return new ResponseEntity<>("Login success", HttpStatus.CREATED);
+        } else  {
+            return new ResponseEntity<>("Login failed", HttpStatus.INTERNAL_SERVER_ERROR);
         session.setAttribute("loginUser", loginUser);
 
         if(loginCount == 1){
@@ -74,6 +82,7 @@ public class LoginController {
         User loginUser = (User)session.getAttribute("loginUser");
 
         if(loginUser != null){
+            return new ResponseEntity<>("LoginUser is not null, and loginUser.getPn() = " + loginUser.getPn(), HttpStatus.CREATED);
             return new ResponseEntity<>("LoginUser is not null, and loginUser.getPn() = " + loginUser.getPn() + ".", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("LoginUser is null.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -95,8 +104,10 @@ public class LoginController {
         if((session.getAttribute("loginSuccess").equals("1"))){
             return new ResponseEntity<>("LoginSuccess isn't 1.", HttpStatus.OK);
         } else {
+//            return new ResponseEntity<>("LoginUser is null", HttpStatus.INTERNAL_SERVER_ERROR);
             return new ResponseEntity<>("LoginSuccess is 1.", HttpStatus.OK);
         }
+
     }
 
     @Operation(summary = "로그아웃")
@@ -111,7 +122,7 @@ public class LoginController {
             session.invalidate();
         }
 
-        return new ResponseEntity<>("Logout success.", HttpStatus.OK);
+        return new ResponseEntity<>("Logout success", HttpStatus.OK);
 
     }
 
