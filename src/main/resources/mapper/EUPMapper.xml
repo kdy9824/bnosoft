@@ -28,10 +28,37 @@
             AND U.pn != 1
             AND U.state_code != 'OUT'
             AND (TRIM(U.name) LIKE CONCAT('%', #{userName}, '%') OR #{userName} IS NULL)
+          AND (TRIM(P.project_name) LIKE CONCAT('%', #{projectName}, '%') OR #{projectName} IS NULL)
+    </select>
+
+    <select id="selectEquipmentUsersByCls" resultType="com.example.bno2.dto.EUP">
+        SELECT
+            E.class AS equipClass,
+            P.project_name AS projectName,
+            U.name AS userName,
+            E.model_name AS modelName,
+            E.serial_number AS serialNumber,
+            E.spec_desc AS specDesc,
+            E.purchase_year AS purchaseYear,
+            E.manu_com AS manuCom,
+            E.warranty_start_dt AS warrantyStartDt,
+            E.warranty_end_dt AS warrantyEndDt,
+            E.mac_address AS macAddress,
+            E.equipment_state_code AS equipmentStateCode,
+            EU.equip_uid,
+            EU.user_pn
+        FROM
+            equipment_user AS EU
+                JOIN user AS U ON EU.user_pn = U.pn
+                JOIN equipment AS E ON E.uid = EU.equip_uid
+                LEFT JOIN project_user AS PU ON PU.user_pn = U.pn
+                LEFT JOIN project AS P ON P.uid = PU.project_uid
+        WHERE E.model_name != '삭제됨'
+            AND U.pn != 1
+            AND U.state_code != 'OUT'
+            AND (TRIM(U.name) LIKE CONCAT('%', #{userName}, '%') OR #{userName} IS NULL)
             AND (TRIM(P.project_name) LIKE CONCAT('%', #{projectName}, '%') OR #{projectName} IS NULL)
-        <if test="equipClass != null">
             AND E.class = #{equipClass}
-        </if>
     </select>
 
     <update id="updateEquipmentUser">

@@ -84,32 +84,12 @@ public class UserController {
 
         List<User> userList;
 
-
-        if("ALL".equals(dept)){
-            dept =null;
-        }
-        userList = userService.selectUsersByName(name, dept);
-        // 코드화된 데이터를 텍스트로 대체
-        for (User user : userList) {
-            replaceCodeToText(user);
+        if(dept.equals("ALL")){
+            userList = userService.selectUsersByName(name);
+        } else {
+            userList = userService.selectUsersByNameDept(name, dept);
         }
 
-        return userList;
-
-    }
-
-    @Operation(summary="이름으로 사용자 조회")
-    @GetMapping("/selectUsersPnEmail")
-    @ResponseBody
-    public List<User> selectUsersPnEmail(@RequestParam(required = false) String name, @RequestParam String dept) {
-
-        List<User> userList;
-
-
-        if("ALL".equals(dept)){
-            dept =null;
-        }
-        userList = userService.selectUsersByName(name, dept);
         // 코드화된 데이터를 텍스트로 대체
         for (User user : userList) {
             replaceCodeToText(user);
@@ -124,7 +104,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<String> insertUser(@RequestBody User user, HttpSession session) {
 
-//        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
+        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
 
         User loginUser = (User)session.getAttribute("loginUser");
 
@@ -144,7 +124,7 @@ public class UserController {
     @PostMapping("/updateUser")
     public ResponseEntity<String> updateUser(@RequestBody User user, HttpSession session) {
 
-//        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
+        user.setEmail(user.getEmail().concat("@bnosoft.co.kr"));
 
         User loginUser = (User)session.getAttribute("loginUser");
 

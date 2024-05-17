@@ -17,7 +17,5 @@ public class EUP {
     private String warrantyEndDt;
     private String macAddress;
     private String equipmentStateCode;
-    private String equip_uid;
-    private int user_pn;
 
 }
