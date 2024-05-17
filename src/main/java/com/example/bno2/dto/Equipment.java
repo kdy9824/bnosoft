@@ -16,5 +16,9 @@ public class Equipment {
     private String macAddress;
     private String stateCode;
     private int purchaseYear;
+    private int user_pn;
+    private String userName;
+    private String APPLY_YN;
+    private String email;
 
 }

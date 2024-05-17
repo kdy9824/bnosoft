@@ -28,11 +28,11 @@ public class ProjectController {
 
         List<Project> projectList;
 
-        if(stateCode.equals("ALL")){
-            projectList = projectService.selectProjectsByName(projectName);
-        } else {
-            projectList = projectService.selectProjectsByNameState(projectName, stateCode);
+        if("ALL".equals(stateCode)){
+            stateCode =null;
         }
+        projectList = projectService.selectProjectsByName(projectName, stateCode);
+
 
         // 코드화된 데이터를 텍스트로 대체
         for (Project project : projectList) {

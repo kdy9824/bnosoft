@@ -52,17 +52,24 @@ public class EquipmentController {
         equipment.setStateCode(replaceStateText(equipment.getStateCode()));
     }
 
-    @Operation(summary = "장비 목록 검색 조회")
+    @Operation(summary = "장비 목록 검색 조회라고")
     @GetMapping("/selectEquipmentsByCls")
     @ResponseBody
     public List<Equipment> selectEquipmentsByCls(@RequestParam(name="model" ,required = false) String model,@RequestParam(name="equipClass") String equipClass) {
         List<Equipment> equipmentList;
 
-        if(equipClass.equals("ALL")){
-            equipmentList = equipmentService.selectEquipments(model);
-        } else {
-            equipmentList = equipmentService.selectEquipmentsByCls(model, equipClass);
+//        if(equipClass.equals("ALL")){
+//            equipmentList = equipmentService.selectEquipments(model);
+//        } else {
+//            equipmentList = equipmentService.selectEquipmentsByCls(model, equipClass);
+//        }
+        // equipClass가 "ALL"이면 null로 설정
+
+        if("ALL".equals(equipClass)){
+            equipClass =null;
         }
+
+        equipmentList = equipmentService.selectEquipments(model, equipClass);
         // 코드화된 데이터를 텍스트로 대체
         for (Equipment equipment : equipmentList) {
             replaceCodeToText(equipment);
