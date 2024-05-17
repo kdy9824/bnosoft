@@ -15,12 +15,12 @@ public class ProjectUserService {
     @Autowired
     private ProjectUserMapper projectuserMapper;
 
-    public List<ProjectUser> selectProjectUsers(String project_name, String user_name) {
-        return projectuserMapper.selectProjectUsers(project_name,user_name);
-    }
+//    public List<ProjectUser> selectProjectUsers(String project_name, String user_name) {
+//        return projectuserMapper.selectProjectUsers(project_name,user_name);
+//    }
 
-    public List<ProjectUser> selectProjectUsersByNameState(String project_name,String user_name, String stateCode) {
-        return projectuserMapper.selectProjectUsersByNameState(project_name,user_name,stateCode);
+    public List<ProjectUser> selectProjectUsers(String project_name,String user_name, String stateCode) {
+        return projectuserMapper.selectProjectUsers(project_name,user_name,stateCode);
     }
     // 장비사용자 수정 및 추가
     public int updateProjectUser(String project_uid, int user_pn, int new_user_pn) {

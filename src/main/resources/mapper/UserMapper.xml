@@ -3,45 +3,27 @@
 <mapper namespace="com.example.bno2.mapper.UserMapper">
 
     <select id="selectUsersByName" resultType="com.example.bno2.dto.User">
-        select
-            pn,
-            email,
-            name,
-            dept_code as deptCode,
-            con,
-            pos_code as posCode,
-            state_code as stateCode
-        from
-            user
-        where
-            pn != 1 and
-            (trim(name) like concat('%',trim(#{name}),'%') or #{name} is null)
-        order by
-            name
-    </select>
-
-    <select id="selectUsersByNameDept" resultType="com.example.bno2.dto.User">
-        select
-            pn,
-            email,
-            name,
-            dept_code as deptCode,
-            con,
-            pos_code as posCode,
-            state_code as stateCode
-        from
-            user
-        where
-            pn != 1 and
-            (trim(name) like concat('%',trim(#{name}),'%') or #{name} is null)
-          and
-            dept_code = #{deptCode}
-        order by
-            name
+        SELECT
+        pn,
+        email,
+        name,
+        dept_code AS deptCode,
+        con,
+        pos_code AS posCode,
+        state_code AS stateCode
+        FROM
+        user
+        WHERE
+        pn != 1
+        AND (TRIM(name) LIKE CONCAT('%',TRIM(#{name}),'%') OR #{name} IS NULL)
+        <if test="deptCode != null">
+            AND dept_code = #{deptCode}
+        </if>
+        ORDER BY name
     </select>
 
     <insert id="insertUser" parameterType="map">
-        insert into
+        INSERT INTO
             user(email,
                  name,
                  dept_code,
@@ -50,7 +32,7 @@
                  state_code,
                  first_update_pn,
                  last_update_pn)
-        values
+        VALUES
             (#{user.email},
              #{user.name},
              #{user.deptCode},
@@ -73,8 +55,8 @@
             state_code = #{user.stateCode},
             last_update_pn = #{loginUserPn},
             last_update_dt = (NOW() + INTERVAL 9 HOUR)
-        where
-            pn=#{user.pn}
+        WHERE
+            pn = #{user.pn}
     </update>
 
 

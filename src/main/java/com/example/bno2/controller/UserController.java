@@ -84,12 +84,32 @@ public class UserController {
 
         List<User> userList;
 
-        if(dept.equals("ALL")){
-            userList = userService.selectUsersByName(name);
-        } else {
-            userList = userService.selectUsersByNameDept(name, dept);
+
+        if("ALL".equals(dept)){
+            dept =null;
+        }
+        userList = userService.selectUsersByName(name, dept);
+        // 코드화된 데이터를 텍스트로 대체
+        for (User user : userList) {
+            replaceCodeToText(user);
         }
 
+        return userList;
+
+    }
+
+    @Operation(summary="이름으로 사용자 조회")
+    @GetMapping("/selectUsersPnEmail")
+    @ResponseBody
+    public List<User> selectUsersPnEmail(@RequestParam(required = false) String name, @RequestParam String dept) {
+
+        List<User> userList;
+
+
+        if("ALL".equals(dept)){
+            dept =null;
+        }
+        userList = userService.selectUsersByName(name, dept);
         // 코드화된 데이터를 텍스트로 대체
         for (User user : userList) {
             replaceCodeToText(user);

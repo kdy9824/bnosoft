@@ -3,57 +3,62 @@
 <mapper namespace="com.example.bno2.mapper.LoginMapper">
 
     <select id="login" resultType="com.example.bno2.dto.User">
-        select
+        SELECT
             pn,
             email,
             name,
-            dept_code as deptCode,
+            dept_code AS deptCode,
             con,
-            pos_code as posCode,
-            state_code as stateCode
-        from
-            user
-        where
-            email = #{email}
-        and
-            pw = SHA1(#{password})
+            pos_code AS posCode,
+            state_code AS stateCode
+        FROM user
+        WHERE email = #{email}
+            AND pw = SHA1(#{password})
     </select>
 
     <select id="loginCount" resultType="int">
-        select
-            count(email)
-        from
-            user
-        where
-            email = #{email}
-          and
-            pw = SHA1(#{password})
+        SELECT COUNT(email)
+        FROM user
+        WHERE email = #{email}
+            AND pw = SHA1(#{password})
     </select>
 
     <select id="getRecentLoginHistory" parameterType="int" resultType="java.sql.Timestamp">
-        select
-            login_out_dt
-        from
-            login_out_history
-        where
-            user_pn = #{userPn}
-        and
-            login_out = 1
-        order by
-            login_out_dt desc
-        limit 1;
+        SELECT login_out_dt
+        FROM login_out_history
+        WHERE user_pn = #{userPn}
+            AND login_out = 1
+        ORDER BY
+            login_out_dt DESC
+            LIMIT 1;
     </select>
 
     <insert id="addLoginHistory" parameterType="int">
-        insert into
-            login_out_history(user_pn, login_out_dt, login_out)
-        values(#{userPn}, NOW() + INTERVAL + 9 HOUR, 1)
+        INSERT INTO
+            login_out_history(
+                user_pn,
+                login_out_dt,
+                login_out
+        )
+        VALUES(
+               #{userPn},
+               NOW() + INTERVAL + 9 HOUR,
+               1
+              )
     </insert>
 
     <insert id="addLogoutHistory" parameterType="int">
-        insert into
-            login_out_history(user_pn, login_out_dt, login_out)
-        values(#{userPn}, NOW() + INTERVAL + 9 HOUR, 2)
+        INSERT INTO
+            login_out_history(
+                user_pn,
+                login_out_dt,
+                login_out
+            )
+        VALUES(
+               #{userPn},
+               NOW() + INTERVAL + 9 HOUR,
+               2
+              )
     </insert>
 
 </mapper>

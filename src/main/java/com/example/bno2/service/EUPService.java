@@ -13,14 +13,14 @@ public class EUPService {
     @Autowired
     private EUPMapper eupMapper;
     // 장비 사용자 전체 조회
-    public List<EUP> selectEquipmentUsers(String userName, String projectName) {
-        return eupMapper.selectEquipmentUsers(userName, projectName);
+    public List<EUP> selectEquipmentUsers(String userName, String projectName, String equipClass) {
+        return eupMapper.selectEquipmentUsers(userName, projectName, equipClass);
     }
 
-    // 장비 사용자 cls별 조회
-    public List<EUP> selectEquipmentUsersByCls(String userName, String projectName, String equipClass) {
-        return eupMapper.selectEquipmentUsersByCls(userName, projectName, equipClass);
-    }
+//    // 장비 사용자 cls별 조회
+//    public List<EUP> selectEquipmentUsersByCls(String userName, String projectName, String equipClass) {
+//        return eupMapper.selectEquipmentUsersByCls(userName, projectName, equipClass);
+//    }
 
     // 장비사용자 수정 및 추가
     public int updateEquipmentUser(String uid, int user_pn) {
