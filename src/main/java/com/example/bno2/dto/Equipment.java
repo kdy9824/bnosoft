@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Equipment {
 
-    private String uid;
+    private String equip_uid;
     private String equipClass;
     private String serialNumber;
     private String modelName;
