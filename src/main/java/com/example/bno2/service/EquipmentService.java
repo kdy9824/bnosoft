@@ -15,12 +15,8 @@ public class EquipmentService {
     @Autowired
     private EquipmentMapper equipmentMapper;
 
-    public List<Equipment> selectEquipments(String model) {
-        return equipmentMapper.selectEquipments(model);
-    }
-
-    public List<Equipment> selectEquipmentsByCls(String model, String equipClass) {
-        return equipmentMapper.selectEquipmentsByCls(model,equipClass);
+    public List<Equipment> selectEquipments(String model, String equipClass) {
+        return equipmentMapper.selectEquipments(model,equipClass);
     }
 
     public int insertEquipment(Equipment equipment, int loginUserPn) {
@@ -32,9 +28,7 @@ public class EquipmentService {
         return equipmentMapper.insertEquipment(params);
 
     }
-    public int insertEquipment(Equipment equipment) {
-        return equipmentMapper.insertEquipment(equipment);
-    }
+
 
     public int updateEquipment(Equipment equipment, int loginUserPn) {
 
@@ -43,9 +37,6 @@ public class EquipmentService {
         params.put("loginUserPn", loginUserPn);
 
         return equipmentMapper.updateEquipment(params);
-    }
-    public int updateEquipment(Equipment equipment) {
-        return equipmentMapper.updateEquipment(equipment);
     }
 
     public int deleteEquipment(String equip_uid) {
