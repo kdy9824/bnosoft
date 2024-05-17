@@ -75,7 +75,7 @@
             project_state_code = #{project.stateCode},
             project_detail = #{project.project_detail},
             last_update_pn = #{loginUserPn},
-            last_update_dt = (NOW() + INTERVAL 9 HOUR)
+            last_update_dt = NOW()
         where
             uid = #{project.uid}
     </update>

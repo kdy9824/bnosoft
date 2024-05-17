@@ -10,8 +10,6 @@ public interface LoginMapper {
 
     User login(String email, String password);
 
-    int loginCount(String email, String password);
-
     Timestamp getRecentLoginHistory(int userPn);
 
     int addLoginHistory(int userPn);

@@ -97,7 +97,7 @@
             equipment_state_code = #{equipment.stateCode},
             purchase_year = #{equipment.purchaseYear},
             last_update_pn = #{loginUserPn},
-            last_update_dt = (NOW() + INTERVAL 9 HOUR)
+            last_update_dt = NOW()
         WHERE uid = #{equipment.equip_uid}
     </update>
 

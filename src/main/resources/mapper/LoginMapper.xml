@@ -19,17 +19,6 @@
             pw = SHA1(#{password})
     </select>
 
-    <select id="loginCount" resultType="int">
-        select
-            count(email)
-        from
-            user
-        where
-            email = #{email}
-          and
-            pw = SHA1(#{password})
-    </select>
-
     <select id="getRecentLoginHistory" parameterType="int" resultType="java.sql.Timestamp">
         select
             login_out_dt
@@ -47,13 +36,13 @@
     <insert id="addLoginHistory" parameterType="int">
         insert into
             login_out_history(user_pn, login_out_dt, login_out)
-        values(#{userPn}, NOW() + INTERVAL + 9 HOUR, 1)
+        values(#{userPn}, NOW(), 1)
     </insert>
 
     <insert id="addLogoutHistory" parameterType="int">
         insert into
             login_out_history(user_pn, login_out_dt, login_out)
-        values(#{userPn}, NOW() + INTERVAL + 9 HOUR, 2)
+        values(#{userPn}, NOW(), 2)
     </insert>
 
 </mapper>

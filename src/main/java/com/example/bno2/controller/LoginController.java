@@ -31,11 +31,10 @@ public class LoginController {
     public ResponseEntity<String> login(HttpSession session, @RequestParam String email, @RequestParam String password) {
 
         User loginUser = loginService.login(email, password);
-        int loginCount = loginService.loginCount(email, password);
 
         session.setAttribute("loginUser", loginUser);
 
-        if(loginCount == 1){
+        if(loginUser != null){
             int userPn = loginUser.getPn();
             Timestamp recentLoginDatetime = new Timestamp(loginService.getRecentLoginHistory(userPn).getTime() - 9L*60*60*1000);
 
@@ -52,51 +51,18 @@ public class LoginController {
             if(otpService.otpIsRegistered(userPn) == 1){
                 if(thirtyDaysLaterInMillis > currentTimeMillis){
                     loginService.addLoginHistory(userPn);
-                    return new ResponseEntity<>("Login Success.", HttpStatus.OK);
+                    return new ResponseEntity<>("로그인하였습니다.", HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<>("Required OTP Auth.", HttpStatus.OK);
+                    return new ResponseEntity<>("OTP 인증이 필요합니다.", HttpStatus.OK);
                 }
             } else {
-                return new ResponseEntity<>("Required OTP Register.", HttpStatus.OK);
+                return new ResponseEntity<>("OTP 등록이 필요합니다.", HttpStatus.OK);
             }
 
         } else {
-            return new ResponseEntity<>("(Email, password) doesn't exist in user.", HttpStatus.OK);
+            return new ResponseEntity<>("입력한 이메일과 패스워드를 다시 확인해주세요.", HttpStatus.OK);
         }
 
-    }
-
-    @Operation(summary = "로그인 유저 확인")
-    @GetMapping("/checkLoginUser")
-    @ResponseBody
-    public ResponseEntity<String> login(HttpSession session){
-
-        User loginUser = (User)session.getAttribute("loginUser");
-
-        if(loginUser != null){
-            return new ResponseEntity<>("LoginUser is not null, and loginUser.getPn() = " + loginUser.getPn() + ".", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("LoginUser is null.", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    // 로그인 성공했을 때만 호출되는 API로 loginSuccess라는 속성에 1을 저장
-    @Operation(summary = "로그인 성공")
-    @GetMapping("/loginSuccess")
-    public ResponseEntity<String> loginSuccess(HttpSession session, @RequestParam String loginSuccess) {
-        session.setAttribute("loginSuccess", loginSuccess);
-        return new ResponseEntity<>("Login Success.", HttpStatus.OK);
-    }
-
-    @Operation(summary = "로그인 성공 검사")
-    @GetMapping("/loginSuccessCheck")
-    public ResponseEntity<String> loginCheck(HttpSession session) {
-        if((session.getAttribute("loginSuccess").equals("1"))){
-            return new ResponseEntity<>("LoginSuccess isn't 1.", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("LoginSuccess is 1.", HttpStatus.OK);
-        }
     }
 
     @Operation(summary = "로그아웃")
@@ -111,7 +77,7 @@ public class LoginController {
             session.invalidate();
         }
 
-        return new ResponseEntity<>("Logout success.", HttpStatus.OK);
+        return new ResponseEntity<>("로그아웃합니다.", HttpStatus.OK);
 
     }
 

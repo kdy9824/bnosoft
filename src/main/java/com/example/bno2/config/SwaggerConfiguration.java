@@ -17,5 +17,4 @@ public class SwaggerConfiguration {
         return new OpenAPI().info(BNO_BACKEND_API_INFO);
     }
 
-
 }

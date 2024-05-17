@@ -18,10 +18,6 @@ public class LoginService {
         return loginMapper.login(email, password);
     }
 
-    public int loginCount(String email, String password) {
-        return loginMapper.loginCount(email, password);
-    }
-
     public Timestamp getRecentLoginHistory(int userPn){
         return loginMapper.getRecentLoginHistory(userPn);
     }

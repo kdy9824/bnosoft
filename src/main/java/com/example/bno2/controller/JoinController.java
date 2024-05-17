@@ -4,6 +4,7 @@ import com.example.bno2.dto.User;
 import com.example.bno2.service.JoinService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,14 @@ public class JoinController {
     @Operation(summary = "회원가입")
     @PostMapping("/memberJoin")
     @ResponseBody
-    public ResponseEntity<String> memberJoin(@RequestBody User user) {
+    public ResponseEntity<String> memberJoin(HttpSession session, @RequestBody User user) {
 
-        if(joinService.addUser(user) > 0)
-            return new ResponseEntity<>("Welcome to bnosoft.", HttpStatus.CREATED);
+        if(joinService.addUser(user) > 0){
+            session.removeAttribute("createdAuthCode");
+            return new ResponseEntity<>("BNOSOFT에 가입하신 것을 환영합니다.", HttpStatus.CREATED);
+        }
         else
-            return new ResponseEntity<>("Failde to add user.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("회원가입에 실패하였습니다.", HttpStatus.OK);
 
     }
 
@@ -35,9 +38,9 @@ public class JoinController {
     public ResponseEntity<String> checkEmailDuplicate(@RequestParam String inputEmail){
 
         if(joinService.checkEmailDuplicate(inputEmail) == 0){
-            return new ResponseEntity<>("Email is unique.", HttpStatus.OK);
+            return new ResponseEntity<>("사용 가능한 이메일입니다.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Email already exist.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("중복된 이메일은 사용할 수 없습니다.", HttpStatus.OK);
         }
 
     }

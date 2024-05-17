@@ -72,7 +72,7 @@
             pos_code = #{user.posCode},
             state_code = #{user.stateCode},
             last_update_pn = #{loginUserPn},
-            last_update_dt = (NOW() + INTERVAL 9 HOUR)
+            last_update_dt = NOW()
         where
             pn=#{user.pn}
     </update>
