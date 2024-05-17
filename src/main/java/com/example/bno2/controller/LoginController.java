@@ -37,6 +37,7 @@ public class LoginController {
 
         if(loginCount == 1){
             int userPn = loginUser.getPn();
+            // 서버 시간이랑 9시간 차이가 있기 때문에 -9시간을 해줘야한다
             Timestamp recentLoginDatetime = new Timestamp(loginService.getRecentLoginHistory(userPn).getTime() - 9L*60*60*1000);
 
             // recentLoginDatetime의 시간을 밀리초로 가져오기
@@ -47,20 +48,25 @@ public class LoginController {
 
             // 30일에 해당하는 밀리초를 구해서 recentLoginTimeMillis에 더하기
             long thirtyDaysInMillis = 30L * 24 * 60 * 60 * 1000;
+            // 현재 날짜 + 30일에 해당하는 밀리초
             long thirtyDaysLaterInMillis = recentLoginTimeMillis + thirtyDaysInMillis;
 
             if(otpService.otpIsRegistered(userPn) == 1){
                 if(thirtyDaysLaterInMillis > currentTimeMillis){
                     loginService.addLoginHistory(userPn);
+                    // 30일 이내 로그인 이력 있음
                     return new ResponseEntity<>("Login Success.", HttpStatus.OK);
                 } else {
+                    // 30일 이내 로그인 이력 없음
                     return new ResponseEntity<>("Required OTP Auth.", HttpStatus.OK);
                 }
             } else {
+                // OTP 등록을 하라 
                 return new ResponseEntity<>("Required OTP Register.", HttpStatus.OK);
             }
 
         } else {
+            // 이메일, 비번 일치하지 않을때
             return new ResponseEntity<>("(Email, password) doesn't exist in user.", HttpStatus.OK);
         }
 
