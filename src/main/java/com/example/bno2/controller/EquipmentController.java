@@ -58,18 +58,11 @@ public class EquipmentController {
     public List<Equipment> selectEquipmentsByCls(@RequestParam(name="model" ,required = false) String model,@RequestParam(name="equipClass") String equipClass) {
         List<Equipment> equipmentList;
 
-//        if(equipClass.equals("ALL")){
-//            equipmentList = equipmentService.selectEquipments(model);
-//        } else {
-//            equipmentList = equipmentService.selectEquipmentsByCls(model, equipClass);
-//        }
-        // equipClass가 "ALL"이면 null로 설정
-
-        if("ALL".equals(equipClass)){
-            equipClass =null;
+        if(equipClass.equals("ALL")){
+            equipmentList = equipmentService.selectEquipments(model);
+        } else {
+            equipmentList = equipmentService.selectEquipmentsByCls(model, equipClass);
         }
-
-        equipmentList = equipmentService.selectEquipments(model, equipClass);
         // 코드화된 데이터를 텍스트로 대체
         for (Equipment equipment : equipmentList) {
             replaceCodeToText(equipment);

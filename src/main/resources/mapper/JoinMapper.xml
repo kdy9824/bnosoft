@@ -3,29 +3,19 @@
 <mapper namespace="com.example.bno2.mapper.JoinMapper">
 
     <select id="checkEmailDuplicate" parameterType="String" resultType="int">
-        SELECT COUNT(email)
-        FROM user
-        WHERE email = #{inputEmail}
+        select
+            count(email)
+        from
+            user
+        where
+            email = #{inputEmail}
     </select>
 
     <insert id="addUser" parameterType="com.example.bno2.dto.User">
-        INSERT INTO
-            user(
-                 email,
-                 pw,
-                 name,
-                 dept_code,
-                 con,
-                 pos_code
-            )
-        VALUES (
-                #{email},
-                SHA1(#{pw}),
-                #{name},
-                #{deptCode},
-                #{con},
-                #{posCode}
-               )
+        insert into
+            user(email,pw,name,dept_code,con,pos_code)
+        values
+            (#{email},SHA1(#{pw}),#{name},#{deptCode},#{con},#{posCode})
     </insert>
 
 </mapper>

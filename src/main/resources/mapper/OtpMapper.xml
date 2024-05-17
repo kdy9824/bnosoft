@@ -3,61 +3,61 @@
 <mapper namespace="com.example.bno2.mapper.OtpMapper">
 
     <select id="checkSecretKey" parameterType="int" resultType="int">
-        SELECT
-            COUNT(user_pn)
-        FROM
+        select
+            count(user_pn)
+        from
             otp_secret_key
-        WHERE
+        where
             user_pn = #{userPn}
     </select>
 
     <insert id="addSecretKey">
-        INSERT INTO
+        insert into
             otp_secret_key
-        VALUES
+        values
             (#{userPn}, #{secretKey});
     </insert>
 
     <select id="getSecretKey" parameterType="int" resultType="String">
-        SELECT
+        select
             secret_key
-        FROM
+        from
             otp_secret_key
-        WHERE
+        where
             user_pn = #{userPn}
     </select>
 
     <select id="checkQrBlob" parameterType="int">
-        SELECT
-            COUNT(qr_blob)
-        FROM
+        select
+            count(qr_blob)
+        from
             otp_regist
-        WHERE
+        where
             user_pn = #{userPn}
     </select>
 
     <insert id="addQrBlob">
-        INSERT INTO
+        insert into
             otp_regist(user_pn, qr_blob)
-        VALUES
+        values
             (#{userPn}, #{qrBlob})
     </insert>
 
     <select id="otpIsRegistered" parameterType="int" resultType="int">
-        SELECT
+        select
             otp_is_registered
-        FROM
+        from
             otp_regist
-        WHERE
+        where
             user_pn = #{userPn}
     </select>
 
     <update id="updateOtpIsRegistered" parameterType="int">
-        UPDATE
+        update
             otp_regist
-        SET
+        set
             otp_is_registered = 1
-        WHERE
+        where
             user_pn = #{userPn}
     </update>
 

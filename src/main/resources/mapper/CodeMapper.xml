@@ -3,62 +3,62 @@
 <mapper namespace="com.example.bno2.mapper.CodeMapper">
 
     <select id="getUserDeptCode" resultType="com.example.bno2.dto.Code">
-        SELECT
-            detail_class_code AS detailClassCode,
-            detail_desc AS detailDesc
-        FROM
+        select
+            detail_class_code as detailClassCode,
+            detail_desc as detailDesc
+        from
             detail_code
-        WHERE
+        where
             group_class_code = 'USER_DEPT_CODE';
     </select>
 
     <select id="getUserPosCode" resultType="com.example.bno2.dto.Code">
-        SELECT
-            detail_class_code AS detailClassCode,
-            detail_desc AS detailDesc
-        FROM
+        select
+            detail_class_code as detailClassCode,
+            detail_desc as detailDesc
+        from
             detail_code
-        WHERE
+        where
             group_class_code = 'USER_POS_CODE';
     </select>
 
     <select id="getUserStateCode" resultType="com.example.bno2.dto.Code">
-        SELECT
-            detail_class_code AS detailClassCode,
-            detail_desc AS detailDesc
-        FROM
+        select
+            detail_class_code as detailClassCode,
+            detail_desc as detailDesc
+        from
             detail_code
-        WHERE
+        where
             group_class_code = 'USER_STATE_CODE';
     </select>
 
     <select id="getEquipmentClassCode" resultType="com.example.bno2.dto.Code">
-        SELECT
-            detail_class_code AS detailClassCode,
-            detail_desc AS detailDesc
-        FROM
+        select
+            detail_class_code as detailClassCode,
+            detail_desc as detailDesc
+        from
             detail_code
-        WHERE
+        where
             group_class_code = 'EQUIPMENT_CLASS_CODE';
     </select>
 
     <select id="getEquipmentStateCode" resultType="com.example.bno2.dto.Code">
-        SELECT
-            detail_class_code AS detailClassCode,
-            detail_desc AS detailDesc
-        FROM
+        select
+            detail_class_code as detailClassCode,
+            detail_desc as detailDesc
+        from
             detail_code
-        WHERE
+        where
             group_class_code = 'EQUIPMENT_STATE_CODE';
     </select>
 
     <select id="getProjectStateCode" resultType="com.example.bno2.dto.Code">
-        SELECT
-            detail_class_code AS detailClassCode,
-            detail_desc AS detailDesc
-        FROM
+        select
+            detail_class_code as detailClassCode,
+            detail_desc as detailDesc
+        from
             detail_code
-        WHERE
+        where
             group_class_code = 'PROJECT_STATE_CODE';
     </select>
 
