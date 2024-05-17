@@ -8,9 +8,7 @@ import java.util.List;
 @Mapper
 public interface ProjectUserMapper {
 
-    List<ProjectUser> selectProjectUsers(String project_name, String user_name) ;
-
-    List<ProjectUser> selectProjectUsersByNameState(String project_name,String user_name, String stateCode);
+    List<ProjectUser> selectProjectUsers(String project_name,String user_name, String stateCode);
 
     int updateProjectUser(String project_uid, int user_pn, int new_user_pn);
 
