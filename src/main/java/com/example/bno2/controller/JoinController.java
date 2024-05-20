@@ -18,30 +18,21 @@ public class JoinController {
     @Autowired
     private JoinService joinService;
 
-    @Operation(summary = "회원가입")
-    @PostMapping("/memberJoin")
-    @ResponseBody
-    public ResponseEntity<String> memberJoin(HttpSession session, @RequestBody User user) {
-
-        if(joinService.addUser(user) > 0){
-            session.removeAttribute("createdAuthCode");
-            return new ResponseEntity<>("BNOSOFT에 가입하신 것을 환영합니다.", HttpStatus.CREATED);
-        }
-        else
-            return new ResponseEntity<>("회원가입에 실패하였습니다.", HttpStatus.OK);
-
-    }
-
     @Operation(summary = "이메일 중복 검사")
     @GetMapping("/checkEmailDuplicate")
     @ResponseBody
     public ResponseEntity<String> checkEmailDuplicate(@RequestParam String inputEmail){
 
-        if(joinService.checkEmailDuplicate(inputEmail) == 0){
-            return new ResponseEntity<>("사용 가능한 이메일입니다.", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("중복된 이메일은 사용할 수 없습니다.", HttpStatus.OK);
-        }
+        return new ResponseEntity<>(joinService.checkEmailDuplicate(inputEmail), HttpStatus.OK);
+
+    }
+
+    @Operation(summary = "회원가입")
+    @PostMapping("/memberJoin")
+    @ResponseBody
+    public ResponseEntity<String> memberJoin(HttpSession session, @RequestBody User user) {
+
+        return new ResponseEntity<>(joinService.addUser(session,user),HttpStatus.OK);
 
     }
 
