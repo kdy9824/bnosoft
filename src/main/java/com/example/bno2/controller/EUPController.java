@@ -57,13 +57,17 @@ public class EUPController {
 
         List<EUP> equipmentUserList;
 
-        if(equipClass.equals("ALL")){
-            equipmentUserList = eupService.selectEquipmentUsers(userName,projectName);
-        } else {
-            equipmentUserList = eupService.selectEquipmentUsersByCls(userName, projectName,equipClass);
+        if("ALL".equals(equipClass)){
+            equipClass =null;
         }
-        // 쿼리 하나로 합칙시 (다이나믹 쿼리 if문 써서)
+//        if(equipClass.equals("ALL")){
+//            equipmentUserList = eupService.selectEquipmentUsers(userName,projectName);
+//        } else {
+//            equipmentUserList = eupService.selectEquipmentUsersByCls(userName, projectName,equipClass);
+//        }
 
+        // 쿼리 하나로 합칙시 (다이나믹 쿼리 if문 써서)
+        equipmentUserList = eupService.selectEquipmentUsers(userName, projectName,equipClass);
         // 코드화된 데이터를 텍스트로 대체
         for (EUP equipmentUser : equipmentUserList) {
             replaceCodeToText(equipmentUser);

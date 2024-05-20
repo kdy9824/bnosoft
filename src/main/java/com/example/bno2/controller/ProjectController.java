@@ -6,6 +6,7 @@ import com.example.bno2.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,11 @@ public class ProjectController {
 
         List<Project> projectList;
 
-        if(stateCode.equals("ALL")){
-            projectList = projectService.selectProjectsByName(projectName);
-        } else {
-            projectList = projectService.selectProjectsByNameState(projectName, stateCode);
+        if("ALL".equals(stateCode)){
+            stateCode =null;
         }
+        projectList = projectService.selectProjectsByName(projectName, stateCode);
+
 
         // 코드화된 데이터를 텍스트로 대체
         for (Project project : projectList) {
@@ -73,7 +74,7 @@ public class ProjectController {
 
     @Operation(summary = "프로젝트 수정")
     @PostMapping("/updateProject")
-    public ResponseEntity<String> updateProject(@RequestBody Project project, HttpSession session) {
+    public ResponseEntity<String> updateProject(@RequestBody Project project, @NotNull HttpSession session) {
 
         User loginUser = (User)session.getAttribute("loginUser");
 
@@ -82,7 +83,7 @@ public class ProjectController {
         int rowsUpdated = projectService.updateProject(project, loginUserPn);
 
         if (rowsUpdated > 0) {
-            return new ResponseEntity<>("Project updated successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("프로젝트 성공", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Failed to update project", HttpStatus.INTERNAL_SERVER_ERROR);
         }
