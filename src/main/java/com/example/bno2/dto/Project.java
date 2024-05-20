@@ -12,6 +12,7 @@ public class Project {
     private String startPredictDt;
     private String endPredictDt;
     private String stateCode;
+    private String APPLY_YN;
     private String project_detail;
 
 }

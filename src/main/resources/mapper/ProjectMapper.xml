@@ -42,7 +42,8 @@
 
     <insert id="insertProject" parameterType="map">
         insert into
-            project(project_name,
+            project(
+                    project_name,
                     start_dt,
                     end_dt,
                     start_predict_dt,
@@ -53,8 +54,8 @@
                     last_update_pn)
         values
             (#{project.projectName},
-             #{project.startPredictDt},
-             #{project.endPredictDt},
+             #{project.startDt},
+             #{project.endDt},
              #{project.startPredictDt},
              #{project.endPredictDt},
              #{project.stateCode},

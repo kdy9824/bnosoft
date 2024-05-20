@@ -18,6 +18,7 @@ public class Equipment {
     private int purchaseYear;
     private int user_pn;
     private String userName;
+    private String APPLY_YN;
     private String email;
 
 }
