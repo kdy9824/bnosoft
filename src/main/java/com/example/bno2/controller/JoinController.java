@@ -23,7 +23,7 @@ public class JoinController {
     @ResponseBody
     public ResponseEntity<String> checkEmailDuplicate(@RequestParam String inputEmail){
 
-        return new ResponseEntity<>(joinService.checkEmailDuplicate(inputEmail), HttpStatus.OK);
+        return joinService.checkEmailDuplicate(inputEmail);
 
     }
 
@@ -32,7 +32,7 @@ public class JoinController {
     @ResponseBody
     public ResponseEntity<String> memberJoin(HttpSession session, @RequestBody User user) {
 
-        return new ResponseEntity<>(joinService.addUser(session,user),HttpStatus.OK);
+        return joinService.addUser(session,user);
 
     }
 

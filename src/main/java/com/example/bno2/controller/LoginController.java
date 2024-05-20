@@ -25,7 +25,7 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<String> login(HttpSession session, @RequestParam String email, @RequestParam String password) {
 
-        return new ResponseEntity<>(loginService.login(session,email,password),HttpStatus.OK);
+        return loginService.login(session,email,password);
 
     }
 
@@ -34,7 +34,7 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<String> logout(HttpSession session){
 
-        return new ResponseEntity<>(loginService.logout(session), HttpStatus.OK);
+        return loginService.logout(session);
 
     }
 

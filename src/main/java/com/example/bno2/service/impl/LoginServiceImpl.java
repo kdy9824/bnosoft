@@ -6,6 +6,8 @@ import com.example.bno2.mapper.OtpMapper;
 import com.example.bno2.service.LoginService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -20,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
     OtpMapper otpMapper;
 
     @Override
-    public String login(HttpSession session, String email, String password) {
+    public ResponseEntity<String> login(HttpSession session, String email, String password) {
 
         User loginUser = loginMapper.login(email, password);
 
@@ -43,22 +45,19 @@ public class LoginServiceImpl implements LoginService {
             if(otpMapper.otpIsRegistered(userPn) == 1){
                 if(thirtyDaysLaterInMillis > currentTimeMillis){
                     loginMapper.addLoginHistory(userPn);
-                    return "로그인하였습니다.";
-                } else {
-                    return "OTP 인증이 필요합니다.";
-                }
-            } else {
-                return "OTP 등록이 필요합니다.";
-            }
+                    return new ResponseEntity<>("로그인하였습니다.", HttpStatus.OK);
+                } else
+                    return new ResponseEntity<>("OTP 인증이 필요합니다.", HttpStatus.OK);
+            } else
+                return new ResponseEntity<>("OTP 등록이 필요합니다.", HttpStatus.OK);
 
-        } else {
-            return "입력한 이메일과 패스워드를 다시 확인해주세요.";
-        }
+        } else
+            return new ResponseEntity<>("입력한 이메일과 패스워드를 다시 확인해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
     @Override
-    public String logout(HttpSession session) {
+    public ResponseEntity<String> logout(HttpSession session) {
 
         User loginUser = (User)session.getAttribute("loginUser");
 
@@ -67,7 +66,7 @@ public class LoginServiceImpl implements LoginService {
             session.invalidate();
         }
 
-        return "로그아웃합니다.";
+        return new ResponseEntity<>("로그아웃합니다.", HttpStatus.OK);
 
     }
 

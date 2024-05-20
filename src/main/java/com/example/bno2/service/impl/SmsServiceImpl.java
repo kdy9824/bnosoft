@@ -7,6 +7,8 @@ import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -37,25 +39,26 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public String sendAuthCodeWithoutCoolSms(HttpSession session, String phoneNumber) {
+    public ResponseEntity<String> sendAuthCodeWithoutCoolSms(HttpSession session) {
 
         Random rand = new Random();
         String createdAuthCode = Integer.toString(100000 + rand.nextInt(900000));
         session.setAttribute("createdAuthCode", createdAuthCode);
 
-        return createdAuthCode;
+        return new ResponseEntity<>(createdAuthCode, HttpStatus.OK);
 
     }
 
     @Override
-    public String verifyAuthCode(HttpSession session, String inputAuthCode) {
+    public ResponseEntity<String> verifyAuthCode(HttpSession session, String inputAuthCode) {
 
         String createdAuthCode = (String) session.getAttribute("createdAuthCode");
 
         if (createdAuthCode != null && createdAuthCode.equals(inputAuthCode))
-            return "본인 인증이 완료되었습니다.";
+            return new ResponseEntity<>("본인 인증이 완료되었습니다.", HttpStatus.OK);
         else
-            return "인증번호가 일치하지 않습니다.";
+            return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
+
 }

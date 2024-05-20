@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import net.nurigo.sdk.NurigoApp;
@@ -35,9 +34,9 @@ public class SmsController {
 
     @Operation(summary = "CoolSMS 안쓰고 인증번호 발송")
     @PostMapping("/sendAuthCodeWithoutCoolSms")
-    public ResponseEntity<String> sendAuthCodeWithoutCoolSms(HttpSession session, @RequestParam String phoneNumber) {
+    public ResponseEntity<String> sendAuthCodeWithoutCoolSms(HttpSession session) {
 
-        return new ResponseEntity<>(smsService.sendAuthCodeWithoutCoolSms(session,phoneNumber), HttpStatus.OK);
+        return smsService.sendAuthCodeWithoutCoolSms(session);
 
     }
 
@@ -45,7 +44,7 @@ public class SmsController {
     @PostMapping("/verifyAuthCode")
     public ResponseEntity<String> verifyAuthCode(HttpSession session, @RequestParam String inputAuthCode) {
 
-        return new ResponseEntity<>(smsService.verifyAuthCode(session, inputAuthCode),HttpStatus.OK);
+        return smsService.verifyAuthCode(session,inputAuthCode);
 
     }
 

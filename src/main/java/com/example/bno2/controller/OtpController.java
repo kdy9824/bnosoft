@@ -9,8 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,17 +35,16 @@ public class OtpController {
     @ResponseBody
     public ResponseEntity<byte[]> otpRegister(HttpSession session) throws IOException, WriterException {
 
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(otpService.otpRegister(session));
+        return otpService.otpRegister(session);
 
     }
-
 
     @Operation(summary = "OTP 인증")
     @GetMapping("/OTPAuth")
     @ResponseBody
     public ResponseEntity<String> googleOTPAuth(HttpSession session, @RequestParam String otp){
 
-        return new ResponseEntity<>(otpService.otpAuth(session, otp),HttpStatus.OK);
+        return otpService.otpAuth(session, otp);
 
     }
 }

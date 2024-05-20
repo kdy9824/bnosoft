@@ -1,44 +1,18 @@
 package com.example.bno2.service;
 
-import com.example.bno2.mapper.UserMapper;
 import com.example.bno2.dto.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public class UserService {
+public interface UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    List<User> selectUsersByName(String name, String dept);
 
+    ResponseEntity<String> addUser(User user, HttpSession session);
 
-    public List<User> selectUsersByName(String name, String deptCode) {
-        return userMapper.selectUsersByName(name, deptCode);
-    }
-
-    public int addUser(User user, int loginUserPn) {
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("user", user);
-        params.put("loginUserPn", loginUserPn);
-
-        return userMapper.insertUser(params);
-
-    }
-
-    public int updateUser(User user, int loginUserPn) {
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("user", user);
-        params.put("loginUserPn", loginUserPn);
-
-        return userMapper.updateUser(params);
-
-    }
-
+    ResponseEntity<String> updateUser(User user, HttpSession session);
 
 }

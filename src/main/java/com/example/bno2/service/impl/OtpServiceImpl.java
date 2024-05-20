@@ -9,6 +9,9 @@ import com.example.bno2.utils.OTPUtil;
 import com.google.zxing.WriterException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -29,26 +32,24 @@ public class OtpServiceImpl implements OtpService {
     public OTPUtil otpUtil = new OTPUtil();
 
     @Override
-    public byte[] otpRegister(HttpSession session) throws IOException, WriterException {
+    public ResponseEntity<byte[]> otpRegister(HttpSession session) throws IOException, WriterException {
+
         User loginUser = (User)session.getAttribute("loginUser");
         int userPn = loginUser.getPn();
 
         if(otpMapper.checkQrBlob(userPn) == 0){
 
-            if(otpMapper.checkSecretKey(userPn) == 0){
+            if(otpMapper.checkSecretKey(userPn) == 0)
                 otpMapper.addSecretKey(userPn, otpUtil.getSecretKey());
-            }
 
             String filePath = System.getProperty("user.home") + "/Desktop/image";
             File folder = new File(filePath);
 
-            if(!folder.exists()){
+            if(!folder.exists())
                 folder.mkdirs();
-            }
 
-            if(!folder.canWrite()){
+            if(!folder.canWrite())
                 folder.setWritable(true);
-            }
 
             otpUtil.getQRImage(otpUtil.getGoogleOTPAuthURL(otpMapper.getSecretKey(userPn), loginUser.getEmail(), "bnosoft"),filePath+"/" + userPn +"_QR.png", 900, 900);
             byte[] blob = imageToBlob.convertImageToBlob(filePath+"/" + userPn +"_QR.png");
@@ -75,7 +76,7 @@ public class OtpServiceImpl implements OtpService {
                     // Blob을 InputStream으로 변환
                     InputStream inputStream = blob.getBinaryStream();
 
-                    return inputStream.readAllBytes();
+                    return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(inputStream.readAllBytes());
 
                     // InputStream을 사용하여 Blob 데이터 처리
                     // 여기서는 HttpServletResponse를 사용하여 직접 클라이언트에게 전송하는 예제를 보여줍니다.
@@ -87,10 +88,9 @@ public class OtpServiceImpl implements OtpService {
 //                            outputStream.write(buffer, 0, bytesRead);
 //                        }
 //                        outputStream.flush();
-                } else {
+                } else
                     // Blob이 없는 경우 처리
                     return null;
-                }
             }
         } catch (SQLException e) {
             // 예외 처리
@@ -100,7 +100,7 @@ public class OtpServiceImpl implements OtpService {
     }
 
     @Override
-    public String otpAuth(HttpSession session, String otp){
+    public ResponseEntity<String> otpAuth(HttpSession session, String otp){
 
         User loginUser = (User)session.getAttribute("loginUser");
         int userPn = loginUser.getPn();
@@ -112,13 +112,12 @@ public class OtpServiceImpl implements OtpService {
 
             if(otpMapper.otpIsRegistered(userPn) == 0){
                 otpMapper.updateOtpIsRegistered(userPn);
-                return "OTP Register Success, Login Success.";
+                return new ResponseEntity<>("OTP Register Success, Login Success.", HttpStatus.OK);
             }
 
-            return "OTP Auth Success, Login Success.";
-        } else {
-            return "OTP Auth fail.";
-        }
+            return new ResponseEntity<>("OTP Auth Success, Login Success.",HttpStatus.OK);
+        } else
+            return new ResponseEntity<>("OTP Auth fail.", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
