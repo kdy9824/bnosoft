@@ -50,7 +50,7 @@ public class ProjectUserController {
         } else if ("ING".equals(state)) {
             return "진행 중";
         } else if ("WAT".equals(state)) {
-            return "완료";
+            return "대기 중";
         } else {
             return state;
         }

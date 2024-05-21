@@ -11,7 +11,7 @@
         start_predict_dt AS startPredictDt,
         end_predict_dt AS endPredictDt,
         project_state_code AS stateCode,
-        project_detail
+        project_detail AS projectDetail
         FROM project
         WHERE uid != 1
         AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL )
@@ -35,12 +35,12 @@
         )
         VALUES (
                    #{project.projectName},
-                   #{project.startPredictDt},
-                   #{project.endPredictDt},
+                   #{project.startDt},
+                   #{project.endDt},
                    #{project.startPredictDt},
                    #{project.endPredictDt},
                    #{project.stateCode},
-                   #{project.project_detail},
+                   #{project.projectDetail},
                    #{loginUserPn},
                    #{loginUserPn}
                )
@@ -55,7 +55,7 @@
             start_predict_dt = #{project.startPredictDt},
             end_predict_dt = #{project.endPredictDt},
             project_state_code = #{project.stateCode},
-            project_detail = #{project.project_detail},
+            project_detail = #{project.projectDetail},
             last_update_pn = #{loginUserPn},
             last_update_dt = (NOW() + INTERVAL 9 HOUR)
         WHERE uid = #{project.project_uid}

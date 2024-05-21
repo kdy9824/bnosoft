@@ -18,6 +18,6 @@ public class EUP {
     private String macAddress;
     private String equipmentStateCode;
     private String equip_uid;
-    private String user_pn;
+    private int user_pn;
 
 }

@@ -13,5 +13,6 @@ public class Project {
     private String endPredictDt;
     private String stateCode;
     private String APPLY_YN;
+    private String projectDetail;
 
 }

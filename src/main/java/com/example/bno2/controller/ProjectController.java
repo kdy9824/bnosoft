@@ -45,10 +45,12 @@ public class ProjectController {
 
     // state 값에 따라 텍스트를 대체하는 메서드
     private String replaceStateText(String state) {
-        if ("CON".equals(state)) {
-            return "진행 중";
-        } else if ("COM".equals(state)) {
+        if ("COM".equals(state)) {
             return "완료";
+        } else if ("ING".equals(state)) {
+            return "진행중";
+        } else if ("WAT".equals(state)) {
+            return "대기중";
         } else {
             return state;
         }
