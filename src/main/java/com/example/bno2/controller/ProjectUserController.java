@@ -35,14 +35,14 @@ public class ProjectUserController {
 
     }
 
-    @Operation(summary = "프로젝트 사용자 리스트 데이터 출력")
-    @GetMapping("/selectProjectUsersData")
-    @ResponseBody
-    public List<ProjectUser> selectProjectUsersData() {
-
-        return projectUserService.selectProjectUsersData();
-
-    }
+//    @Operation(summary = "프로젝트 사용자 리스트 데이터 출력")
+//    @GetMapping("/selectProjectUsersData")
+//    @ResponseBody
+//    public List<ProjectUser> selectProjectUsersData() {
+//
+//        return projectUserService.selectProjectUsersData();
+//
+//    }
 
     @Operation(summary = "프로젝트 사용자 삭제")
     @PostMapping("/deleteProjectUser")

@@ -61,12 +61,12 @@ public class ProjectUserServiceImpl implements ProjectUserService {
 
     }
 
-    @Override
-    public List<ProjectUser> selectProjectUsersData() {
-
-        return projectUserMapper.selectProjectUsersData();
-
-    }
+//    @Override
+//    public List<ProjectUser> selectProjectUsersData() {
+//
+//        return projectUserMapper.selectProjectUsersData();
+//
+//    }
 
     @Override
     public ResponseEntity<String> deleteProjectUser(String project_uid, String user_name) {

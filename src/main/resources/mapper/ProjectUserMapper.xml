@@ -32,11 +32,10 @@
           AND user_pn = #{user_pn}
     </update>
 
-
-    <select id="selectProjectUsersData" resultType="com.example.bno2.dto.ProjectUser">
-        SELECT project_uid, user_pn
-        FROM project_user
-    </select>
+<!--    <select id="selectProjectUsersData" resultType="com.example.bno2.dto.ProjectUser">-->
+<!--        SELECT project_uid, user_pn-->
+<!--        FROM project_user-->
+<!--    </select>-->
 
     <!-- 프로젝트 사용자 삭제 -->
     <update id="deleteProjectUser">

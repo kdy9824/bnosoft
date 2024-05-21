@@ -12,7 +12,7 @@ public interface ProjectUserMapper {
 
     int updateProjectUser(String project_uid, int user_pn, int new_user_pn);
 
-    List<ProjectUser> selectProjectUsersData();
+//    List<ProjectUser> selectProjectUsersData();
 
     int deleteProjectUser(String project_uid, String user_name);
 }

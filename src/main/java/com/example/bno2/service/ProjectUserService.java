@@ -12,7 +12,7 @@ public interface ProjectUserService {
 
     ResponseEntity<String> updateProjectUser(String project_uid, int user_pn, int new_user_pn);
 
-    List<ProjectUser> selectProjectUsersData();
+//    List<ProjectUser> selectProjectUsersData();
 
     ResponseEntity<String> deleteProjectUser(String project_uid, String user_name);
 }
