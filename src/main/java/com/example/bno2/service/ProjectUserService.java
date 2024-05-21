@@ -1,6 +1,8 @@
 package com.example.bno2.service;
 
+import com.example.bno2.dto.Equipment;
 import com.example.bno2.dto.ProjectUser;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,9 +12,11 @@ public interface ProjectUserService {
 
     List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode);
 
-    ResponseEntity<String> updateProjectUser(String projectUid, int userPn, int newUserPn);
+    ResponseEntity<String> insertProjectUser(String projectUid, int userPn, String role, String roleDetail);
+
+    ResponseEntity<String> updateProjectUser(String projectUid, int userPn, String role, String roleDetail);
 
 //    List<ProjectUser> selectProjectUsersData();
 
-    ResponseEntity<String> deleteProjectUser(String projectUid, String userName);
+    ResponseEntity<String> deleteProjectUser(String projectUid, String userPn);
 }

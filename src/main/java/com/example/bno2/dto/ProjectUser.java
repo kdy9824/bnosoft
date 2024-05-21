@@ -10,7 +10,6 @@ public class ProjectUser {
     private String stateCode;
     private int userPn;
     private String userName;
-    private int newUserPn;
     private String role;
     private String roleDetail;
     private String projectDetail;

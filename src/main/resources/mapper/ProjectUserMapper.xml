@@ -22,10 +22,26 @@
            </if>
       ORDER BY project_name, project_detail
     </select>
+    <insert id="insertProjectUser">
+        INSERT INTO project_user (
+            project_uid,
+            user_pn,
+            role,
+            role_detail
+        )
+        VALUES (
+            #{projectUid},
+            #{userPn},
+            #{role},
+            #{roleDetail}
+        )
+    </insert>
 
     <update id="updateProjectUser">
         UPDATE project_user
-           SET user_pn = #{newUserPn}
+           SET
+               role = #{role},
+               role_detail = #{roleDetail}
          WHERE project_uid = #{projectUid}
            AND user_pn = #{userPn}
     </update>
@@ -36,10 +52,9 @@
 <!--    </select>-->
 
     <!-- 프로젝트 사용자 삭제 -->
-    <update id="deleteProjectUser">
-        UPDATE project_user
-           SET user_pn = 1
-         WHERE project_uid = #{projectUid}
-           AND user_pn = (SELECT pn FROM user WHERE name = #{userName})
-    </update>
+    <delete id="deleteProjectUser">
+        DELETE FROM project_user
+        WHERE project_uid = #{projectUid}
+        AND user_pn = #{userPn}
+    </delete>
 </mapper>

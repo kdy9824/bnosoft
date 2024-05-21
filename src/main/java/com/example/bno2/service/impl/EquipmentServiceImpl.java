@@ -78,8 +78,8 @@ public class EquipmentServiceImpl implements EquipmentService {
         params.put("equipment",equipment);
         params.put("loginUserPn",loginUser.getPn());
 
-//        if(!equipment.getEquipUid().isEmpty())
-//            return new ResponseEntity<>("이미 존재하는 장비 입니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+        if(!equipment.getEquipUid().isEmpty())
+            return new ResponseEntity<>("이미 존재하는 장비 입니다.",HttpStatus.INTERNAL_SERVER_ERROR);
 
         if(equipmentMapper.insertEquipment(params) > 0)
             return new ResponseEntity<>("Equipment inserted successfully",HttpStatus.CREATED);
