@@ -22,7 +22,7 @@ public class ProjectController {
     @Operation(summary = "프로젝트 출력")
     @GetMapping("/selectProject")
     @ResponseBody
-    public List<Project> selectProjects( @RequestParam(name="projectName" ,required = false) String projectName,@RequestParam(name="stateCode") String stateCode) {
+    public List<Project> selectProjects( @RequestParam(name="projectName" ,required = false) String projectName, @RequestParam(name="stateCode") String stateCode) {
 
         return projectService.selectProjectsByName(projectName, stateCode);
 

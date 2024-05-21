@@ -9,7 +9,6 @@ import java.util.Map;
 @Mapper
 public interface EquipmentMapper {
 
-
     List<Equipment> selectEquipments(String model, String equipClass);
 
     int insertEquipment(Map<String, Object> params);
