@@ -13,4 +13,5 @@ public class ProjectUser {
     private String project_detail;
     private String role;
     private String role_detail;
+    private String projectDetail;
 }

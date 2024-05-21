@@ -3,41 +3,21 @@
 <mapper namespace="com.example.bno2.mapper.ProjectMapper">
 
     <select id="selectProjectsByName" resultType="com.example.bno2.dto.Project">
-        select
-            uid as project_uid,
-            project_name as projectName,
-            start_dt as startDt,
-            end_dt as endDt,
-            start_predict_dt as startPredictDt,
-            end_predict_dt as endPredictDt,
-            project_state_code as stateCode,
-            project_detail
-        from
-            project
-        where
-            uid !=1
-        and
-            (trim(project_name) like concat('%',#{projectName},'%') or #{projectName} is null )
-    </select>
-
-    <select id="selectProjectsByNameState" resultType="com.example.bno2.dto.Project">
-        select
-            uid,
-            project_name as projectName,
-            start_dt as startDt,
-            end_dt as endDt,
-            start_predict_dt as startPredictDt,
-            end_predict_dt as endPredictDt,
-            project_state_code as stateCode,
-            project_detail
-        from
-            project
-        where
-            uid !=1
-        and
-            (trim(project_name) like concat('%',#{projectName},'%') or #{projectName} is null )
-        and
-            project_state_code = #{stateCode}
+        SELECT
+        uid AS project_uid,
+        project_name AS projectName,
+        start_dt AS startDt,
+        end_dt AS endDt,
+        start_predict_dt AS startPredictDt,
+        end_predict_dt AS endPredictDt,
+        project_state_code AS stateCode,
+        project_detail AS projectDetail
+        FROM project
+        WHERE uid != 1
+        AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL )
+        <if test="stateCode != null">
+            AND project_state_code = #{stateCode}
+        </if>
     </select>
 
     <insert id="insertProject" parameterType="map">
@@ -59,7 +39,7 @@
              #{project.startPredictDt},
              #{project.endPredictDt},
              #{project.stateCode},
-             #{project.project_detail},
+             #{project.projectDetail},
              #{loginUserPn},
              #{loginUserPn})
     </insert>
@@ -74,7 +54,7 @@
             start_predict_dt = #{project.startPredictDt},
             end_predict_dt = #{project.endPredictDt},
             project_state_code = #{project.stateCode},
-            project_detail = #{project.project_detail},
+            project_detail = #{project.projectDetail},
             last_update_pn = #{loginUserPn},
             last_update_dt = NOW()
         where
