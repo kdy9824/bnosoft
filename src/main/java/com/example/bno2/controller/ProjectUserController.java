@@ -27,11 +27,19 @@ public class ProjectUserController {
 
     }
 
+    @Operation(summary = "프로젝트 사용자 추가")
+    @PostMapping("/insertProjectUser")
+    public ResponseEntity<String> insertProjectUser(String projectUid, int userPn, String role, String roleDetail) {
+
+        return projectUserService.insertProjectUser(projectUid, userPn, role, roleDetail);
+
+    }
+
     @Operation(summary = "프로젝트 사용자 수정")
     @PostMapping("/updateProjectUser")
-    public ResponseEntity<String> updateProjectUser(String projectUid, int userPn, int newUserPn) {
+    public ResponseEntity<String> updateProjectUser(String projectUid, int userPn, String role, String roleDetail) {
 
-        return projectUserService.updateProjectUser(projectUid, userPn, newUserPn);
+        return projectUserService.updateProjectUser(projectUid, userPn, role, roleDetail);
 
     }
 
@@ -46,9 +54,9 @@ public class ProjectUserController {
 
     @Operation(summary = "프로젝트 사용자 삭제")
     @PostMapping("/deleteProjectUser")
-    public ResponseEntity<String> deleteProjectUser(@RequestParam("projectUid") String projectUid, @RequestParam("userName") String userName) {
+    public ResponseEntity<String> deleteProjectUser(@RequestParam("projectUid") String projectUid, @RequestParam("userPn") String userPn) {
 
-        return projectUserService.deleteProjectUser(projectUid, userName);
+        return projectUserService.deleteProjectUser(projectUid, userPn);
 
     }
 }

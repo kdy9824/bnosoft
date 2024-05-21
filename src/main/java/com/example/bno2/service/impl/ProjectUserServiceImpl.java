@@ -46,11 +46,20 @@ public class ProjectUserServiceImpl implements ProjectUserService {
         return projectUserList;
 
     }
+    @Override
+    public ResponseEntity<String> insertProjectUser(String projectUid, int userPn, String role, String roleDetail) {
+
+        if (projectUserMapper.insertProjectUser(projectUid, userPn, role, roleDetail) > 0)
+            return new ResponseEntity<>("ProjectUser updated successfully", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("Failed to update ProjectUser", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 
     @Override
-    public ResponseEntity<String> updateProjectUser(String projectUid, int userPn, int newUserPn) {
+    public ResponseEntity<String> updateProjectUser(String projectUid, int userPn,String role, String roleDetail) {
 
-        if (projectUserMapper.updateProjectUser(projectUid, userPn, newUserPn) > 0)
+        if (projectUserMapper.updateProjectUser(projectUid, userPn, role, roleDetail) > 0)
             return new ResponseEntity<>("ProjectUser updated successfully", HttpStatus.OK);
         else
             return new ResponseEntity<>("Failed to update ProjectUser", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -65,9 +74,9 @@ public class ProjectUserServiceImpl implements ProjectUserService {
 //    }
 
     @Override
-    public ResponseEntity<String> deleteProjectUser(String projectUid, String userName) {
+    public ResponseEntity<String> deleteProjectUser(String projectUid, String userPn) {
 
-        if (projectUserMapper.deleteProjectUser(projectUid, userName) > 0)
+        if (projectUserMapper.deleteProjectUser(projectUid, userPn) > 0)
             return new ResponseEntity<>("Equipment deleted successfully", HttpStatus.OK);
         else
             return new ResponseEntity<>("Failed to delete equipment", HttpStatus.INTERNAL_SERVER_ERROR);
