@@ -1,21 +1,16 @@
 package com.example.bno2.service.impl;
 
 import com.example.bno2.dto.Code;
-import com.example.bno2.dto.Equipment;
 import com.example.bno2.dto.EquipmentUser;
-import com.example.bno2.dto.User;
 import com.example.bno2.mapper.CodeMapper;
-import com.example.bno2.mapper.EquipmentMapper;
 import com.example.bno2.mapper.EquipmentUserMapper;
 import com.example.bno2.service.EquipmentUserService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class EquipmentUserServiceImpl implements EquipmentUserService {

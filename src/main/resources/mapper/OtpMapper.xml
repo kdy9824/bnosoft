@@ -3,59 +3,46 @@
 <mapper namespace="com.example.bno2.mapper.OtpMapper">
 
     <select id="checkSecretKey" parameterType="int" resultType="int">
-        select
-            count(user_pn)
-        from
-            otp_secret_key
-        where
-            user_pn = #{userPn}
+        SELECT COUNT(user_pn)
+          FROM otp_secret_key
+         WHERE user_pn = #{userPn}
     </select>
 
     <insert id="addSecretKey">
-        insert into
-            otp_secret_key
-        values
-            (#{userPn}, #{secretKey});
+        INSERT INTO otp_secret_key
+             VALUES (#{userPn},
+                     #{secretKey});
     </insert>
 
     <select id="getSecretKey" parameterType="int" resultType="String">
-        select
-            secret_key
-        from
-            otp_secret_key
-        where
-            user_pn = #{userPn}
+        SELECT secret_key
+          FROM otp_secret_key
+         WHERE user_pn = #{userPn}
     </select>
 
     <select id="checkQrBlob" parameterType="int">
-        select
-            count(qr_blob)
-        from
-            otp_regist
-        where
-            user_pn = #{userPn}
+        SELECT count(qr_blob)
+          FROM otp_regist
+         WHERE user_pn = #{userPn}
     </select>
 
     <insert id="addQrBlob">
-        insert into
-            otp_regist(user_pn, qr_blob)
-        values
-            (#{userPn}, #{qrBlob})
+        INSERT INTO otp_regist(user_pn,
+                               qr_blob)
+                        VALUES(#{userPn},
+                               #{qrBlob})
     </insert>
 
     <select id="otpIsRegistered" parameterType="int" resultType="int">
-        select
-            otp_is_registered
-        from
-            otp_regist
-        where
-            user_pn = #{userPn}
+        SELECT otp_is_registered
+          FROM otp_regist
+         WHERE user_pn = #{userPn}
     </select>
 
     <update id="updateOtpIsRegistered" parameterType="int">
-        update otp_regist
-        set otp_is_registered = 1
-        where user_pn = #{userPn}
+        UPDATE otp_regist
+           SET otp_is_registered = 1
+         WHERE user_pn = #{userPn}
     </update>
 
 </mapper>
