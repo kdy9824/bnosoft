@@ -3,27 +3,28 @@
 <mapper namespace="com.example.bno2.mapper.UserMapper">
 
     <select id="selectUsersByNameDept" resultType="com.example.bno2.dto.User">
-        select
+        SELECT
             pn,
             email,
             name,
+            pw,
             dept_code as deptCode,
             con,
             pos_code as posCode,
             state_code as stateCode
-        from
+        FROM
             user
-        where
+        WHERE
             pn != 1 and
             (trim(name) like concat('%',trim(#{name}),'%') or #{name} is null)
-          and
-            dept_code = #{deptCode}
-        order by
-            name
+        <if test="dept != 'ALL'">
+            AND dept_code = #{dept}
+        </if>
+        ORDER BY name
     </select>
 
     <insert id="insertUser" parameterType="map">
-        insert into
+        INSERT INTO
             user(email,
                  name,
                  dept_code,
@@ -32,7 +33,7 @@
                  state_code,
                  first_update_pn,
                  last_update_pn)
-        values
+        VALUES
             (#{user.email},
              #{user.name},
              #{user.deptCode},
@@ -55,7 +56,7 @@
             state_code = #{user.stateCode},
             last_update_pn = #{loginUserPn},
             last_update_dt = NOW()
-        where
+        WHERE
             pn=#{user.pn}
     </update>
 

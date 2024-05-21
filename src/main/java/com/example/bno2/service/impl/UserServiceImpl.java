@@ -73,9 +73,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> selectUsersByName(String name, String dept) {
 
-        if(dept.equals("ALL"))
-            dept = null;
-
         List<User> userList = userMapper.selectUsersByNameDept(name, dept);
 
         for (User user : userList)
