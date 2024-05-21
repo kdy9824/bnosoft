@@ -3,21 +3,21 @@
 <mapper namespace="com.example.bno2.mapper.ProjectUserMapper">
 
     <select id="selectProjectUsers" resultType="com.example.bno2.dto.ProjectUser">
-        SELECT p.uid AS projectUid,
-               p.project_name AS projectName,
+        SELECT p.uid                AS projectUid,
+               p.project_name       AS projectName,
                p.project_state_code AS stateCode,
-               u.pn AS userPn,
-               u.name AS userName,
-               p.project_detail AS projectDetail,
-               pu.role AS role,
-               pu.role_detail AS roleDetail
+               u.pn                 AS userPn,
+               u.name               AS userName,
+               pu.role              AS role,
+               pu.role_detail       AS roleDetail,
+               p.project_detail     AS projectDetail
           FROM project p
           JOIN project_user pu ON p.uid = pu.project_uid
           JOIN user u ON pu.user_pn = u.pn
          WHERE pu.user_pn != 1
            AND (TRIM(u.name) LIKE CONCAT('%',#{userName},'%') OR #{userName} IS NULL)
            AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL)
-           <if test="stateCode != null">
+           <if test="stateCode != 'ALL'">
            AND project_state_code = #{stateCode}
            </if>
       ORDER BY project_name, project_detail

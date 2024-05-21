@@ -14,5 +14,4 @@ public interface UserMapper {
 
     int updateUser(Map<String, Object> params);
 
-
 }
