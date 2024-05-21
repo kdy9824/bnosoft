@@ -3,14 +3,14 @@
 <mapper namespace="com.example.bno2.mapper.ProjectUserMapper">
 
     <select id="selectProjectUsers" resultType="com.example.bno2.dto.ProjectUser">
-        SELECT p.uid AS project_uid,
-               p.project_name,
+        SELECT p.uid AS projectUid,
+               p.project_name AS projectName,
                p.project_state_code AS stateCode,
-               u.pn AS user_pn,
-               u.name AS user_name,
+               u.pn AS userPn,
+               u.name AS userName,
                p.project_detail AS projectDetail,
-               pu.role,
-               pu.role_detail
+               pu.role AS role,
+               pu.role_detail AS roleDetail
           FROM project p
           JOIN project_user pu ON p.uid = pu.project_uid
           JOIN user u ON pu.user_pn = u.pn
