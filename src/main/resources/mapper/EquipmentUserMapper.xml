@@ -15,8 +15,8 @@
                 E.warranty_end_dt AS warrantyEndDt,
                 E.mac_address AS macAddress,
                 E.equipment_state_code AS equipmentStateCode,
-                EU.equip_uid,
-                EU.user_pn
+                EU.equip_uid AS equipUid,
+                EU.user_pn AS userPn
         FROM user AS U
         JOIN equipment_user AS EU ON EU.user_pn = U.pn
         JOIN equipment AS E ON E.uid = EU.equip_uid
@@ -34,8 +34,8 @@
 
     <update id="updateEquipmentUser">
         UPDATE equipment_user
-        SET user_pn = #{user_pn}
-        WHERE equip_uid = #{equip_uid}
+        SET user_pn = #{userPn}
+        WHERE equip_uid = #{equipUid}
     </update>
 
 

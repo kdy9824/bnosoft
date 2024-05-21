@@ -19,7 +19,7 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-    @Operation(summary = "장비 목록 검색 조회라고")
+    @Operation(summary = "장비 목록 검색 조회")
     @GetMapping("/selectEquipmentsByCls")
     @ResponseBody
     public List<Equipment> selectEquipmentsByCls(@RequestParam(name="model" ,required = false) String model,@RequestParam(name="equipClass") String equipClass) {
@@ -46,9 +46,9 @@ public class EquipmentController {
 
     @Operation(summary = "장비 삭제")
     @PostMapping("/deleteEquipment")
-    public ResponseEntity<String> deleteEquipment(@RequestParam("uid") String equip_uid) {
+    public ResponseEntity<String> deleteEquipment(@RequestParam("equipUid") String equipUid) {
 
-        return equipmentService.deleteEquipment(equip_uid);
+        return equipmentService.deleteEquipment(equipUid);
 
     }
 

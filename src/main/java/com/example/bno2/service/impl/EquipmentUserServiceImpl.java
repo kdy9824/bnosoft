@@ -75,9 +75,9 @@ public class EquipmentUserServiceImpl implements EquipmentUserService {
     }
 
     @Override
-    public ResponseEntity<String> updateEquipmentUser(String uid, int user_pn) {
+    public ResponseEntity<String> updateEquipmentUser(String equipUid, int userPn) {
 
-        if (equipmentUserMapper.updateEquipmentUser(uid,user_pn) > 0)
+        if (equipmentUserMapper.updateEquipmentUser(equipUid,userPn) > 0)
             return new ResponseEntity<>("EquipmentUser updated successfully", HttpStatus.OK);
         else
             return new ResponseEntity<>("Failed to update EquipmentUser", HttpStatus.INTERNAL_SERVER_ERROR);

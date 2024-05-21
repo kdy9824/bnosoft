@@ -16,10 +16,10 @@
         where
             pn != 1 and
             (trim(name) like concat('%',trim(#{name}),'%') or #{name} is null)
-          and
-            dept_code = #{deptCode}
-        order by
-            name
+        <if test="deptCode != null">
+            AND dept_code = #{deptCode}
+        </if>
+        ORDER BY name
     </select>
 
     <insert id="insertUser" parameterType="map">

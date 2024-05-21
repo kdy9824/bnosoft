@@ -10,7 +10,7 @@ public interface EquipmentUserMapper {
 
     List<EquipmentUser> selectEquipmentUsers(String userName, String projectName, String equipClass);
 
-    int updateEquipmentUser(String equip_uid,int user_pn);
+    int updateEquipmentUser(String equipUid,int userPn);
 
     List<EquipmentUser> selectEquipmentUsersData();
 }
