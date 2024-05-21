@@ -3,23 +3,23 @@
 <mapper namespace="com.example.bno2.mapper.EquipmentMapper">
 
     <select id="selectEquipments" resultType="com.example.bno2.dto.Equipment">
-        SELECT  E.uid AS equip_uid,
-                E.class AS equipClass,
-                E.serial_number AS serialNumber,
-                E.model_name AS modelName,
-                E.spec_desc AS specDesc,
-                E.warranty_start_dt AS warrantyStartDt,
-                E.warranty_end_dt AS warrantyEndDt,
-                E.manu_com AS manuCom,
-                E.mac_address AS macAddress,
-                E.equipment_state_code AS stateCode,
-                E.purchase_year AS purchaseYear,
-                EU.user_pn,
-                U.name AS userName,
-                U.email
+        SELECT  E.uid AS equipUid,
+        E.class AS equipClass,
+        E.serial_number AS serialNumber,
+        E.model_name AS modelName,
+        E.spec_desc AS specDesc,
+        E.warranty_start_dt AS warrantyStartDt,
+        E.warranty_end_dt AS warrantyEndDt,
+        E.manu_com AS manuCom,
+        E.mac_address AS macAddress,
+        E.equipment_state_code AS stateCode,
+        E.purchase_year AS purchaseYear,
+        EU.user_pn AS userPN,
+        U.name AS userName,
+        U.email
         FROM    equipment AS E
-        JOIN    equipment_user AS EU ON E.uid = EU.equip_uid
-        JOIN    user AS U ON EU.user_pn = U.PN
+        LEFT JOIN equipment_user AS EU ON E.uid = EU.equip_uid
+        LEFT JOIN user AS U ON EU.user_pn = U.PN
         WHERE   E.APPLY_YN != 'N'
         AND     (TRIM(model_name) LIKE CONCAT('%', #{model}, '%') OR #{model} IS NULL)
         <if test="equipClass != null">
@@ -71,19 +71,19 @@
             purchase_year = #{equipment.purchaseYear},
             last_update_pn = #{loginUserPn},
             last_update_dt = NOW()
-        WHERE uid = #{equipment.equip_uid}
+        WHERE uid = #{equipment.equipUid}
     </update>
 
     <!-- 장비 삭제 -->
     <delete id="realdeleteEquipment">
         DELETE FROM equipment
-        WHERE uid = #{equip_uid}
+        WHERE uid = #{equipUid}
     </delete>
 
     <!-- 장비 삭제 -->
     <update id="deleteEquipment">
         UPDATE equipment
         SET APPLY_YN = 'N'
-        WHERE uid = #{equip_uid}
+        WHERE uid = #{equipUid}
     </update>
 </mapper>

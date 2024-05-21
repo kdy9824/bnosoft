@@ -15,6 +15,6 @@ public interface EquipmentMapper {
 
     int updateEquipment(Map<String, Object> params);
 
-    int deleteEquipment(String equip_uid);
+    int deleteEquipment(String equipUid);
 
 }
