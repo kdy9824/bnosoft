@@ -3,7 +3,7 @@
 <mapper namespace="com.example.bno2.mapper.ProjectUserMapper">
 
     <select id="selectProjectUsers" resultType="com.example.bno2.dto.ProjectUser">
-        SELECT p.uid                AS project_uid,
+        SELECT p.uid                AS projectUid,
                p.project_name       AS projectName,
                p.project_state_code AS stateCode,
                u.pn                 AS userPn,
@@ -39,7 +39,7 @@
     <update id="deleteProjectUser">
         UPDATE project_user
            SET user_pn = 1
-         WHERE project_uid = #{project_uid}
-           AND user_pn = (SELECT pn FROM user WHERE name = #{user_name})
+         WHERE project_uid = #{projectUid}
+           AND user_pn = (SELECT pn FROM user WHERE name = #{userName})
     </update>
 </mapper>
