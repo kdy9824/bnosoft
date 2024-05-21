@@ -60,9 +60,6 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public List<Equipment> selectEquipments(String model, String equipClass) {
 
-        if(equipClass.equals("ALL"))
-            equipClass=null;
-
         List<Equipment> equipmentList = equipmentMapper.selectEquipments(model, equipClass);
 
         for (Equipment equipment : equipmentList)

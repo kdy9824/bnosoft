@@ -62,9 +62,6 @@ public class EquipmentUserServiceImpl implements EquipmentUserService {
     @Override
     public List<EquipmentUser> selectEquipmentUsers(String userName, String projectName, String equipClass) {
 
-        if(equipClass.equals("ALL"))
-            equipClass = null;
-
         List<EquipmentUser> equipmentUserList = equipmentUserMapper.selectEquipmentUsers(userName, projectName, equipClass);
 
         for(EquipmentUser equipmentUser : equipmentUserList)

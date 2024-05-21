@@ -17,7 +17,7 @@
          WHERE pu.user_pn != 1
            AND (TRIM(u.name) LIKE CONCAT('%',#{userName},'%') OR #{userName} IS NULL)
            AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL)
-           <if test="stateCode != null">
+           <if test="stateCode != 'ALL">
            AND project_state_code = #{stateCode}
            </if>
       ORDER BY project_name, project_detail

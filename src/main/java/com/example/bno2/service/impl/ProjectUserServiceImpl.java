@@ -37,10 +37,6 @@ public class ProjectUserServiceImpl implements ProjectUserService {
     @Override
     public List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode) {
 
-        if("ALL".equals(stateCode)){
-            stateCode = null;
-        }
-
         List<ProjectUser> projectUserList = projectUserMapper.selectProjectUsers(projectName, userName, stateCode);
 
         for (ProjectUser projectUser : projectUserList) {
