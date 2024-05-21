@@ -27,7 +27,7 @@
            AND U.state_code != 'OUT'
            AND (TRIM(U.name) LIKE CONCAT('%', #{userName}, '%') OR #{userName} IS NULL)
            AND (TRIM(P.project_name) LIKE CONCAT('%', #{projectName}, '%') OR #{projectName} IS NULL)
-        <if test="equipClass != 'ALL">
+        <if test="equipClass != 'ALL'">
            AND E.class = #{equipClass}
         </if>
     </select>
