@@ -40,9 +40,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     public List<Project> selectProjectsByName(String projectName, String stateCode){
 
-        if(stateCode.equals("ALL"))
-            stateCode = null;
-
         List<Project> projectList = projectMapper.selectProjectsByName(projectName, stateCode);
 
         for (Project project : projectList)

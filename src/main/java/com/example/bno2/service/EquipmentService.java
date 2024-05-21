@@ -15,6 +15,6 @@ public interface EquipmentService {
 
     ResponseEntity<String> updateEquipment(HttpSession session, Equipment equipment);
 
-    ResponseEntity<String> deleteEquipment(String equip_uid);
+    ResponseEntity<String> deleteEquipment(String equipUid);
 
 }

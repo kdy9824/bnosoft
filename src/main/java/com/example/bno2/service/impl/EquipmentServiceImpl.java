@@ -60,9 +60,6 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public List<Equipment> selectEquipments(String model, String equipClass) {
 
-        if(equipClass.equals("ALL"))
-            equipClass=null;
-
         List<Equipment> equipmentList = equipmentMapper.selectEquipments(model, equipClass);
 
         for (Equipment equipment : equipmentList)
@@ -81,8 +78,8 @@ public class EquipmentServiceImpl implements EquipmentService {
         params.put("equipment",equipment);
         params.put("loginUserPn",loginUser.getPn());
 
-        if(!equipment.getEquip_uid().isEmpty())
-            return new ResponseEntity<>("이미 존재하는 장비 입니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+//        if(!equipment.getEquipUid().isEmpty())
+//            return new ResponseEntity<>("이미 존재하는 장비 입니다.",HttpStatus.INTERNAL_SERVER_ERROR);
 
         if(equipmentMapper.insertEquipment(params) > 0)
             return new ResponseEntity<>("Equipment inserted successfully",HttpStatus.CREATED);
@@ -108,9 +105,9 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public ResponseEntity<String> deleteEquipment(String equip_uid) {
+    public ResponseEntity<String> deleteEquipment(String equipUid) {
 
-        if (equipmentMapper.deleteEquipment(equip_uid) > 0)
+        if (equipmentMapper.deleteEquipment(equipUid) > 0)
             return new ResponseEntity<>("Equipment deleted successfully", HttpStatus.CREATED);
         else
             return new ResponseEntity<>("Failed to delete equipment", HttpStatus.INTERNAL_SERVER_ERROR);

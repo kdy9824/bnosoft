@@ -13,7 +13,7 @@ public interface EquipmentUserService {    // 장비 사용자 전체 조회
     List<EquipmentUser> selectEquipmentUsers(String userName, String projectName, String equipClass);
 
     // 장비사용자 수정 및 추가
-    ResponseEntity<String> updateEquipmentUser(String uid, int user_pn);
+    ResponseEntity<String> updateEquipmentUser(String equipUid, int userPn);
 
     // 장비 사용자 전체 조회
     List<EquipmentUser> selectEquipmentUsersData();
