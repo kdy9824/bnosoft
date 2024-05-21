@@ -53,12 +53,9 @@
     </select>
 
     <update id="updateOtpIsRegistered" parameterType="int">
-        update
-            otp_regist
-        set
-            otp_is_registered = 1
-        where
-            user_pn = #{userPn}
+        update otp_regist
+        set otp_is_registered = 1
+        where user_pn = #{userPn}
     </update>
 
 </mapper>

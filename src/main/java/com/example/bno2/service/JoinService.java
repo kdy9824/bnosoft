@@ -1,22 +1,15 @@
 package com.example.bno2.service;
 
 import com.example.bno2.dto.User;
-import com.example.bno2.mapper.JoinMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JoinService {
+public interface JoinService {
 
-    @Autowired
-    private JoinMapper joinMapper;
+    ResponseEntity<String> checkEmailDuplicate(String email);
 
-    public int checkEmailDuplicate(String email) {
-        return joinMapper.checkEmailDuplicate(email);
-    }
-
-    public int addUser(User user) {
-        return joinMapper.addUser(user);
-    }
+    ResponseEntity<String> addUser(HttpSession session, User user);
 
 }

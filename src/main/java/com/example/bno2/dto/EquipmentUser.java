@@ -3,7 +3,7 @@ package com.example.bno2.dto;
 import lombok.Data;
 
 @Data
-public class EUP {
+public class EquipmentUser {
 
     private String equipClass;
     private String projectName;

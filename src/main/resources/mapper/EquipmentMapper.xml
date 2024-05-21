@@ -3,68 +3,63 @@
 <mapper namespace="com.example.bno2.mapper.EquipmentMapper">
 
     <select id="selectEquipments" resultType="com.example.bno2.dto.Equipment">
-        SELECT
-        E.uid AS equip_uid,
-        E.class AS equipClass,
-        E.serial_number AS serialNumber,
-        E.model_name AS modelName,
-        E.spec_desc AS specDesc,
-        E.warranty_start_dt AS warrantyStartDt,
-        E.warranty_end_dt AS warrantyEndDt,
-        E.manu_com AS manuCom,
-        E.mac_address AS macAddress,
-        E.equipment_state_code AS stateCode,
-        E.purchase_year AS purchaseYear,
-        EU.user_pn,
-        U.name AS userName,
-        U.email
-        FROM equipment AS E
-        JOIN equipment_user AS EU ON E.uid = EU.equip_uid
-        JOIN user AS U ON EU.user_pn = U.PN
-        WHERE
-        E.APPLY_YN != 'N'
-        AND (TRIM(model_name) LIKE CONCAT('%', #{model}, '%') OR #{model} IS NULL)
+        SELECT  E.uid AS equip_uid,
+                E.class AS equipClass,
+                E.serial_number AS serialNumber,
+                E.model_name AS modelName,
+                E.spec_desc AS specDesc,
+                E.warranty_start_dt AS warrantyStartDt,
+                E.warranty_end_dt AS warrantyEndDt,
+                E.manu_com AS manuCom,
+                E.mac_address AS macAddress,
+                E.equipment_state_code AS stateCode,
+                E.purchase_year AS purchaseYear,
+                EU.user_pn,
+                U.name AS userName,
+                U.email
+        FROM    equipment AS E
+        JOIN    equipment_user AS EU ON E.uid = EU.equip_uid
+        JOIN    user AS U ON EU.user_pn = U.PN
+        WHERE   E.APPLY_YN != 'N'
+        AND     (TRIM(model_name) LIKE CONCAT('%', #{model}, '%') OR #{model} IS NULL)
         <if test="equipClass != null">
             AND class = #{equipClass}
         </if>
     </select>
 
     <insert id="insertEquipment" parameterType="map">
-        INSERT INTO equipment(
-            class,
-            serial_number,
-            model_name,
-            spec_desc,
-            warranty_start_dt,
-            warranty_end_dt,
-            manu_com,
-            mac_address,
-            equipment_state_code,
-            purchase_year,
-            first_update_pn,
-            last_update_pn
+        INSERT INTO equipment(  class,
+                                serial_number,
+                                model_name,
+                                spec_desc,
+                                warranty_start_dt,
+                                warranty_end_dt,
+                                manu_com,
+                                mac_address,
+                                equipment_state_code,
+                                purchase_year,
+                                first_update_pn,
+                                last_update_pn
         )
-        VALUES(
-                  #{equipment.equipClass},
-                  #{equipment.serialNumber},
-                  #{equipment.modelName},
-                  #{equipment.specDesc},
-                  #{equipment.warrantyStartDt},
-                  #{equipment.warrantyEndDt},
-                  #{equipment.manuCom},
-                  #{equipment.macAddress},
-                  #{equipment.stateCode},
-                  #{equipment.purchaseYear},
-                  #{loginUserPn},
-                  #{loginUserPn}
-              )
+        VALUES( #{equipment.equipClass},
+                #{equipment.serialNumber},
+                #{equipment.modelName},
+                #{equipment.specDesc},
+                #{equipment.warrantyStartDt},
+                #{equipment.warrantyEndDt},
+                #{equipment.manuCom},
+                #{equipment.macAddress},
+                #{equipment.stateCode},
+                #{equipment.purchaseYear},
+                #{loginUserPn},
+                #{loginUserPn}
+        )
     </insert>
 
     <!-- 장비 업데이트 -->
     <update id="updateEquipment" parameterType="map">
         UPDATE equipment
-        SET
-            class = #{equipment.equipClass},
+        SET class = #{equipment.equipClass},
             serial_number = #{equipment.serialNumber},
             model_name = #{equipment.modelName},
             spec_desc = #{equipment.specDesc},
@@ -75,7 +70,7 @@
             equipment_state_code = #{equipment.stateCode},
             purchase_year = #{equipment.purchaseYear},
             last_update_pn = #{loginUserPn},
-            last_update_dt = (NOW() + INTERVAL 9 HOUR)
+            last_update_dt = NOW()
         WHERE uid = #{equipment.equip_uid}
     </update>
 

@@ -18,4 +18,5 @@ public interface OtpMapper {
     int otpIsRegistered(int userPn);
 
     int updateOtpIsRegistered(int userPn);
+
 }
