@@ -21,7 +21,7 @@
     </select>
 
     <select id="checkQrBlob" parameterType="int">
-        SELECT count(qr_blob)
+        SELECT COUNT(qr_blob)
           FROM otp_regist
          WHERE user_pn = #{userPn}
     </select>
