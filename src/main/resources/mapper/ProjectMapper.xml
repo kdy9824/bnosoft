@@ -51,7 +51,7 @@
                project_detail = #{project.projectDetail},
                last_update_pn = #{loginUserPn},
                last_update_dt = NOW()
-         WHERE uid = #{project.uid}
+         WHERE uid = #{project.projectUid}
     </update>
 
 </mapper>

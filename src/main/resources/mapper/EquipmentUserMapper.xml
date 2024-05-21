@@ -38,12 +38,10 @@
          WHERE equip_uid = #{equipUid}
     </update>
 
-
     <select id="selectEquipmentUsersData" resultType="com.example.bno2.dto.EquipmentUser">
         SELECT equip_uid,
                user_pn
           FROM equipment_user
     </select>
-
 
 </mapper>
