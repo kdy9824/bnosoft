@@ -46,9 +46,9 @@ public class EquipmentController {
 
     @Operation(summary = "장비 삭제")
     @PostMapping("/deleteEquipment")
-    public ResponseEntity<String> deleteEquipment(@RequestParam("uid") String equip_uid) {
+    public ResponseEntity<String> deleteEquipment(@RequestParam("equipUid") String equipUid) {
 
-        return equipmentService.deleteEquipment(equip_uid);
+        return equipmentService.deleteEquipment(equipUid);
 
     }
 

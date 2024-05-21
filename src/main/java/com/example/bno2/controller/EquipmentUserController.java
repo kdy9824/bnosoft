@@ -31,9 +31,9 @@ public class EquipmentUserController {
 
     @Operation(summary = "장비사용자 수정")
     @PostMapping("/updateEquipmentUser")
-    public ResponseEntity<String> updateEquipmentUser(@RequestParam(name="equip_uid",required = false) String equip_uid,@RequestParam(name="user_pn",required = false) int user_pn) {
+    public ResponseEntity<String> updateEquipmentUser(@RequestParam(name="equipUid",required = false) String equipUid,@RequestParam(name="userPn",required = false) int userPn) {
 
-        return equipmentUserService.updateEquipmentUser(equip_uid, user_pn);
+        return equipmentUserService.updateEquipmentUser(equipUid, userPn);
 
     }
 
