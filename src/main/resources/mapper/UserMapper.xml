@@ -3,61 +3,53 @@
 <mapper namespace="com.example.bno2.mapper.UserMapper">
 
     <select id="selectUsersByNameDept" resultType="com.example.bno2.dto.User">
-        SELECT
-            pn,
-            email,
-            name,
-            pw,
-            dept_code as deptCode,
-            con,
-            pos_code as posCode,
-            state_code as stateCode
-        FROM
-            user
-        WHERE
-            pn != 1 and
-            (trim(name) like concat('%',trim(#{name}),'%') or #{name} is null)
+        SELECT pn         AS pn,
+               email      AS email,
+               name       AS name,
+               pw         AS pw,
+               dept_code  AS deptCode,
+               con        AS con,
+               pos_code   AS posCode,
+               state_code AS stateCode
+          FROM user
+         WHERE pn != 1
+           AND (trim(name) LIKE concat('%',trim(#{name}),'%') OR #{name} IS NULL)
         <if test="dept != 'ALL'">
-            AND dept_code = #{dept}
+           AND dept_code = #{dept}
         </if>
-        ORDER BY name
+      ORDER BY name
     </select>
 
     <insert id="insertUser" parameterType="map">
-        INSERT INTO
-            user(email,
-                 name,
-                 dept_code,
-                 con,
-                 pos_code,
-                 state_code,
-                 first_update_pn,
-                 last_update_pn)
-        VALUES
-            (#{user.email},
-             #{user.name},
-             #{user.deptCode},
-             #{user.con},
-             #{user.posCode},
-             #{user.stateCode},
-             #{loginUserPn},
-             #{loginUserPn})
+        INSERT INTO user(email,
+                         name,
+                         dept_code,
+                         con,
+                         pos_code,
+                         state_code,
+                         first_update_pn,
+                         last_update_pn)
+                   VALUES(#{user.email},
+                          #{user.name},
+                          #{user.deptCode},
+                          #{user.con},
+                          #{user.posCode},
+                          #{user.stateCode},
+                          #{loginUserPn},
+                          #{loginUserPn})
     </insert>
 
     <update id="updateUser" parameterType="map">
-        UPDATE
-            user
-        SET
-            email = #{user.email},
-            name = #{user.name},
-            dept_code = #{user.deptCode},
-            con = #{user.con},
-            pos_code = #{user.posCode},
-            state_code = #{user.stateCode},
-            last_update_pn = #{loginUserPn},
-            last_update_dt = NOW()
-        WHERE
-            pn=#{user.pn}
+        UPDATE user
+           SET email = #{user.email},
+               name = #{user.name},
+               dept_code = #{user.deptCode},
+               con = #{user.con},
+               pos_code = #{user.posCode},
+               state_code = #{user.stateCode},
+               last_update_pn = #{loginUserPn},
+               last_update_dt = NOW()
+         WHERE pn = #{user.pn}
     </update>
 
 
