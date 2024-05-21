@@ -9,7 +9,7 @@
         p.project_state_code AS stateCode,
         u.pn AS user_pn,
         u.name AS user_name,
-        p.project_detail,
+        p.project_detail AS projectDetail,
         pu.role,
         pu.role_detail
         FROM project p
