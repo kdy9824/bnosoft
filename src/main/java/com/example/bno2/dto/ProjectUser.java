@@ -4,14 +4,15 @@ import lombok.Data;
 
 @Data
 public class ProjectUser {
-    private String project_uid;
-    private String project_name;
+
+    private String projectUid;
+    private String projectName;
     private String stateCode;
-    private int user_pn;
-    private String user_name;
-    private int new_user_pn;
-    private String project_detail;
+    private int userPn;
+    private String userName;
+    private int newUserPn;
     private String role;
-    private String role_detail;
+    private String roleDetail;
     private String projectDetail;
+
 }

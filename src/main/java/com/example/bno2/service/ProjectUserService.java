@@ -8,11 +8,11 @@ import java.util.List;
 @Service
 public interface ProjectUserService {
 
-    List<ProjectUser> selectProjectUsers(String project_name,String user_name, String stateCode);
+    List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode);
 
-    ResponseEntity<String> updateProjectUser(String project_uid, int user_pn, int new_user_pn);
+    ResponseEntity<String> updateProjectUser(String projectUid, int userPn, int newUserPn);
 
 //    List<ProjectUser> selectProjectUsersData();
 
-    ResponseEntity<String> deleteProjectUser(String project_uid, String user_name);
+    ResponseEntity<String> deleteProjectUser(String projectUid, String userName);
 }

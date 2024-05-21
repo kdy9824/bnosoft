@@ -21,17 +21,17 @@ public class ProjectUserController {
     @Operation(summary = "프로젝트 사용자 출력")
     @GetMapping("/selectProjectUsers")
     @ResponseBody
-    public List<ProjectUser> selectProjectUsers(@RequestParam(name="project_name",required = false) String project_name,@RequestParam(name="user_name",required = false) String user_name, @RequestParam(name="stateCode") String stateCode) {
+    public List<ProjectUser> selectProjectUsers(@RequestParam(name="projectName", required = false) String projectName, @RequestParam(name="userName", required = false) String userName, @RequestParam(name="stateCode") String stateCode) {
 
-        return projectUserService.selectProjectUsers(project_name, user_name, stateCode);
+        return projectUserService.selectProjectUsers(projectName, userName, stateCode);
 
     }
 
     @Operation(summary = "프로젝트 사용자 수정")
     @PostMapping("/updateProjectUser")
-    public ResponseEntity<String> updateProjectUser(String project_uid, int user_pn, int new_user_pn) {
+    public ResponseEntity<String> updateProjectUser(String projectUid, int userPn, int newUserPn) {
 
-        return projectUserService.updateProjectUser(project_uid, user_pn, new_user_pn);
+        return projectUserService.updateProjectUser(projectUid, userPn, newUserPn);
 
     }
 
@@ -46,9 +46,9 @@ public class ProjectUserController {
 
     @Operation(summary = "프로젝트 사용자 삭제")
     @PostMapping("/deleteProjectUser")
-    public ResponseEntity<String> deleteProjectUser(@RequestParam("project_uid") String project_uid, @RequestParam("user_name") String user_name) {
+    public ResponseEntity<String> deleteProjectUser(@RequestParam("projectUid") String projectUid, @RequestParam("userName") String userName) {
 
-        return projectUserService.deleteProjectUser(project_uid, user_name);
+        return projectUserService.deleteProjectUser(projectUid, userName);
 
     }
 }

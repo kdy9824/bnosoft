@@ -3,46 +3,43 @@
 <mapper namespace="com.example.bno2.mapper.ProjectUserMapper">
 
     <select id="selectProjectUsers" resultType="com.example.bno2.dto.ProjectUser">
-        SELECT
-        p.uid AS project_uid,
-        p.project_name,
-        p.project_state_code AS stateCode,
-        u.pn AS user_pn,
-        u.name AS user_name,
-        p.project_detail AS projectDetail,
-        pu.role,
-        pu.role_detail
-        FROM project p
-        JOIN project_user pu ON p.uid = pu.project_uid
-        JOIN user u ON pu.user_pn = u.pn
-        WHERE pu.user_pn != 1
-        AND (TRIM(u.name) LIKE CONCAT('%',#{user_name},'%') OR #{user_name} IS NULL)
-        AND (TRIM(project_name) LIKE CONCAT('%',#{project_name},'%') OR #{project_name} IS NULL)
-        <if test="stateCode != null">
-            AND project_state_code = #{stateCode}
-        </if>
-        ORDER BY project_name, project_detail
+        SELECT p.uid AS project_uid,
+               p.project_name,
+               p.project_state_code AS stateCode,
+               u.pn AS user_pn,
+               u.name AS user_name,
+               p.project_detail AS projectDetail,
+               pu.role,
+               pu.role_detail
+          FROM project p
+          JOIN project_user pu ON p.uid = pu.project_uid
+          JOIN user u ON pu.user_pn = u.pn
+         WHERE pu.user_pn != 1
+           AND (TRIM(u.name) LIKE CONCAT('%',#{userName},'%') OR #{userName} IS NULL)
+           AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL)
+           <if test="stateCode != null">
+           AND project_state_code = #{stateCode}
+           </if>
+      ORDER BY project_name, project_detail
     </select>
 
     <update id="updateProjectUser">
         UPDATE project_user
-        SET user_pn = #{new_user_pn}
-        WHERE
-            project_uid = #{project_uid}
-          AND user_pn = #{user_pn}
+           SET user_pn = #{newUserPn}
+         WHERE project_uid = #{projectUid}
+           AND user_pn = #{userPn}
     </update>
 
 <!--    <select id="selectProjectUsersData" resultType="com.example.bno2.dto.ProjectUser">-->
 <!--        SELECT project_uid, user_pn-->
-<!--        FROM project_user-->
+<!--          FROM project_user-->
 <!--    </select>-->
 
     <!-- 프로젝트 사용자 삭제 -->
     <update id="deleteProjectUser">
         UPDATE project_user
-        SET user_pn = 1
-        WHERE
-            project_uid = #{project_uid}
-          AND user_pn = (SELECT pn FROM user WHERE name = #{user_name})
+           SET user_pn = 1
+         WHERE project_uid = #{projectUid}
+           AND user_pn = (SELECT pn FROM user WHERE name = #{userName})
     </update>
 </mapper>

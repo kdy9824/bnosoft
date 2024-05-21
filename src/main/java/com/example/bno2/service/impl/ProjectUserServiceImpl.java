@@ -35,13 +35,13 @@ public class ProjectUserServiceImpl implements ProjectUserService {
     }
 
     @Override
-    public List<ProjectUser> selectProjectUsers(String project_name, String user_name, String stateCode) {
+    public List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode) {
 
         if("ALL".equals(stateCode)){
-            stateCode =null;
+            stateCode = null;
         }
 
-        List<ProjectUser> projectUserList = projectUserMapper.selectProjectUsers(project_name,user_name, stateCode);
+        List<ProjectUser> projectUserList = projectUserMapper.selectProjectUsers(projectName, userName, stateCode);
 
         for (ProjectUser projectUser : projectUserList) {
             projectUser.setStateCode(replaceStateText(projectUser.getStateCode()));
@@ -52,9 +52,9 @@ public class ProjectUserServiceImpl implements ProjectUserService {
     }
 
     @Override
-    public ResponseEntity<String> updateProjectUser(String project_uid, int user_pn, int new_user_pn) {
+    public ResponseEntity<String> updateProjectUser(String projectUid, int userPn, int newUserPn) {
 
-        if (projectUserMapper.updateProjectUser(project_uid, user_pn, new_user_pn) > 0)
+        if (projectUserMapper.updateProjectUser(projectUid, userPn, newUserPn) > 0)
             return new ResponseEntity<>("ProjectUser updated successfully", HttpStatus.OK);
         else
             return new ResponseEntity<>("Failed to update ProjectUser", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -69,9 +69,9 @@ public class ProjectUserServiceImpl implements ProjectUserService {
 //    }
 
     @Override
-    public ResponseEntity<String> deleteProjectUser(String project_uid, String user_name) {
+    public ResponseEntity<String> deleteProjectUser(String projectUid, String userName) {
 
-        if (projectUserMapper.deleteProjectUser(project_uid, user_name) > 0)
+        if (projectUserMapper.deleteProjectUser(projectUid, userName) > 0)
             return new ResponseEntity<>("Equipment deleted successfully", HttpStatus.OK);
         else
             return new ResponseEntity<>("Failed to delete equipment", HttpStatus.INTERNAL_SERVER_ERROR);
