@@ -47,10 +47,10 @@ public class ProjectUserServiceImpl implements ProjectUserService {
 
     }
     @Override
-    public ResponseEntity<String> insertProjectUser(String projectUid, int userPn, String role, String roleDetail) {
+    public ResponseEntity<String> insertProjectTeam(String projectUid, int userPn, String role, String roleDetail) {
 
-        if (projectUserMapper.insertProjectUser(projectUid, userPn, role, roleDetail) > 0)
-            return new ResponseEntity<>("ProjectUser updated successfully", HttpStatus.OK);
+        if (projectUserMapper.insertProjectTeam(projectUid, userPn, role, roleDetail) > 0)
+            return new ResponseEntity<>("프로젝트 팀원 추가 성공", HttpStatus.OK);
         else
             return new ResponseEntity<>("Failed to update ProjectUser", HttpStatus.INTERNAL_SERVER_ERROR);
 

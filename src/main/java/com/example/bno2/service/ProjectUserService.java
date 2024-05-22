@@ -12,7 +12,7 @@ public interface ProjectUserService {
 
     List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode);
 
-    ResponseEntity<String> insertProjectUser(String projectUid, int userPn, String role, String roleDetail);
+    ResponseEntity<String> insertProjectTeam(String projectUid, int userPn, String role, String roleDetail);
 
     ResponseEntity<String> updateProjectUser(String projectUid, int userPn, String role, String roleDetail);
 

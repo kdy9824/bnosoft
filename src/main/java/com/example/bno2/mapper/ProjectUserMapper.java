@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProjectUserMapper {
 
     List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode);
-    int insertProjectUser(String projectUid, int userPn, String role, String roleDetail);
+    int insertProjectTeam(String projectUid, int userPn, String role, String roleDetail);
     int updateProjectUser(String projectUid, int userPn, String role, String roleDetail);
 
 //    List<ProjectUser> selectProjectUsersData();

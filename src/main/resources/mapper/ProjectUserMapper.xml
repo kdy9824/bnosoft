@@ -22,7 +22,7 @@
            </if>
       ORDER BY project_name, project_detail
     </select>
-    <insert id="insertProjectUser">
+    <insert id="insertProjectTeam">
         INSERT INTO project_user (
             project_uid,
             user_pn,

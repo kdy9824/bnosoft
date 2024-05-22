@@ -5,6 +5,7 @@ import com.example.bno2.dto.ProjectUser;
 import com.example.bno2.service.ProjectUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,17 +22,17 @@ public class ProjectUserController {
     @Operation(summary = "프로젝트 사용자 출력")
     @GetMapping("/selectProjectUsers")
     @ResponseBody
-    public List<ProjectUser> selectProjectUsers(@RequestParam(name="projectName", required = false) String projectName, @RequestParam(name="userName", required = false) String userName, @RequestParam(name="stateCode") String stateCode) {
+    public List<ProjectUser> selectProjectUsers(@RequestParam(name = "projectName", required = false) String projectName, @RequestParam(name = "userName", required = false) String userName, @RequestParam(name = "stateCode") String stateCode) {
 
         return projectUserService.selectProjectUsers(projectName, userName, stateCode);
 
     }
 
     @Operation(summary = "프로젝트 사용자 추가")
-    @PostMapping("/insertProjectUser")
-    public ResponseEntity<String> insertProjectUser(String projectUid, int userPn, String role, String roleDetail) {
+    @PostMapping("/insertProjectTeam")
+    public ResponseEntity<String> insertProjectTeam(String projectUid, int userPn, String role, String roleDetail) {
 
-        return projectUserService.insertProjectUser(projectUid, userPn, role, roleDetail);
+        return projectUserService.insertProjectTeam(projectUid, userPn, role, roleDetail);
 
     }
 
@@ -59,4 +60,7 @@ public class ProjectUserController {
         return projectUserService.deleteProjectUser(projectUid, userPn);
 
     }
+
+
 }
+
