@@ -30,7 +30,7 @@ public class ProjectUserController {
 
     @Operation(summary = "프로젝트 사용자 추가")
     @PostMapping("/insertProjectTeam")
-    public ResponseEntity<String> insertProjectTeam(String projectUid, int userPn, String role, String roleDetail) {
+    public ResponseEntity<String> insertProjectTeam(@RequestParam(name="projectUid", required = false) String projectUid, @RequestParam(name="userPn", required = false) int userPn, @RequestParam(name="role", required = false) String role, @RequestParam(name="roleDetail", required = false) String roleDetail) {
 
         return projectUserService.insertProjectTeam(projectUid, userPn, role, roleDetail);
 
