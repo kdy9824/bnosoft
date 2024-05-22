@@ -54,9 +54,10 @@ public class SmsServiceImpl implements SmsService {
 
         String createdAuthCode = (String) session.getAttribute("createdAuthCode");
 
-        if (createdAuthCode != null && createdAuthCode.equals(inputAuthCode))
+        if (createdAuthCode != null && createdAuthCode.equals(inputAuthCode)) {
+            session.removeAttribute("createdAuthCode");
             return new ResponseEntity<>("본인 인증이 완료되었습니다.", HttpStatus.OK);
-        else
+        } else
             return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }

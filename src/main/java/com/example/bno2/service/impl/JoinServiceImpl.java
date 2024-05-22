@@ -21,7 +21,7 @@ public class JoinServiceImpl implements JoinService {
         if(joinMapper.checkEmailDuplicate(email) == 0)
             return new ResponseEntity<>("사용 가능한 이메일입니다.", HttpStatus.OK);
         else
-            return new ResponseEntity<>("중복된 이메일은 사용할 수 없습니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("중복된 이메일은 사용할 수 없습니다.",HttpStatus.OK);
 
     }
 
@@ -33,7 +33,7 @@ public class JoinServiceImpl implements JoinService {
         if(joinMapper.addUser(user) > 0)
             return new ResponseEntity<>("BNOSOFT에 가입하신 것을 환영합니다.",HttpStatus.CREATED);
         else
-            return new ResponseEntity<>("회원가입에 실패하였습니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("회원가입에 실패하였습니다.",HttpStatus.OK);
 
     }
 
