@@ -23,24 +23,19 @@
       ORDER BY project_name, project_detail
     </select>
     <insert id="insertProjectTeam">
-        INSERT INTO project_user (
-            project_uid,
-            user_pn,
-            role,
-            role_detail
-        )
-        VALUES (
-            #{projectUid},
-            #{userPn},
-            #{role},
-            #{roleDetail}
-        )
+        INSERT INTO project_user(project_uid,
+                                 user_pn,
+                                 role,
+                                 role_detail)
+                          VALUES(#{projectUid},
+                                 #{userPn},
+                                 #{role},
+                                 #{roleDetail})
     </insert>
 
     <update id="updateProjectUser">
         UPDATE project_user
-           SET
-               role = #{role},
+           SET role = #{role},
                role_detail = #{roleDetail}
          WHERE project_uid = #{projectUid}
            AND user_pn = #{userPn}
@@ -54,7 +49,7 @@
     <!-- 프로젝트 사용자 삭제 -->
     <delete id="deleteProjectUser">
         DELETE FROM project_user
-        WHERE project_uid = #{projectUid}
-        AND user_pn = #{userPn}
+              WHERE project_uid = #{projectUid}
+                AND user_pn = #{userPn}
     </delete>
 </mapper>
