@@ -77,12 +77,13 @@ public class OtpServiceImpl implements OtpService {
 
             if(otpMapper.otpIsRegistered(userPn) == 0){
                 otpMapper.updateOtpIsRegistered(userPn);
-                return new ResponseEntity<>("OTP Register Success, Login Success.", HttpStatus.OK);
+                return new ResponseEntity<>(Integer.toString(userPn), HttpStatus.OK);
             }
 
-            return new ResponseEntity<>("OTP Auth Success, Login Success.",HttpStatus.OK);
+            return new ResponseEntity<>(Integer.toString(userPn),HttpStatus.OK);
+
         } else
-            return new ResponseEntity<>("OTP Auth fail.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
