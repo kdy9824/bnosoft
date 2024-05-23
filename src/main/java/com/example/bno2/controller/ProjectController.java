@@ -23,8 +23,8 @@ public class ProjectController {
     @GetMapping("/selectProject")
     @ResponseBody
     public List<Project> selectProjects( @RequestParam(name="projectName" ,required = false) String projectName, @RequestParam(name="stateCode") String stateCode) {
-
         return projectService.selectProjectsByName(projectName, stateCode);
+
 
     }
 
@@ -41,6 +41,14 @@ public class ProjectController {
     public ResponseEntity<String> updateProject(@RequestBody Project project, HttpSession session) {
 
         return projectService.updateProject(project, session);
+
+    }
+
+    @Operation(summary = "프로젝트 삭제")
+    @PostMapping("/deleteProject")
+    public ResponseEntity<String> deleteProject(@RequestParam("projectUid") String projectUid) {
+
+        return projectService.deleteProject(projectUid);
 
     }
 

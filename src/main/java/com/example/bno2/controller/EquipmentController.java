@@ -23,7 +23,6 @@ public class EquipmentController {
     @GetMapping("/selectEquipmentsByCls")
     @ResponseBody
     public List<Equipment> selectEquipmentsByCls(@RequestParam(name="model" ,required = false) String model,@RequestParam(name="equipClass") String equipClass) {
-
         return equipmentService.selectEquipments(model, equipClass);
 
     }

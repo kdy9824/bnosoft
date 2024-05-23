@@ -16,4 +16,5 @@ public interface ProjectService {
 
     ResponseEntity<String> updateProject(Project project, HttpSession session);
 
+    ResponseEntity<String> deleteProject(String projectUid);
 }

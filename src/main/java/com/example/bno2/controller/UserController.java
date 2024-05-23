@@ -23,7 +23,6 @@ public class UserController {
     @GetMapping("/selectUsersByName")
     @ResponseBody
     public List<User> selectUsersByName(@RequestParam(required = false) String name, @RequestParam String dept) {
-
         return userService.selectUsersByName(name, dept);
 
     }

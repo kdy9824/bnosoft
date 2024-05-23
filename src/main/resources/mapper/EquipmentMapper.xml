@@ -20,7 +20,7 @@
           FROM equipment AS E
      LEFT JOIN equipment_user AS EU ON E.uid = EU.equip_uid
      LEFT JOIN user AS U ON EU.user_pn = U.PN
-         WHERE E.APPLY_YN != 'N'
+         WHERE E.apply_yn != 'N'
            AND (TRIM(model_name) LIKE CONCAT('%', #{model}, '%') OR #{model} IS NULL)
         <if test="equipClass != 'ALL'">
            AND class = #{equipClass}
@@ -72,16 +72,11 @@
          WHERE uid = #{equipment.equipUid}
     </update>
 
-    <!-- 장비 삭제 -->
-    <delete id="realdeleteEquipment">
-        DELETE FROM equipment
-         WHERE uid = #{equipUid}
-    </delete>
 
     <!-- 장비 삭제 -->
     <update id="deleteEquipment">
         UPDATE equipment
-           SET APPLY_YN = 'N'
+           SET apply_yn = 'N'
          WHERE uid = #{equipUid}
     </update>
 </mapper>

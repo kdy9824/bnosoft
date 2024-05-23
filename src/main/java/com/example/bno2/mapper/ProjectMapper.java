@@ -15,5 +15,5 @@ public interface ProjectMapper {
 
     int updateProject(Map<String, Object> params);
 
-
+    int deleteProject(String projectUid);
 }

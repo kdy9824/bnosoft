@@ -79,4 +79,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+    @Override
+    public ResponseEntity<String> deleteProject(String projectUid) {
+
+        if (projectMapper.deleteProject(projectUid) > 0)
+            return new ResponseEntity<>("Equipment deleted successfully", HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>("Failed to delete equipment", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
 }

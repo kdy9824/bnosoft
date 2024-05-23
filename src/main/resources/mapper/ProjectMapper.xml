@@ -13,6 +13,7 @@
                project_detail     AS projectDetail
           FROM project
          WHERE uid != 1
+           AND apply_yn !='N'
            AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL )
         <if test="stateCode != 'ALL'">
            AND project_state_code = #{stateCode}
@@ -54,4 +55,9 @@
          WHERE uid = #{project.projectUid}
     </update>
 
+    <update id="deleteProject">
+        UPDATE project
+        SET apply_yn = 'N'
+        WHERE uid = #{projectUid}
+    </update>
 </mapper>

@@ -59,9 +59,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public List<Equipment> selectEquipments(String model, String equipClass) {
-
         List<Equipment> equipmentList = equipmentMapper.selectEquipments(model, equipClass);
-
         for (Equipment equipment : equipmentList)
             replaceCodeToText(equipment);
 

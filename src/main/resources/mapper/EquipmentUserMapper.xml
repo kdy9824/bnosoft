@@ -4,7 +4,6 @@
 
     <select id="selectEquipmentUsers" resultType="com.example.bno2.dto.EquipmentUser">
         SELECT E.class                AS equipClass,
-               P.project_name         AS projectName,
                U.name                 AS userName,
                E.model_name           AS modelName,
                E.serial_number        AS serialNumber,
@@ -21,7 +20,6 @@
           JOIN equipment_user AS EU ON EU.user_pn = U.pn
           JOIN equipment AS E ON E.uid = EU.equip_uid
      LEFT JOIN project_user AS PU ON PU.user_pn = U.pn
-     LEFT JOIN project AS P ON P.uid = PU.project_uid
          WHERE E.APPLY_YN != 'N'
            AND U.pn != 1
            AND U.state_code != 'OUT'
