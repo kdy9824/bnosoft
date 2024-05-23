@@ -20,18 +20,24 @@
          WHERE user_pn = #{userPn}
     </select>
 
-    <select id="checkQrBlob" parameterType="int">
-        SELECT COUNT(qr_blob)
+    <select id="checkQrBase64" parameterType="int">
+        SELECT COUNT(qr_base64)
           FROM otp_regist
          WHERE user_pn = #{userPn}
     </select>
 
-    <insert id="addQrBlob">
+    <insert id="addQrBase64">
         INSERT INTO otp_regist(user_pn,
-                               qr_blob)
+                               qr_base64)
                         VALUES(#{userPn},
-                               #{qrBlob})
+                               #{qrBase64})
     </insert>
+
+    <select id="getQrBase64" parameterType="int" resultType="String">
+        SELECT qr_base64
+          FROM otp_regist
+         WHERE user_pn = #{userPn}
+    </select>
 
     <select id="otpIsRegistered" parameterType="int" resultType="int">
         SELECT otp_is_registered
@@ -39,10 +45,10 @@
          WHERE user_pn = #{userPn}
     </select>
 
-    <update id="updateOtpIsRegistered" parameterType="int">
+    <insert id="updateOtpIsRegistered" parameterType="int">
         UPDATE otp_regist
            SET otp_is_registered = 1
          WHERE user_pn = #{userPn}
-    </update>
+    </insert>
 
 </mapper>

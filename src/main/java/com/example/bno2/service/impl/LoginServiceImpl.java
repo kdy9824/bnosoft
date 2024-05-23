@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.net.PasswordAuthentication;
 import java.sql.Timestamp;
 
 @Service
@@ -43,7 +42,7 @@ public class LoginServiceImpl implements LoginService {
             long thirtyDaysInMillis = 30L * 24 * 60 * 60 * 1000;
             long thirtyDaysLaterInMillis = recentLoginTimeMillis + thirtyDaysInMillis;
 
-            if(otpMapper.otpIsRegistered(userPn) == 1){
+            if(otpMapper.checkQrBase64(userPn) == 1 && otpMapper.otpIsRegistered(userPn) == 1){
                 if(thirtyDaysLaterInMillis > currentTimeMillis){
                     loginMapper.addLoginHistory(userPn);
                     return new ResponseEntity<>("로그인하였습니다.", HttpStatus.OK);
