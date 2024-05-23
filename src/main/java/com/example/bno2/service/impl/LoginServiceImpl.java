@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
             if(otpMapper.checkQrBase64(userPn) == 1 && otpMapper.otpIsRegistered(userPn) == 1){
                 if(thirtyDaysLaterInMillis > currentTimeMillis){
                     loginMapper.addLoginHistory(userPn);
-                    return new ResponseEntity<>("로그인하였습니다.", HttpStatus.OK);
+                    return new ResponseEntity<>(Integer.toString(userPn), HttpStatus.OK);
                 } else
                     return new ResponseEntity<>("OTP 인증이 필요합니다.", HttpStatus.OK);
             } else
