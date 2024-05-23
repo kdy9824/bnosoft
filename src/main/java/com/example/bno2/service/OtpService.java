@@ -6,11 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.Blob;
 
 @Service
 public interface OtpService {
 
-    ResponseEntity<byte[]> otpRegister(HttpSession session) throws IOException, WriterException;
+//    ResponseEntity<byte[]> otpRegister(HttpSession session) throws IOException, WriterException;
+
+    ResponseEntity<String> otpRegister(HttpSession session) throws IOException, WriterException;
 
     ResponseEntity<String> otpAuth(HttpSession session, String otp);
 

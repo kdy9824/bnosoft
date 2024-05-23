@@ -11,9 +11,11 @@ public interface OtpMapper {
 
     String getSecretKey(int userPn);
 
-    int checkQrBlob(int userPn);
+    int checkQrBase64(int userPn);
 
-    int addQrBlob(int userPn, byte[] qrBlob);
+    int addQrBase64(int userPn, String qrBase64);
+
+    String getQrBase64(int userPn);
 
     int otpIsRegistered(int userPn);
 
