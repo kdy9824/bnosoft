@@ -13,13 +13,14 @@
                E.warranty_start_dt    AS warrantyStartDt,
                E.warranty_end_dt      AS warrantyEndDt,
                E.mac_address          AS macAddress,
-               E.equipment_state_code AS equipmentStateCode,
+               E.equipment_state_code AS StateCode,
                EU.equip_uid           AS equipUid,
                EU.user_pn             AS userPn
           FROM user AS U
           JOIN equipment_user AS EU ON EU.user_pn = U.pn
           JOIN equipment AS E ON E.uid = EU.equip_uid
      LEFT JOIN project_user AS PU ON PU.user_pn = U.pn
+        LEFT JOIN project AS P ON P.uid = PU.project_uid
          WHERE E.APPLY_YN != 'N'
            AND U.pn != 1
            AND U.state_code != 'OUT'

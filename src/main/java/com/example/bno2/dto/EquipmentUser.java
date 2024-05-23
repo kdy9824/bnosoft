@@ -16,7 +16,7 @@ public class EquipmentUser {
     private String warrantyStartDt;
     private String warrantyEndDt;
     private String macAddress;
-    private String equipmentStateCode;
+    private String StateCode;
     private String equipUid;
     private int userPn;
 

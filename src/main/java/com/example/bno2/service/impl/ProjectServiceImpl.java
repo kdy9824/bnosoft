@@ -42,8 +42,8 @@ public class ProjectServiceImpl implements ProjectService {
 
         List<Project> projectList = projectMapper.selectProjectsByName(projectName, stateCode);
 
-        for (Project project : projectList)
-            project.setStateCode(replaceStateText(project.getStateCode()));
+//        for (Project project : projectList)
+//            project.setStateCode(replaceStateText(project.getStateCode()));
 
         return projectList;
 
