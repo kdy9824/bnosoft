@@ -41,6 +41,12 @@
            AND user_pn = #{userPn}
     </update>
 
+<!--    <update id="updateProjectAddTeam">-->
+<!--        UPDATE project_user-->
+<!--            SET-->
+<!--        -->
+<!--    </update>-->
+
 <!--    <select id="selectProjectUsersData" resultType="com.example.bno2.dto.ProjectUser">-->
 <!--        SELECT project_uid, user_pn-->
 <!--          FROM project_user-->

@@ -11,3 +11,7 @@ public class Bno2Application {
     }
 
 }
+
+//transaction 
+//여러 데이터들중에 하나라도 에러가 뜨면 auto commit이 안되고 rollback을 시켜준다
+//controller쪽을 하나의 transaction으로 묶어서: java annotation
