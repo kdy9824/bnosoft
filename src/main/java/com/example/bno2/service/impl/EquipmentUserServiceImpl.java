@@ -51,7 +51,7 @@ public class EquipmentUserServiceImpl implements EquipmentUserService {
 
     private void replaceCodeToText(EquipmentUser equipmentUser){
         equipmentUser.setEquipClass(replaceClsText(equipmentUser.getEquipClass()));
-        equipmentUser.setEquipmentStateCode(replaceStateText(equipmentUser.getEquipmentStateCode()));
+        equipmentUser.setStateCode(replaceStateText(equipmentUser.getStateCode()));
     }
 
     @Override
@@ -59,8 +59,8 @@ public class EquipmentUserServiceImpl implements EquipmentUserService {
 
         List<EquipmentUser> equipmentUserList = equipmentUserMapper.selectEquipmentUsers(userName, projectName, equipClass);
 
-        for(EquipmentUser equipmentUser : equipmentUserList)
-            replaceCodeToText(equipmentUser);
+//        for(EquipmentUser equipmentUser : equipmentUserList)
+//            replaceCodeToText(equipmentUser);
 
         return equipmentUserList;
 

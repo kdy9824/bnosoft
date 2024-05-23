@@ -73,8 +73,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> selectUsersByName(String name, String dept) {
         List<User> userList = userMapper.selectUsersByNameDept(name, dept);
-        for (User user : userList)
-            replaceCodeToText(user);
+//        for (User user : userList)
+//            replaceCodeToText(user);
 
         return userList;
 

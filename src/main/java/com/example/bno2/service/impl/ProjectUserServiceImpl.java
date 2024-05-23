@@ -39,9 +39,9 @@ public class ProjectUserServiceImpl implements ProjectUserService {
 
         List<ProjectUser> projectUserList = projectUserMapper.selectProjectUsers(projectName, userName, stateCode);
 
-        for (ProjectUser projectUser : projectUserList) {
-            projectUser.setStateCode(replaceStateText(projectUser.getStateCode()));
-        }
+//        for (ProjectUser projectUser : projectUserList) {
+//            projectUser.setStateCode(replaceStateText(projectUser.getStateCode()));
+//        }
 
         return projectUserList;
 
