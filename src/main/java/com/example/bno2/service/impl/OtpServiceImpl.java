@@ -75,10 +75,8 @@ public class OtpServiceImpl implements OtpService {
         if(otpKey.equals(otp)){
             loginMapper.addLoginHistory(userPn);
 
-            if(otpMapper.otpIsRegistered(userPn) == 0){
+            if(otpMapper.otpIsRegistered(userPn) == 0)
                 otpMapper.updateOtpIsRegistered(userPn);
-                return new ResponseEntity<>(Integer.toString(userPn), HttpStatus.OK);
-            }
 
             return new ResponseEntity<>(Integer.toString(userPn),HttpStatus.OK);
 
