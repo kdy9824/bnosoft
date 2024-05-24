@@ -73,6 +73,7 @@ public class OtpServiceImpl implements OtpService {
         String otpKey = otpUtil.getTOTPCode(otpMapper.getSecretKey(userPn));
 
         if(otpKey.equals(otp)){
+
             loginMapper.addLoginHistory(userPn);
 
             if(otpMapper.otpIsRegistered(userPn) == 0)
