@@ -21,11 +21,9 @@ public class EquipmentUserController {
     @Operation(summary = "장비사용자 리스트 출력")
     @GetMapping("/selectEquipmentUsersByCls")
     @ResponseBody
-    public List<EquipmentUser> selectEquipmentUsersByCls(
-                                               @RequestParam(name="userName",required = false) String userName,
-                                               @RequestParam(name="projectName",required = false) String projectName,@RequestParam(name="equipClass") String equipClass) {
+    public List<EquipmentUser> selectEquipmentUsersByCls(@RequestParam(name="userName",required = false) String userName, @RequestParam(name="equipClass") String equipClass) {
 
-        return equipmentUserService.selectEquipmentUsers(userName, projectName, equipClass);
+        return equipmentUserService.selectEquipmentUsers(userName, equipClass);
 
     }
 

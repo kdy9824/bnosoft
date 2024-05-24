@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface EquipmentUserMapper {
 
-    List<EquipmentUser> selectEquipmentUsers(String userName, String projectName, String equipClass);
+    List<EquipmentUser> selectEquipmentUsers(String userName, String equipClass);
 
     int updateEquipmentUser(String equipUid,int userPn);
 

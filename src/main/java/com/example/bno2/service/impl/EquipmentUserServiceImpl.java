@@ -55,9 +55,9 @@ public class EquipmentUserServiceImpl implements EquipmentUserService {
     }
 
     @Override
-    public List<EquipmentUser> selectEquipmentUsers(String userName, String projectName, String equipClass) {
+    public List<EquipmentUser> selectEquipmentUsers(String userName, String equipClass) {
 
-        List<EquipmentUser> equipmentUserList = equipmentUserMapper.selectEquipmentUsers(userName, projectName, equipClass);
+        List<EquipmentUser> equipmentUserList = equipmentUserMapper.selectEquipmentUsers(userName, equipClass);
 
         for(EquipmentUser equipmentUser : equipmentUserList)
             replaceCodeToText(equipmentUser);
