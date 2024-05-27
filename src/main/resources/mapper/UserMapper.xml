@@ -4,20 +4,32 @@
 
     <select id="selectUsersByNameDept" resultType="com.example.bno2.dto.User">
         SELECT pn         AS pn,
-               email      AS email,
-               name       AS name,
-               pw         AS pw,
-               dept_code  AS deptCode,
-               con        AS con,
-               pos_code   AS posCode,
-               state_code AS stateCode
-          FROM user
-         WHERE pn != 1
-           AND (trim(name) LIKE concat('%',trim(#{name}),'%') OR #{name} IS NULL)
+        email      AS email,
+        name       AS name,
+        pw         AS pw,
+        dept_code  AS deptCode,
+        con        AS con,
+        pos_code   AS posCode,
+        state_code AS stateCode
+        FROM user
+        WHERE pn != 1
+        AND (trim(name) LIKE concat('%',trim(#{name}),'%') OR #{name} IS NULL)
         <if test="dept != 'ALL'">
-           AND dept_code = #{dept}
+            AND dept_code = #{dept}
         </if>
-      ORDER BY name
+        ORDER BY
+        CASE pos_code
+        WHEN 'S01' THEN 1
+        WHEN 'E01' THEN 2
+        WHEN 'J01' THEN 3
+        WHEN 'B01' THEN 4
+        WHEN 'K01' THEN 5
+        WHEN 'C01' THEN 6
+        WHEN 'D01' THEN 7
+        WHEN 'S02' THEN 8
+        ELSE 9
+        END,
+        name;
     </select>
 
     <insert id="insertUser" parameterType="map">

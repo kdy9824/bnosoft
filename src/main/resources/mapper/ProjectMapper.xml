@@ -4,20 +4,29 @@
 
     <select id="selectProjectsByName" resultType="com.example.bno2.dto.Project">
         SELECT uid                AS projectUid,
-               project_name       AS projectName,
-               start_dt           AS startDt,
-               end_dt             AS endDt,
-               start_predict_dt   AS startPredictDt,
-               end_predict_dt     AS endPredictDt,
-               project_state_code AS projectStateCode,
-               project_detail     AS projectDetail
-          FROM project
-         WHERE uid != 1
-           AND apply_yn !='N'
-           AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL )
+        project_name       AS projectName,
+        start_dt           AS startDt,
+        end_dt             AS endDt,
+        start_predict_dt   AS startPredictDt,
+        end_predict_dt     AS endPredictDt,
+        project_state_code AS projectStateCode,
+        project_detail     AS projectDetail
+        FROM project
+        WHERE uid != 1
+        AND apply_yn != 'N'
+        AND (TRIM(project_name) LIKE CONCAT('%', #{projectName}, '%') OR #{projectName} IS NULL)
         <if test="projectStateCode != 'ALL'">
-           AND project_state_code = #{projectStateCode}
+            AND project_state_code = #{projectStateCode}
         </if>
+        ORDER BY CASE project_state_code
+        WHEN 'WAT' THEN 1
+        WHEN 'ING' THEN 2
+        WHEN 'COM' THEN 3
+        ELSE 4
+        END,
+        start_predict_dt,
+        start_dt,
+        project_name;
     </select>
 
     <insert id="insertProject" parameterType="map">
