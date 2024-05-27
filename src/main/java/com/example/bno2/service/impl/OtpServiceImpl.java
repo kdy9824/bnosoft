@@ -73,6 +73,7 @@ public class OtpServiceImpl implements OtpService {
         String otpKey = otpUtil.getTOTPCode(otpMapper.getSecretKey(userPn));
 
         if(otpKey.equals(otp)){
+
             loginMapper.addLoginHistory(userPn);
 
             if(otpMapper.otpIsRegistered(userPn) == 0)
@@ -81,7 +82,7 @@ public class OtpServiceImpl implements OtpService {
             return new ResponseEntity<>(Integer.toString(userPn),HttpStatus.OK);
 
         } else
-            return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.OK);
 
     }
 
