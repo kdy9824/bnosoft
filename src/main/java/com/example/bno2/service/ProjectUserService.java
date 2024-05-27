@@ -18,5 +18,7 @@ public interface ProjectUserService {
 
 //    List<ProjectUser> selectProjectUsersData();
 
-    ResponseEntity<String> deleteProjectUser(String projectUid, String userPn);
+    ResponseEntity<String> deleteProjectUser(String projectUid, int userPn);
+
+    ResponseEntity<String> existsInProject(String projectUid,int userPn);
 }

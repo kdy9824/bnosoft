@@ -52,5 +52,9 @@
          WHERE pn = #{user.pn}
     </update>
 
+    <update id="updateUserState">
+        UPDATE user SET state_code = #{stateCode} WHERE pn = #{pn}
+    </update>
+
 
 </mapper>

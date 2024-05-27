@@ -14,5 +14,7 @@ public interface ProjectUserMapper {
 
 //    List<ProjectUser> selectProjectUsersData();
 
-    int deleteProjectUser(String projectUid, String userPn);
+    int deleteProjectUser(String projectUid, int userPn);
+
+    boolean existsInProject(String projectUid,int userPn);
 }

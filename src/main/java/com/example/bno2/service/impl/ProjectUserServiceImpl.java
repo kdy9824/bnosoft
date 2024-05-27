@@ -74,13 +74,21 @@ public class ProjectUserServiceImpl implements ProjectUserService {
 //    }
 
     @Override
-    public ResponseEntity<String> deleteProjectUser(String projectUid, String userPn) {
+    public ResponseEntity<String> deleteProjectUser(String projectUid, int userPn) {
 
         if (projectUserMapper.deleteProjectUser(projectUid, userPn) > 0)
-            return new ResponseEntity<>("Equipment deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>("ProjectUser deleted successfully", HttpStatus.OK);
         else
-            return new ResponseEntity<>("Failed to delete equipment", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to delete ProjectUser", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
+    @Override
+    public ResponseEntity<String> existsInProject(String projectUid, int userPn) {
+        if (projectUserMapper.existsInProject(projectUid, userPn)) {
+            return new ResponseEntity<>("해당 프로젝트에 이미 투입중입니다", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("사용자가 프로젝트에 존재하지 않습니다", HttpStatus.OK);
+        }
+    }
 }

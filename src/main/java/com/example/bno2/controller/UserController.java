@@ -44,4 +44,12 @@ public class UserController {
 
     }
 
+    @Operation(summary = "사용자 상태 변경")
+    @PostMapping("/updateUserState")
+    public ResponseEntity<String> updateUserState(@RequestParam("stateCode") String stateCode,@RequestParam("pn") int pn) {
+
+        return userService.updateUserState(stateCode, pn);
+
+    }
+
 }

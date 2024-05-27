@@ -14,5 +14,5 @@ public interface UserService {
     ResponseEntity<String> addUser(User user, HttpSession session);
 
     ResponseEntity<String> updateUser(User user, HttpSession session);
-
+    ResponseEntity<String> updateUserState(String stateCode, int pn);
 }

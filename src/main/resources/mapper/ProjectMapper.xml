@@ -9,14 +9,14 @@
                end_dt             AS endDt,
                start_predict_dt   AS startPredictDt,
                end_predict_dt     AS endPredictDt,
-               project_state_code AS stateCode,
+               project_state_code AS projectStateCode,
                project_detail     AS projectDetail
           FROM project
          WHERE uid != 1
            AND apply_yn !='N'
            AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL )
-        <if test="stateCode != 'ALL'">
-           AND project_state_code = #{stateCode}
+        <if test="projectStateCode != 'ALL'">
+           AND project_state_code = #{projectStateCode}
         </if>
     </select>
 
@@ -35,7 +35,7 @@
                              #{project.endDt},
                              #{project.startPredictDt},
                              #{project.endPredictDt},
-                             #{project.stateCode},
+                             #{project.projectStateCode},
                              #{project.projectDetail},
                              #{loginUserPn},
                              #{loginUserPn})
@@ -48,7 +48,7 @@
                end_dt = #{project.endDt},
                start_predict_dt = #{project.startPredictDt},
                end_predict_dt = #{project.endPredictDt},
-               project_state_code = #{project.stateCode},
+               project_state_code = #{project.projectStateCode},
                project_detail = #{project.projectDetail},
                last_update_pn = #{loginUserPn},
                last_update_dt = NOW()
@@ -60,4 +60,15 @@
         SET apply_yn = 'N'
         WHERE uid = #{projectUid}
     </update>
+
+    <update id="updateUserStateForCompletedProject">
+        UPDATE user u
+        SET u.state_code = 'STD'
+        WHERE u.pn IN (
+        SELECT pu.user_pn
+        FROM project_user pu
+        WHERE pu.project_uid = #{projectUid}
+        )
+    </update>
+
 </mapper>

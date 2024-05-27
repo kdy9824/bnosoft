@@ -38,9 +38,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
-    public List<Project> selectProjectsByName(String projectName, String stateCode){
+    public List<Project> selectProjectsByName(String projectName, String projectStateCode){
 
-        List<Project> projectList = projectMapper.selectProjectsByName(projectName, stateCode);
+        List<Project> projectList = projectMapper.selectProjectsByName(projectName, projectStateCode);
 
 //        for (Project project : projectList)
 //            project.setStateCode(replaceStateText(project.getStateCode()));
@@ -73,7 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
         params.put("loginUserPn",loginUser.getPn());
 
         if (projectMapper.updateProject(params) > 0)
-            return new ResponseEntity<>("프로젝트 성공", HttpStatus.OK);
+            return new ResponseEntity<>("프로젝트 수정 완료", HttpStatus.OK);
         else
             return new ResponseEntity<>("Failed to update project", HttpStatus.INTERNAL_SERVER_ERROR);
 
@@ -83,9 +83,19 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity<String> deleteProject(String projectUid) {
 
         if (projectMapper.deleteProject(projectUid) > 0)
-            return new ResponseEntity<>("Equipment deleted successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("project deleted successfully", HttpStatus.CREATED);
         else
-            return new ResponseEntity<>("Failed to delete equipment", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to delete project", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    @Override
+    public ResponseEntity<String> updateUserStateForCompletedProject(String projectUid) {
+
+        if (projectMapper.updateUserStateForCompletedProject(projectUid) > 0)
+            return new ResponseEntity<>("user state updated successfully", HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>("Failed to update user state", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 

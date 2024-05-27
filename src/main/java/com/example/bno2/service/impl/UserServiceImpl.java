@@ -111,4 +111,13 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>("Failed to update user", HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
+    @Override
+    public ResponseEntity<String> updateUserState(String stateCode, int pn) {
+
+        if (userMapper.updateUserState(stateCode ,pn) > 0)
+            return new ResponseEntity<>("User updated successfully", HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>("Failed to update user", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 }

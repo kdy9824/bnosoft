@@ -10,11 +10,13 @@ import java.util.List;
 @Service
 public interface ProjectService {
 
-    List<Project> selectProjectsByName(String projectName, String stateCode);
+    List<Project> selectProjectsByName(String projectName, String projectStateCode);
 
     ResponseEntity<String> insertProject(Project project, HttpSession session);
 
     ResponseEntity<String> updateProject(Project project, HttpSession session);
 
     ResponseEntity<String> deleteProject(String projectUid);
+
+    ResponseEntity<String> updateUserStateForCompletedProject(String projectUid);
 }

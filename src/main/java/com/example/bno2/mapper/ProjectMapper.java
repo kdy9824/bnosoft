@@ -9,11 +9,13 @@ import java.util.Map;
 @Mapper
 public interface ProjectMapper {
 
-    List<Project> selectProjectsByName(String projectName, String stateCode);
+    List<Project> selectProjectsByName(String projectName, String projectStateCode);
 
     int insertProject(Map<String, Object> params);
 
     int updateProject(Map<String, Object> params);
 
     int deleteProject(String projectUid);
+
+    int updateUserStateForCompletedProject(String projectUid);
 }

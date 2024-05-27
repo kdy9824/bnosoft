@@ -13,5 +13,5 @@ public interface UserMapper {
     int insertUser(Map<String, Object> params);
 
     int updateUser(Map<String, Object> params);
-
+    int updateUserState(String stateCode, int pn);
 }

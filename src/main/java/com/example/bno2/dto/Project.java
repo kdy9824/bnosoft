@@ -11,7 +11,7 @@ public class Project {
     private String endDt;
     private String startPredictDt;
     private String endPredictDt;
-    private String stateCode;
+    private String projectStateCode;
     private String applyYn;
     private String projectDetail;
 

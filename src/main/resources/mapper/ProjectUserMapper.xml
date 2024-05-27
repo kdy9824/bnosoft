@@ -58,4 +58,10 @@
               WHERE project_uid = #{projectUid}
                 AND user_pn = #{userPn}
     </delete>
+
+    <select id="existsInProject" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM project_user
+        WHERE project_uid = #{projectUid} AND user_pn = #{userPn}
+    </select>
 </mapper>
