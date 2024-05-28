@@ -1,8 +1,10 @@
-//package com.example.bno2.controller;
-//
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//
+package com.example.bno2.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+//@Controller
 //@PostMapping("/excel")
 //public class ExcelController (@RequestBody List<Excel> excels, HttpServeletResponse response) {
 //
