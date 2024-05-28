@@ -22,21 +22,44 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot 관련 의존성들
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-    compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Lombok 의존성 추가
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // POI 의존성 추가
+    implementation 'org.apache.poi:poi:5.2.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
+    // 프로젝트 리프레시
+    // ./gradlew build
+
+    // 테스트 의존성
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+
+    // MySQL 데이터베이스 연결 의존성
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // OpenAPI -> Swagger 관련
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
     testImplementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-api', version: '2.1.0'
 
+    // Apached Commonds Codec - 인코딩및 디코딩
     implementation 'commons-codec:commons-codec:1.15'
+
+    // ZXing 라이브러리 - QR 바코드 처리
     implementation 'com.google.zxing:javase:3.4.1'
+
+    // TOTP 알고리즘 구현 라이브러리
     implementation 'de.taimos:totp:1.0'
+
+    // 네이버 크라우드 플래폼 SMS API
     implementation 'net.nurigo:sdk:4.3.0'
 }
 

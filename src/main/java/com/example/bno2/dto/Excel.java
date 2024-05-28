@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Excel {
     private int index;
-    private String porjectUid;
+    private String projectUid;
     private String projectName;
     private String startDt;
     private String endDt;
