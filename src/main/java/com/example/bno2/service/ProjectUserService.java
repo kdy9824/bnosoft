@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface ProjectUserService {
 
-    List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode);
+    List<ProjectUser> selectProjectUsers(String projectName, String userName, String projectStateCode);
 
     ResponseEntity<String> insertProjectTeam(String projectUid, int userPn, String role, String roleDetail);
 

@@ -7,7 +7,7 @@ public class ProjectUser {
 
     private String projectUid;
     private String projectName;
-    private String stateCode;
+    private String projectStateCode;
     private int userPn;
     private String userName;
     private String role;

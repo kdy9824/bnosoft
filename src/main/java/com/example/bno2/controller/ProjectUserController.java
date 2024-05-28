@@ -30,9 +30,9 @@ public class ProjectUserController {
     @Operation(summary = "프로젝트 사용자 출력")
     @GetMapping("/selectProjectUsers")
     @ResponseBody
-    public List<ProjectUser> selectProjectUsers(@RequestParam(name = "projectName", required = false) String projectName, @RequestParam(name = "userName", required = false) String userName, @RequestParam(name = "stateCode") String stateCode) {
+    public List<ProjectUser> selectProjectUsers(@RequestParam(name = "projectName", required = false) String projectName, @RequestParam(name = "userName", required = false) String userName, @RequestParam(name = "projectStateCode") String projectStateCode) {
 
-        return projectUserService.selectProjectUsers(projectName, userName, stateCode);
+        return projectUserService.selectProjectUsers(projectName, userName, projectStateCode);
 
     }
 

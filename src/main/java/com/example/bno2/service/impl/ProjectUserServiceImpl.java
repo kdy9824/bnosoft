@@ -35,9 +35,9 @@ public class ProjectUserServiceImpl implements ProjectUserService {
     }
 
     @Override
-    public List<ProjectUser> selectProjectUsers(String projectName, String userName, String stateCode) {
+    public List<ProjectUser> selectProjectUsers(String projectName, String userName, String projectStateCode) {
 
-        List<ProjectUser> projectUserList = projectUserMapper.selectProjectUsers(projectName, userName, stateCode);
+        List<ProjectUser> projectUserList = projectUserMapper.selectProjectUsers(projectName, userName, projectStateCode);
 
 //        for (ProjectUser projectUser : projectUserList) {
 //            projectUser.setStateCode(replaceStateText(projectUser.getStateCode()));
