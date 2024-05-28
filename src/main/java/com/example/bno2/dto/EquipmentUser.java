@@ -19,5 +19,6 @@ public class EquipmentUser {
     private String StateCode;
     private String equipUid;
     private int userPn;
+    private String lastUpdateDt;
 
 }

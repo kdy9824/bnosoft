@@ -20,5 +20,6 @@ public class Equipment {
     private String userName;
     private String applyYN;
     private String email;
+    private String lastUpdateDt;
 
 }

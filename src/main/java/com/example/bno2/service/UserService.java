@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    List<User> selectUsersByName(String name, String dept);
+    List<User> selectUsersByName(String name, String deptCode, String posCode);
 
     ResponseEntity<String> addUser(User user, HttpSession session);
 

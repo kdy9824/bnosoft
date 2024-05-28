@@ -22,8 +22,8 @@ public class UserController {
     @Operation(summary="이름으로 사용자 조회")
     @GetMapping("/selectUsersByName")
     @ResponseBody
-    public List<User> selectUsersByName(@RequestParam(required = false) String name, @RequestParam String dept) {
-        return userService.selectUsersByName(name, dept);
+    public List<User> selectUsersByName(@RequestParam(required = false) String name, @RequestParam String deptCode, @RequestParam String posCode) {
+        return userService.selectUsersByName(name, deptCode, posCode);
 
     }
 

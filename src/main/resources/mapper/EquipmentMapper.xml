@@ -16,7 +16,8 @@
                E.purchase_year        AS purchaseYear,
                EU.user_pn             AS userPN,
                U.name                 AS userName,
-               U.email                AS email
+               U.email                AS email,
+               E.last_update_dt       AS lastUpdateDt
           FROM equipment AS E
      LEFT JOIN equipment_user AS EU ON E.uid = EU.equip_uid
      LEFT JOIN user AS U ON EU.user_pn = U.PN
@@ -25,6 +26,7 @@
         <if test="equipClass != 'ALL'">
            AND class = #{equipClass}
         </if>
+        ORDER BY E.last_update_dt DESC
     </select>
 
     <insert id="insertEquipment" parameterType="map">

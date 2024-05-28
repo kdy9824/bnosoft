@@ -8,7 +8,7 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
     
-    List<User> selectUsersByNameDept(String name, String dept);
+    List<User> selectUsersByNameDept(String name, String deptCode, String posCode);
 
     int insertUser(Map<String, Object> params);
 

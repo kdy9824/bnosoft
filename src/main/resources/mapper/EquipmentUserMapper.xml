@@ -15,7 +15,8 @@
                E.mac_address          AS macAddress,
                E.equipment_state_code AS StateCode,
                EU.equip_uid           AS equipUid,
-               EU.user_pn             AS userPn
+               EU.user_pn             AS userPn,
+               EU.last_update_dt       AS lastUpdateDt
           FROM user AS U
           JOIN equipment_user AS EU ON EU.user_pn = U.pn
           JOIN equipment AS E ON E.uid = EU.equip_uid
@@ -26,6 +27,7 @@
         <if test="equipClass != 'ALL'">
            AND E.class = #{equipClass}
         </if>
+        ORDER BY EU.last_update_dt DESC
     </select>
 
     <update id="updateEquipmentUser">

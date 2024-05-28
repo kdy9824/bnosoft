@@ -71,8 +71,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectUsersByName(String name, String dept) {
-        List<User> userList = userMapper.selectUsersByNameDept(name, dept);
+    public List<User> selectUsersByName(String name, String deptCode, String posCode) {
+        List<User> userList = userMapper.selectUsersByNameDept(name, deptCode, posCode);
 //        for (User user : userList)
 //            replaceCodeToText(user);
 

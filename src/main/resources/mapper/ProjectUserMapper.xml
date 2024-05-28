@@ -20,14 +20,14 @@
            <if test="stateCode != 'ALL'">
            AND project_state_code = #{stateCode}
            </if>
-        ORDER BY CASE project_state_code
+        ORDER BY CASE p.project_state_code
         WHEN 'WAT' THEN 1
         WHEN 'ING' THEN 2
         WHEN 'COM' THEN 3
         ELSE 4
         END,
-        project_name,
-        name;
+        p.project_name,
+        u.name;
     </select>
     <insert id="insertProjectTeam">
         INSERT INTO project_user(project_uid,

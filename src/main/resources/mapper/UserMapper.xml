@@ -14,10 +14,17 @@
         FROM user
         WHERE pn != 1
         AND (trim(name) LIKE concat('%',trim(#{name}),'%') OR #{name} IS NULL)
-        <if test="dept != 'ALL'">
-            AND dept_code = #{dept}
+        <if test="deptCode != 'ALL'">
+            AND dept_code = #{deptCode}
+        </if>
+        <if test="posCode != 'ALL'">
+            AND pos_code = #{posCode}
         </if>
         ORDER BY
+        CASE state_code
+        WHEN 'OUT' THEN 1
+        ELSE 0
+        END,
         CASE pos_code
         WHEN 'S01' THEN 1
         WHEN 'E01' THEN 2
