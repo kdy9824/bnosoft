@@ -10,7 +10,8 @@
                u.name               AS userName,
                pu.role              AS role,
                pu.role_detail       AS roleDetail,
-               p.project_detail     AS projectDetail
+               p.project_detail     AS projectDetail,
+               p.last_update_dt       AS lastUpdateDt
           FROM project p
           JOIN project_user pu ON p.uid = pu.project_uid
           JOIN user u ON pu.user_pn = u.pn
@@ -26,6 +27,7 @@
         WHEN 'COM' THEN 3
         ELSE 4
         END,
+        p.last_update_dt DESC,
         p.project_name,
         u.name;
     </select>

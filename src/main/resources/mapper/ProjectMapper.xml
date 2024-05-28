@@ -10,7 +10,8 @@
         start_predict_dt   AS startPredictDt,
         end_predict_dt     AS endPredictDt,
         project_state_code AS projectStateCode,
-        project_detail     AS projectDetail
+        project_detail     AS projectDetail,
+        last_update_dt       AS lastUpdateDt
         FROM project
         WHERE uid != 1
         AND apply_yn != 'N'
@@ -26,6 +27,7 @@
         END,
         start_predict_dt,
         start_dt,
+        last_update_dt DESC,
         project_name;
     </select>
 

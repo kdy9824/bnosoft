@@ -13,5 +13,6 @@ public class ProjectUser {
     private String role;
     private String roleDetail;
     private String projectDetail;
+    private String lastUpdateDt;
 
 }

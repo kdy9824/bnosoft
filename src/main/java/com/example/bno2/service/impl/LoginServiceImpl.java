@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
                 return new ResponseEntity<>("OTP 등록이 필요합니다.", HttpStatus.OK);
 
         } else
-            return new ResponseEntity<>("입력한 이메일과 패스워드를 다시 확인해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("입력한 이메일과 패스워드를 다시 확인해주세요.",  HttpStatus.OK);
 
     }
 

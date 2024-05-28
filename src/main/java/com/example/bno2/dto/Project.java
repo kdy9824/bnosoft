@@ -14,5 +14,6 @@ public class Project {
     private String projectStateCode;
     private String applyYn;
     private String projectDetail;
+    private String lastUpdateDt;
 
 }
