@@ -16,6 +16,7 @@
           JOIN project_user pu ON p.uid = pu.project_uid
           JOIN user u ON pu.user_pn = u.pn
          WHERE pu.user_pn != 1
+           AND apply_yn != 'N'
            AND (TRIM(u.name) LIKE CONCAT('%',#{userName},'%') OR #{userName} IS NULL)
            AND (TRIM(project_name) LIKE CONCAT('%',#{projectName},'%') OR #{projectName} IS NULL)
            <if test="projectStateCode != 'ALL'">

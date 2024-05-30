@@ -30,7 +30,7 @@ public class SmsServiceImpl implements SmsService {
         session.setAttribute("createdAuthCode", createdAuthCode);
 
         Message message = new Message();
-        message.setFrom("01071089583");
+        message.setFrom("01040858734");
         message.setTo(phoneNumber);
         message.setText("인증번호 " + createdAuthCode + "을(를) 입력하세요.");
 

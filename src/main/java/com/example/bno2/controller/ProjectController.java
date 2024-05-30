@@ -60,7 +60,19 @@ public class ProjectController {
     @PostMapping("/deleteProject")
     public ResponseEntity<String> deleteProject(@RequestParam("projectUid") String projectUid) {
 
-        return projectService.deleteProject(projectUid);
+        ResponseEntity<String> response =  projectService.deleteProject(projectUid);
+
+        if ("project deleted successfully".equals(response.getBody())) {
+            // 프로젝트 팀원이 성공적으로 추가되었고 프로젝트 상태가 'COM'인 경우에만 사용자의 상태를 변경
+            ResponseEntity<String> updateStateResponse = projectService.updateUserStateForCompletedProject(projectUid);
+
+
+            return updateStateResponse;
+
+        } else {
+            // 프로젝트 팀원 추가가 실패했거나 프로젝트 상태가 'COM'이 아닌 경우에는 그대로 반환
+            return response;
+        }
 
     }
 
