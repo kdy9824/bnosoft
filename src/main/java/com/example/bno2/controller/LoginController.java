@@ -42,9 +42,9 @@ public class LoginController {
     @Operation(summary = "비밀번호 재설정")
     @GetMapping("/resetPassword")
     @ResponseBody
-    public ResponseEntity<String> resetPassword(HttpSession session, @RequestParam String email, @RequestParam String newPassword){
+    public ResponseEntity<String> resetPassword(HttpSession session,@RequestParam String newPassword){
 
-        return loginService.resetPassword(session, email, newPassword);
+        return loginService.resetPassword(session, newPassword);
 
     }
 

@@ -84,6 +84,7 @@ public class OtpServiceImpl implements OtpService {
                     otpMapper.updateOtpIsRegistered(authUserPn);
 
                 String email = otpMapper.getEmailBySecretKey(authUserPn);
+                session.setAttribute("resetPasswordEmail", email);
 
                 return new ResponseEntity<>(email, HttpStatus.OK);
 
@@ -107,7 +108,7 @@ public class OtpServiceImpl implements OtpService {
 
             String email = otpMapper.getEmailBySecretKey(userPn);
 
-            return new ResponseEntity<>(email, HttpStatus.OK);
+            return new ResponseEntity<>("OTP 인증 성공", HttpStatus.OK);
         }
         else
             return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.OK);
