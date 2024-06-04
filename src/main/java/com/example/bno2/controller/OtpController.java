@@ -48,4 +48,13 @@ public class OtpController {
         return otpService.otpAuth(session, otp);
 
     }
+
+    @Operation(summary = "본인 인증")
+    @GetMapping("/userAuth")
+    @ResponseBody
+    public ResponseEntity<String> userAuth(HttpSession session, @RequestParam String name, @RequestParam String email, @RequestParam String con){
+
+        return otpService.userAuth(session,name, email, con);
+
+    }
 }

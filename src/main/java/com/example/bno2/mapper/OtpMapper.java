@@ -1,5 +1,6 @@
 package com.example.bno2.mapper;
 
+import com.example.bno2.dto.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -21,4 +22,9 @@ public interface OtpMapper {
 
     int updateOtpIsRegistered(int userPn);
 
+    String getEmailBySecretKey(int userPn);
+
+    int getUserPnBySecretKey(String secretKey);
+
+    User userAuth(String name, String email, String con);
 }

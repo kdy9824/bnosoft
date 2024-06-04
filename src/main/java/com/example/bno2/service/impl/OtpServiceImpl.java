@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.LockInfo;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -69,22 +70,64 @@ public class OtpServiceImpl implements OtpService {
     public ResponseEntity<String> otpAuth(HttpSession session, String otp){
 
         User loginUser = (User)session.getAttribute("loginUser");
+
+        if(loginUser == null) {
+            int authUserPn = (int) session.getAttribute("authUserPn");
+            String authUserotpKey = otpUtil.getTOTPCode(otpMapper.getSecretKey(authUserPn));
+
+            if (authUserotpKey.equals(otp)) {
+
+                loginMapper.addLoginHistory(authUserPn);
+
+
+                if (otpMapper.otpIsRegistered(authUserPn) == 0)
+                    otpMapper.updateOtpIsRegistered(authUserPn);
+
+                String email = otpMapper.getEmailBySecretKey(authUserPn);
+
+                return new ResponseEntity<>(email, HttpStatus.OK);
+
+
+            } else
+                return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.OK);
+        }
+
+            else{
         int userPn = loginUser.getPn();
 
         String otpKey = otpUtil.getTOTPCode(otpMapper.getSecretKey(userPn));
 
-        if(otpKey.equals(otp)){
+        if(otpKey.equals(otp)) {
 
             loginMapper.addLoginHistory(userPn);
 
-            if(otpMapper.otpIsRegistered(userPn) == 0)
+
+            if (otpMapper.otpIsRegistered(userPn) == 0)
                 otpMapper.updateOtpIsRegistered(userPn);
 
-            return new ResponseEntity<>(Integer.toString(userPn),HttpStatus.OK);
+            String email = otpMapper.getEmailBySecretKey(userPn);
 
-        } else
+            return new ResponseEntity<>(email, HttpStatus.OK);
+        }
+        else
             return new ResponseEntity<>("인증번호가 일치하지 않습니다.", HttpStatus.OK);
+        }
 
+    }
+
+    @Override
+    public ResponseEntity<String> userAuth(HttpSession session,String name, String email, String con){
+
+
+        User authUser = otpMapper.userAuth(name, email, con);
+
+        if (authUser != null) {
+            session.setAttribute("authUser", authUser);
+            session.setAttribute("authUserPn", authUser.getPn()); // pn 값 추가 저장
+            return new ResponseEntity<>("본인인증이 완료됐습니다. OTP 인증을 해주세요.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("일치하는 회원정보가 없습니다. 회원가입을 해주세요.", HttpStatus.OK);
+        }
     }
 
 }

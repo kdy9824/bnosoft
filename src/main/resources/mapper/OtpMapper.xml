@@ -51,4 +51,31 @@
          WHERE user_pn = #{userPn}
     </insert>
 
+    <select id="getEmailBySecretKey" resultType="String" parameterType="int">
+        SELECT u.email
+        FROM otp_secret_key AS o
+                 JOIN user AS u ON o.user_pn = u.pn
+        WHERE o.user_pn = #{userPn}
+    </select>
+
+    <select id="getUserPnBySecretKey" resultType="int" parameterType="String">
+        SELECT user_pn
+        FROM otp_secret_key
+        WHERE secret_key = #{secretKey}
+    </select>
+
+    <select id="userAuth" resultType="com.example.bno2.dto.User">
+        SELECT pn         AS pn,
+               email      AS email,
+               name       AS name,
+               dept_code  AS deptCode,
+               con        AS con,
+               pos_code   AS posCode,
+               state_code AS stateCode
+        FROM user
+        WHERE name = #{name}
+          AND email = #{email}
+          AND con = #{con}
+    </select>
+
 </mapper>
