@@ -3,6 +3,7 @@ package com.example.bno2.service.impl;
 import com.example.bno2.dto.User;
 import com.example.bno2.mapper.LoginMapper;
 import com.example.bno2.mapper.OtpMapper;
+import com.example.bno2.mapper.UserMapper;
 import com.example.bno2.service.OtpService;
 import com.example.bno2.utils.OTPUtil;
 import com.google.zxing.WriterException;

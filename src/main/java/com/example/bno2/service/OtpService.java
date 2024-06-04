@@ -16,5 +16,4 @@ public interface OtpService {
     ResponseEntity<String> otpRegister(HttpSession session) throws IOException, WriterException;
 
     ResponseEntity<String> otpAuth(HttpSession session, String otp);
-
 }

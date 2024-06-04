@@ -70,4 +70,28 @@ public class LoginServiceImpl implements LoginService {
 
     }
 
+
+    @Override
+    public ResponseEntity<String> resetPassword(HttpSession session, String email, String newPassword) {
+
+        User loginUser = (User) session.getAttribute("loginUser");
+        Boolean otpAuthenticated = (Boolean) session.getAttribute("otpAuthenticated");
+
+        if (loginUser == null || !loginUser.getEmail().equals(email)) {
+            System.out.println(loginUser);
+            return new ResponseEntity<>("사용자 인증이 필요합니다.", HttpStatus.UNAUTHORIZED);
+        }
+        if (otpAuthenticated == null || !otpAuthenticated) {
+            return new ResponseEntity<>("OTP 인증이 필요합니다.", HttpStatus.UNAUTHORIZED);
+        }
+
+        int result = loginMapper.updatePassword(email, newPassword);
+
+        if(result > 0)
+            return new ResponseEntity<>("비밀번호가 성공적으로 재설정되었습니다.", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("비밀번호 재설정에 실패했습니다.",HttpStatus.OK);
+
+    }
+
 }
