@@ -44,6 +44,3 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-bootBuildImage {
-imageName = "equipment"
-}
