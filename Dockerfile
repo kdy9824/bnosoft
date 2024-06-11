@@ -1,5 +1,5 @@
 # 자바 버전
-FROM openjdk:17.0.11
+FROM openjdk:17
 
 # 도커 이미지 관리하는 사람
 LABEL maintainer="moonhyejee"
