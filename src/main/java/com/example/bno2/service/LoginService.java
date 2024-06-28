@@ -11,6 +11,6 @@ public interface LoginService {
 
     ResponseEntity<String> logout(HttpSession session);
 
-
     ResponseEntity<String> resetPassword(HttpSession session, String newPassword);
+
 }

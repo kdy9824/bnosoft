@@ -42,7 +42,6 @@
                                       2)
     </insert>
 
-
     <update id="updatePassword">
         UPDATE user
         SET pw = SHA1(#{password})

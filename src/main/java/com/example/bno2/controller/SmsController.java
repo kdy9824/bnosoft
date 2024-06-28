@@ -7,9 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
-import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Tag(name = "SMS")
 @RestController
@@ -17,12 +15,6 @@ public class SmsController {
 
     @Autowired
     SmsService smsService;
-
-    final DefaultMessageService messageService;
-
-    public SmsController(){
-        this.messageService = NurigoApp.INSTANCE.initialize("NCSPIOAOLL8OLWKC", "UW9GNJHPPKOY2ZZMGPVGEOUSATVHMF1U", "https://api.coolsms.co.kr");
-    }
 
     @Operation(summary = "인증번호 발송")
     @PostMapping("/sendAuthCode")

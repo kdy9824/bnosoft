@@ -21,7 +21,7 @@ public class JoinServiceImpl implements JoinService {
         if(joinMapper.checkEmailDuplicate(email) == 0)
             return new ResponseEntity<>("사용 가능한 이메일입니다.", HttpStatus.OK);
         else
-            return new ResponseEntity<>("중복된 이메일은 사용할 수 없습니다.",HttpStatus.OK);
+            return new ResponseEntity<>("중복된 이메일은 사용할 수 없습니다.", HttpStatus.OK);
 
     }
 

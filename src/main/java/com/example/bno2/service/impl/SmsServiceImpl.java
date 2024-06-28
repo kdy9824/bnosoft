@@ -7,6 +7,7 @@ import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,11 @@ public class SmsServiceImpl implements SmsService {
 
     final DefaultMessageService messageService;
 
-    public SmsServiceImpl() {
-        this.messageService = NurigoApp.INSTANCE.initialize("NCSPIOAOLL8OLWKC", "UW9GNJHPPKOY2ZZMGPVGEOUSATVHMF1U", "https://api.coolsms.co.kr");
+    public SmsServiceImpl(
+        @Value("${sms.api.key}") String apiKey,
+        @Value("${sms.api.secret}") String apiSecret
+    ) {
+        this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
     }
 
     @Override
